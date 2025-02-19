@@ -120,7 +120,7 @@ enum {
 
     MON_DATAS_COUNT,
 };
-STATIC_ASSERT(MON_DATAS_COUNT == M_MON_DATAS_COUNT, DefinedMonDatasNotEqualToEnum);
+STATIC_ASSERT(MON_DATAS_COUNT == M_MON_DATAS_COUNT, Define_M_MonDatasNotEqualToEnum_MonDatas)
 
 struct PokemonSubstruct0
 {
