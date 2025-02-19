@@ -20,7 +20,7 @@
 sound/**/*.bin
 sound/songs/midi/*.s
 tools/agbcc
-tools/poryscript
+tools/poryscript/poryscript*
 tools/porymap
 tools/pory
 *.map
@@ -42,5 +42,10 @@ prefabs.json
 *.diff
 *.sym
 *.js
+/pokeemerald-*.png
 src/data/map_group_count.h
 tools/trainerproc/trainerproc
+*.Identifier
+*.smol
+*.fastSmol
+*.smolTM

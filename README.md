@@ -8,12 +8,9 @@ This branch contains a number of smaller fixes that dont warrant their own branc
 |---|------|
 | Keep the Camera from Making Waves     | https://github.com/pret/pokeemerald/wiki/Keep-the-Camera-from-Making-Waves
 | Better Reflection System              | https://github.com/pret/pokeemerald/wiki/Reflections
-| Automatically make the keyboard switch to lowercase after the first character | https://github.com/pret/pokeemerald/wiki/Automatically-make-the-keyboard-switch-to-lowercase-after-the-first-character/
 | Move Pokemon as first PC option       | https://www.pokecommunity.com/showpost.php?p=10065761
 | Swap party slots with select          | https://www.pokecommunity.com/showpost.php?p=10420662
 | Show species switching for in party menu | https://github.com/pret/pokeemerald/wiki/Show-Species-That-You're-Switching-For-in-the-Party-Menu
-| Berries no longer disappear           | https://www.pokecommunity.com/showpost.php?p=10142996&postcount=63
-| Disable union room check              | https://github.com/pret/pokeemerald/wiki/Disabling-Union-Room-check-when-entering-Pok%C3%A9mon-Centers
 | Change direction while moving         | https://www.pokecommunity.com/showpost.php?p=10402610
 | Flag to override map music            | Flag is FLAG_MAP_MUSIC_OVERRIDE and var is VAR_MAP_MUSIC_OVERRIDE.
 | `getweather`                          | Adds a script command `getweather` which stores the current weather in VAR_RESULT.
@@ -37,11 +34,17 @@ This branch contains a number of smaller fixes that dont warrant their own branc
 
 ## Changes
 
-- 1.7.3
-    - Removed the Common FindItem script as it was merged into upstream expansion.
-    
-- 8671da4
-    - Removed Bulk Premier Balls as it was merged into upstream expansion.
+- b2f45fc
+    - Switch to lowercase after capital was merged into upstream expansion.
+    - Berries no longer disappear was merged into upstream expansion (with a config flag).
+    - Disable union room check was merged into upstream expansion.
 
 - 6c2c66b
     - Surfing Dismount Ground Effects was merged into upstream expansion.
+
+- 8671da4
+    - Removed Bulk Premier Balls as it was merged into upstream expansion.
+
+- 1.7.3
+    - Removed the Common FindItem script as it was merged into upstream expansion.
+    
