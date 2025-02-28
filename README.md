@@ -4,7 +4,7 @@ Adds extra features related to event object movement.
 
 Includes:
 - feature/general-improvements for the `callfunc` implementation.
-- merge/sideways-stairs
+- merge/sideways-stairs (since been added to expansion)
 
 ## Elevation Locking
 
@@ -39,7 +39,6 @@ These are useful for example when making dance animations such as when spinning 
 Adds fast variants for each of the diagonal movement types.
 
 ## Movement based on player facing direction
-
 Adds a script macro to apply a given movement to an event object based on the facing direction of the player.
 
 ```

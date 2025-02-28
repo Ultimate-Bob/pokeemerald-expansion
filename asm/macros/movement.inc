@@ -178,4 +178,6 @@
 	create_movement_action walk_forward, MOVEMENT_ACTION_WALK_FORWARD
 	create_movement_action walk_backward, MOVEMENT_ACTION_WALK_BACKWARD
 
+	create_movement_action exit_pokeball, MOVEMENT_ACTION_EXIT_POKEBALL
+	create_movement_action enter_pokeball, MOVEMENT_ACTION_ENTER_POKEBALL
 	create_movement_action step_end, MOVEMENT_ACTION_STEP_END
