@@ -41,17 +41,33 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Treecko,
         .frontPicSize = MON_COORDS_SIZE(48, 48),
         .frontPicYOffset = 8,
-        .frontAnimFrames = sAnims_Treecko,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 3),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Treecko,
-        .backPicSize = MON_COORDS_SIZE(56, 48),
-        .backPicYOffset = 8,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(56, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 6 : 8,
         .backAnimId = BACK_ANIM_CONCAVE_ARC_LARGE,
         .palette = gMonPalette_Treecko,
         .shinyPalette = gMonShinyPalette_Treecko,
         .iconSprite = gMonIcon_Treecko,
         .iconPalIndex = 1,
+        SHADOW(-3, 4, SHADOW_SIZE_S)
         FOOTPRINT(Treecko)
+        OVERWORLD(
+            gObjectEventPic_Treecko,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Treecko,
+            gShinyOverworldPalette_Treecko
+        )
         .levelUpLearnset = sTreeckoLevelUpLearnset,
         .teachableLearnset = sTreeckoTeachableLearnset,
         .eggMoveLearnset = sTreeckoEggMoveLearnset,
@@ -94,18 +110,34 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Grovyle,
         .frontPicSize = MON_COORDS_SIZE(64, 56),
-        .frontPicYOffset = 5,
-        .frontAnimFrames = sAnims_Grovyle,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 5,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 18),
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 12),
+            ANIMCMD_FRAME(0, 6),
+        ),
         .frontAnimId = ANIM_V_STRETCH,
         .backPic = gMonBackPic_Grovyle,
-        .backPicSize = MON_COORDS_SIZE(64, 56),
-        .backPicYOffset = 7,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 56),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 7,
         .backAnimId = BACK_ANIM_JOLT_RIGHT,
         .palette = gMonPalette_Grovyle,
         .shinyPalette = gMonShinyPalette_Grovyle,
         .iconSprite = gMonIcon_Grovyle,
-        .iconPalIndex = 1,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 0 : 1,
+        SHADOW(1, 7, SHADOW_SIZE_M)
         FOOTPRINT(Grovyle)
+        OVERWORLD(
+            gObjectEventPic_Grovyle,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Grovyle,
+            gShinyOverworldPalette_Grovyle
+        )
         .levelUpLearnset = sGrovyleLevelUpLearnset,
         .teachableLearnset = sGrovyleTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 36, SPECIES_SCEPTILE}),
@@ -154,17 +186,31 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Sceptile,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Sceptile,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 26),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_V_SHAKE,
         .backPic = gMonBackPic_Sceptile,
         .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 6,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 6,
         .backAnimId = BACK_ANIM_V_SHAKE,
         .palette = gMonPalette_Sceptile,
         .shinyPalette = gMonShinyPalette_Sceptile,
         .iconSprite = gMonIcon_Sceptile,
         .iconPalIndex = 1,
+        SHADOW(2, 11, SHADOW_SIZE_L)
         FOOTPRINT(Sceptile)
+        OVERWORLD(
+            gObjectEventPic_Sceptile,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Sceptile,
+            gShinyOverworldPalette_Sceptile
+        )
         .levelUpLearnset = sSceptileLevelUpLearnset,
         .teachableLearnset = sSceptileTeachableLearnset,
         .formSpeciesIdTable = sSceptileFormSpeciesIdTable,
@@ -209,7 +255,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_SceptileMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_SceptileMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_SceptileMega,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -219,7 +265,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_SceptileMega,
         .iconSprite = gMonIcon_SceptileMega,
         .iconPalIndex = 1,
+        SHADOW(3, 11, SHADOW_SIZE_L)
         FOOTPRINT(Sceptile)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_SceptileMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_SceptileMega,
+            gShinyOverworldPalette_SceptileMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sSceptileLevelUpLearnset,
         .teachableLearnset = sSceptileTeachableLearnset,
@@ -265,21 +323,48 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Torchic,
-        .frontPicSize = MON_COORDS_SIZE(32, 48),
-        .frontPicYOffset = 12,
-        .frontAnimFrames = sAnims_Torchic,
-        .frontAnimId = ANIM_V_JUMPS_SMALL,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 48) : MON_COORDS_SIZE(32, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 12,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 4),
+            ANIMCMD_FRAME(0, 4),
+            ANIMCMD_FRAME(1, 4),
+            ANIMCMD_FRAME(0, 4),
+            ANIMCMD_FRAME(1, 4),
+            ANIMCMD_FRAME(0, 10),
+        ),
+        .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_H_STRETCH : ANIM_V_JUMPS_SMALL,
         .backPic = gMonBackPic_Torchic,
-        .backPicFemale = gMonBackPic_TorchicF,
-        .backPicSize = MON_COORDS_SIZE(40, 48),
-        .backPicSizeFemale = MON_COORDS_SIZE(40, 48),
-        .backPicYOffset = 10,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 56) : MON_COORDS_SIZE(40, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 5 : 10,
         .backAnimId = BACK_ANIM_CONCAVE_ARC_SMALL,
         .palette = gMonPalette_Torchic,
         .shinyPalette = gMonShinyPalette_Torchic,
         .iconSprite = gMonIcon_Torchic,
         .iconPalIndex = 0,
+#if P_GENDER_DIFFERENCES
+        .backPicFemale = gMonBackPic_TorchicF,
+        .backPicSizeFemale = MON_COORDS_SIZE(40, 48),
+#endif //P_GENDER_DIFFERENCES
+        SHADOW(-1, 1, SHADOW_SIZE_S)
         FOOTPRINT(Torchic)
+        OVERWORLD(
+            gObjectEventPic_Torchic,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Torchic,
+            gShinyOverworldPalette_Torchic
+        )
+        OVERWORLD_FEMALE(
+            gObjectEventPic_TorchicF,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following
+        )
         .levelUpLearnset = sTorchicLevelUpLearnset,
         .teachableLearnset = sTorchicTeachableLearnset,
         .eggMoveLearnset = sTorchicEggMoveLearnset,
@@ -322,23 +407,46 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Combusken,
-        .frontPicFemale = gMonFrontPic_CombuskenF,
-        .frontPicSize = MON_COORDS_SIZE(48, 64),
-        .frontPicSizeFemale = MON_COORDS_SIZE(48, 64),
-        .frontPicYOffset = 3,
-        .frontAnimFrames = sAnims_Combusken,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 64) : MON_COORDS_SIZE(48, 64),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 3,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 25),
+            ANIMCMD_FRAME(0, 12),
+        ),
         .frontAnimId = ANIM_V_JUMPS_H_JUMPS,
         .backPic = gMonBackPic_Combusken,
-        .backPicFemale = gMonBackPic_CombuskenF,
         .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicSizeFemale = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 1,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 0 : 1,
         .backAnimId = BACK_ANIM_CONCAVE_ARC_LARGE,
         .palette = gMonPalette_Combusken,
         .shinyPalette = gMonShinyPalette_Combusken,
         .iconSprite = gMonIcon_Combusken,
         .iconPalIndex = 0,
+#if P_GENDER_DIFFERENCES
+        .frontPicFemale = gMonFrontPic_CombuskenF,
+        .frontPicSizeFemale = MON_COORDS_SIZE(48, 64),
+        .backPicFemale = gMonBackPic_CombuskenF,
+        .backPicSizeFemale = MON_COORDS_SIZE(64, 64),
+#endif //P_GENDER_DIFFERENCES
+        SHADOW(-1, 8, SHADOW_SIZE_M)
         FOOTPRINT(Combusken)
+        OVERWORLD(
+            gObjectEventPic_Combusken,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Combusken,
+            gShinyOverworldPalette_Combusken
+        )
+        OVERWORLD_FEMALE(
+            gObjectEventPic_CombuskenF,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following
+        )
         .levelUpLearnset = sCombuskenLevelUpLearnset,
         .teachableLearnset = sCombuskenTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 36, SPECIES_BLAZIKEN}),
@@ -385,23 +493,48 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 301,
         .trainerOffset = 4,
         .frontPic = gMonFrontPic_Blaziken,
-        .frontPicFemale = gMonFrontPic_BlazikenF,
-        .frontPicSize = MON_COORDS_SIZE(56, 64),
-        .frontPicSizeFemale = MON_COORDS_SIZE(56, 64),
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 64) : MON_COORDS_SIZE(56, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Blaziken,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 25),
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 7),
+            ANIMCMD_FRAME(0, 7),
+        ),
         .frontAnimId = ANIM_H_SHAKE,
         .backPic = gMonBackPic_Blaziken,
-        .backPicFemale = gMonBackPic_BlazikenF,
         .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicSizeFemale = MON_COORDS_SIZE(64, 64),
         .backPicYOffset = 0,
         .backAnimId = BACK_ANIM_SHAKE_GLOW_RED,
         .palette = gMonPalette_Blaziken,
         .shinyPalette = gMonShinyPalette_Blaziken,
         .iconSprite = gMonIcon_Blaziken,
         .iconPalIndex = 0,
+#if P_GENDER_DIFFERENCES
+        .frontPicFemale = gMonFrontPic_BlazikenF,
+        .frontPicSizeFemale = MON_COORDS_SIZE(56, 64),
+        .backPicFemale = gMonBackPic_BlazikenF,
+        .backPicSizeFemale = MON_COORDS_SIZE(64, 64),
+#endif //P_GENDER_DIFFERENCES
+        SHADOW(4, 8, SHADOW_SIZE_M)
         FOOTPRINT(Blaziken)
+        OVERWORLD(
+            gObjectEventPic_Blaziken,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Blaziken,
+            gShinyOverworldPalette_Blaziken
+        )
+        OVERWORLD_FEMALE(
+            gObjectEventPic_BlazikenF,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following
+        )
         .levelUpLearnset = sBlazikenLevelUpLearnset,
         .teachableLearnset = sBlazikenTeachableLearnset,
         .formSpeciesIdTable = sBlazikenFormSpeciesIdTable,
@@ -446,7 +579,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_BlazikenMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_BlazikenMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_BlazikenMega,
         .backPicSize = MON_COORDS_SIZE(56, 64),
@@ -456,7 +589,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_BlazikenMega,
         .iconSprite = gMonIcon_BlazikenMega,
         .iconPalIndex = 0,
+        SHADOW(2, 11, SHADOW_SIZE_M)
         FOOTPRINT(Blaziken)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_BlazikenMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_BlazikenMega,
+            gShinyOverworldPalette_BlazikenMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sBlazikenLevelUpLearnset,
         .teachableLearnset = sBlazikenTeachableLearnset,
@@ -502,19 +647,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Mudkip,
-        .frontPicSize = MON_COORDS_SIZE(40, 40),
-        .frontPicYOffset = 13,
-        .frontAnimFrames = sAnims_Mudkip,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 48) : MON_COORDS_SIZE(40, 40),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 12 : 13,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 8),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 13),
+            ANIMCMD_FRAME(0, 7),
+        ),
         .frontAnimId = ANIM_CIRCULAR_STRETCH_TWICE,
         .backPic = gMonBackPic_Mudkip,
-        .backPicSize = MON_COORDS_SIZE(48, 48),
-        .backPicYOffset = 10,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(48, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 5 : 10,
         .backAnimId = BACK_ANIM_H_SLIDE,
         .palette = gMonPalette_Mudkip,
         .shinyPalette = gMonShinyPalette_Mudkip,
         .iconSprite = gMonIcon_Mudkip,
         .iconPalIndex = 0,
+        SHADOW(1, 1, SHADOW_SIZE_S)
         FOOTPRINT(Mudkip)
+        OVERWORLD(
+            gObjectEventPic_Mudkip,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Mudkip,
+            gShinyOverworldPalette_Mudkip
+        )
         .levelUpLearnset = sMudkipLevelUpLearnset,
         .teachableLearnset = sMudkipTeachableLearnset,
         .eggMoveLearnset = sMudkipEggMoveLearnset,
@@ -557,18 +718,38 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Marshtomp,
         .frontPicSize = MON_COORDS_SIZE(48, 56),
-        .frontPicYOffset = 7,
-        .frontAnimFrames = sAnims_Marshtomp,
-        .frontAnimId = ANIM_V_STRETCH,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 6 : 7,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 5),
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 5),
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 5),
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 5),
+            ANIMCMD_FRAME(0, 1),
+        ),
+        .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_V_SLIDE : ANIM_V_STRETCH,
         .backPic = gMonBackPic_Marshtomp,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 3,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 3,
         .backAnimId = BACK_ANIM_CONCAVE_ARC_SMALL,
         .palette = gMonPalette_Marshtomp,
         .shinyPalette = gMonShinyPalette_Marshtomp,
         .iconSprite = gMonIcon_Marshtomp,
         .iconPalIndex = 0,
+        SHADOW(-1, 7, SHADOW_SIZE_M)
         FOOTPRINT(Marshtomp)
+        OVERWORLD(
+            gObjectEventPic_Marshtomp,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Marshtomp,
+            gShinyOverworldPalette_Marshtomp
+        )
         .levelUpLearnset = sMarshtompLevelUpLearnset,
         .teachableLearnset = sMarshtompTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 36, SPECIES_SWAMPERT}),
@@ -615,19 +796,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Swampert,
-        .frontPicSize = MON_COORDS_SIZE(64, 56),
-        .frontPicYOffset = 6,
-        .frontAnimFrames = sAnims_Swampert,
-        .frontAnimId = ANIM_H_SHAKE,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 64) : MON_COORDS_SIZE(64, 56),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 0 : 6,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 44),
+            ANIMCMD_FRAME(0, 18),
+            ANIMCMD_FRAME(1, 18),
+            ANIMCMD_FRAME(0, 7),
+        ),
+        .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_V_JUMPS_BIG : ANIM_H_SHAKE,
         .backPic = gMonBackPic_Swampert,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 6,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 5 : 6,
         .backAnimId = BACK_ANIM_SHAKE_GLOW_BLUE,
         .palette = gMonPalette_Swampert,
         .shinyPalette = gMonShinyPalette_Swampert,
         .iconSprite = gMonIcon_Swampert,
         .iconPalIndex = 0,
+        SHADOW(5, 7, SHADOW_SIZE_L)
         FOOTPRINT(Swampert)
+        OVERWORLD(
+            gObjectEventPic_Swampert,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Swampert,
+            gShinyOverworldPalette_Swampert
+        )
         .levelUpLearnset = sSwampertLevelUpLearnset,
         .teachableLearnset = sSwampertTeachableLearnset,
         .formSpeciesIdTable = sSwampertFormSpeciesIdTable,
@@ -672,7 +869,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_SwampertMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 6,
-        .frontAnimFrames = sAnims_SwampertMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_SwampertMega,
         .backPicSize = MON_COORDS_SIZE(64, 56),
@@ -682,7 +879,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_SwampertMega,
         .iconSprite = gMonIcon_SwampertMega,
         .iconPalIndex = 0,
+        SHADOW(6, 8, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Swampert)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_SwampertMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_SwampertMega,
+            gShinyOverworldPalette_SwampertMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sSwampertLevelUpLearnset,
         .teachableLearnset = sSwampertTeachableLearnset,
@@ -716,7 +925,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_RUN_AWAY, ABILITY_QUICK_FEET, ABILITY_RATTLED },
+    #else
+        .abilities = { ABILITY_RUN_AWAY, ABILITY_NONE, ABILITY_RATTLED },
+    #endif
         .bodyColor = BODY_COLOR_GRAY,
         .speciesName = _("Poochyena"),
         .cryId = CRY_POOCHYENA,
@@ -734,19 +947,33 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Poochyena,
-        .frontPicSize = MON_COORDS_SIZE(48, 48),
-        .frontPicYOffset = 11,
-        .frontAnimFrames = sAnims_Poochyena,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 40) : MON_COORDS_SIZE(48, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 12 : 11,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 44),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_V_SHAKE,
         .backPic = gMonBackPic_Poochyena,
-        .backPicSize = MON_COORDS_SIZE(64, 48),
-        .backPicYOffset = 11,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(64, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 9 : 11,
         .backAnimId = BACK_ANIM_CONCAVE_ARC_SMALL,
         .palette = gMonPalette_Poochyena,
         .shinyPalette = gMonShinyPalette_Poochyena,
         .iconSprite = gMonIcon_Poochyena,
         .iconPalIndex = 2,
+        SHADOW(0, 2, SHADOW_SIZE_M)
         FOOTPRINT(Poochyena)
+        OVERWORLD(
+            gObjectEventPic_Poochyena,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Poochyena,
+            gShinyOverworldPalette_Poochyena
+        )
         .levelUpLearnset = sPoochyenaLevelUpLearnset,
         .teachableLearnset = sPoochyenaTeachableLearnset,
         .eggMoveLearnset = sPoochyenaEggMoveLearnset,
@@ -770,7 +997,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_INTIMIDATE, ABILITY_QUICK_FEET, ABILITY_MOXIE },
+    #else
+        .abilities = { ABILITY_INTIMIDATE, ABILITY_NONE, ABILITY_MOXIE },
+    #endif
         .bodyColor = BODY_COLOR_GRAY,
         .speciesName = _("Mightyena"),
         .cryId = CRY_MIGHTYENA,
@@ -788,19 +1019,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Mightyena,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 3,
-        .frontAnimFrames = sAnims_Mightyena,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 3,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 27),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+        ),
         .frontAnimId = ANIM_V_SHAKE,
         .backPic = gMonBackPic_Mightyena,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 3,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 3,
         .backAnimId = BACK_ANIM_H_SHAKE,
         .palette = gMonPalette_Mightyena,
         .shinyPalette = gMonShinyPalette_Mightyena,
         .iconSprite = gMonIcon_Mightyena,
         .iconPalIndex = 2,
+        SHADOW(-2, 6, SHADOW_SIZE_L)
         FOOTPRINT(Mightyena)
+        OVERWORLD(
+            gObjectEventPic_Mightyena,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Mightyena,
+            gShinyOverworldPalette_Mightyena
+        )
         .levelUpLearnset = sMightyenaLevelUpLearnset,
         .teachableLearnset = sMightyenaTeachableLearnset,
     },
@@ -834,7 +1081,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_PICKUP, ABILITY_GLUTTONY, ABILITY_QUICK_FEET },
+    #else
+        .abilities = { ABILITY_PICKUP, ABILITY_NONE, ABILITY_QUICK_FEET },
+    #endif
         .bodyColor = BODY_COLOR_BROWN,
         .speciesName = _("Zigzagoon"),
         .cryId = CRY_ZIGZAGOON,
@@ -852,19 +1103,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Zigzagoon,
-        .frontPicSize = MON_COORDS_SIZE(56, 40),
-        .frontPicYOffset = 12,
-        .frontAnimFrames = sAnims_Zigzagoon,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 40) : MON_COORDS_SIZE(56, 40),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 15 : 12,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 27),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 1),
+        ),
         .frontAnimId = ANIM_H_SLIDE,
         .backPic = gMonBackPic_Zigzagoon,
-        .backPicSize = MON_COORDS_SIZE(56, 56),
-        .backPicYOffset = 6,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(56, 56),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 11 : 6,
         .backAnimId = BACK_ANIM_TRIANGLE_DOWN,
         .palette = gMonPalette_Zigzagoon,
         .shinyPalette = gMonShinyPalette_Zigzagoon,
         .iconSprite = gMonIcon_Zigzagoon,
         .iconPalIndex = 2,
+        SHADOW(-4, 0, SHADOW_SIZE_M)
         FOOTPRINT(Zigzagoon)
+        OVERWORLD(
+            gObjectEventPic_Zigzagoon,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Zigzagoon,
+            gShinyOverworldPalette_Zigzagoon
+        )
         .levelUpLearnset = sZigzagoonLevelUpLearnset,
         .teachableLearnset = sZigzagoonTeachableLearnset,
         .eggMoveLearnset = sZigzagoonEggMoveLearnset,
@@ -891,7 +1158,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_PICKUP, ABILITY_GLUTTONY, ABILITY_QUICK_FEET },
+    #else
+        .abilities = { ABILITY_PICKUP, ABILITY_NONE, ABILITY_QUICK_FEET },
+    #endif
         .bodyColor = BODY_COLOR_WHITE,
         .speciesName = _("Linoone"),
         .cryId = CRY_LINOONE,
@@ -909,26 +1180,42 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Linoone,
-        .frontPicSize = MON_COORDS_SIZE(64, 40),
-        .frontPicYOffset = 13,
-        .frontAnimFrames = sAnims_Linoone,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 64) : MON_COORDS_SIZE(64, 40),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 3 : 13,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 14),
+            ANIMCMD_FRAME(1, 14),
+            ANIMCMD_FRAME(0, 14),
+            ANIMCMD_FRAME(1, 14),
+            ANIMCMD_FRAME(0, 14),
+        ),
         .frontAnimId = ANIM_GROW_VIBRATE,
         .backPic = gMonBackPic_Linoone,
-        .backPicSize = MON_COORDS_SIZE(56, 40),
-        .backPicYOffset = 12,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 40) : MON_COORDS_SIZE(56, 40),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 15 : 12,
         .backAnimId = BACK_ANIM_JOLT_RIGHT,
         .palette = gMonPalette_Linoone,
         .shinyPalette = gMonShinyPalette_Linoone,
         .iconSprite = gMonIcon_Linoone,
         .iconPalIndex = 2,
+        SHADOW(-6, 0, SHADOW_SIZE_L)
         FOOTPRINT(Linoone)
+        OVERWORLD(
+            gObjectEventPic_Linoone,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Linoone,
+            gShinyOverworldPalette_Linoone
+        )
         .levelUpLearnset = sLinooneLevelUpLearnset,
         .teachableLearnset = sLinooneTeachableLearnset,
         .formSpeciesIdTable = sLinooneFormSpeciesIdTable,
     },
 
 #if P_GALARIAN_FORMS
-    [SPECIES_ZIGZAGOON_GALARIAN] =
+    [SPECIES_ZIGZAGOON_GALAR] =
     {
         .baseHP        = 38,
         .baseAttack    = 30,
@@ -962,29 +1249,39 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .pokemonOffset = 22,
         .trainerScale = 256,
         .trainerOffset = 0,
-        .frontPic = gMonFrontPic_ZigzagoonGalarian,
+        .frontPic = gMonFrontPic_ZigzagoonGalar,
         .frontPicSize = MON_COORDS_SIZE(56, 40),
         .frontPicYOffset = 13,
-        .frontAnimFrames = sAnims_ZigzagoonGalarian,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_ZigzagoonGalarian,
+        .backPic = gMonBackPic_ZigzagoonGalar,
         .backPicSize = MON_COORDS_SIZE(56, 48),
         .backPicYOffset = 12,
         //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_ZigzagoonGalarian,
-        .shinyPalette = gMonShinyPalette_ZigzagoonGalarian,
-        .iconSprite = gMonIcon_ZigzagoonGalarian,
+        .palette = gMonPalette_ZigzagoonGalar,
+        .shinyPalette = gMonShinyPalette_ZigzagoonGalar,
+        .iconSprite = gMonIcon_ZigzagoonGalar,
         .iconPalIndex = 0,
+        SHADOW(-5, 0, SHADOW_SIZE_M)
         FOOTPRINT(Zigzagoon)
+        OVERWORLD(
+            gObjectEventPic_ZigzagoonGalar,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_ZigzagoonGalar,
+            gShinyOverworldPalette_ZigzagoonGalar
+        )
         .isGalarianForm = TRUE,
-        .levelUpLearnset = sZigzagoonGalarianLevelUpLearnset,
-        .teachableLearnset = sZigzagoonGalarianTeachableLearnset,
-        .eggMoveLearnset = sZigzagoonGalarianEggMoveLearnset,
+        .levelUpLearnset = sZigzagoonGalarLevelUpLearnset,
+        .teachableLearnset = sZigzagoonGalarTeachableLearnset,
+        .eggMoveLearnset = sZigzagoonGalarEggMoveLearnset,
         .formSpeciesIdTable = sZigzagoonFormSpeciesIdTable,
-        .evolutions = EVOLUTION({EVO_LEVEL, 20, SPECIES_LINOONE_GALARIAN}),
+        .evolutions = EVOLUTION({EVO_LEVEL, 20, SPECIES_LINOONE_GALAR}),
     },
 
-    [SPECIES_LINOONE_GALARIAN] =
+    [SPECIES_LINOONE_GALAR] =
     {
         .baseHP        = 78,
         .baseAttack    = 70,
@@ -1018,23 +1315,33 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .pokemonOffset = 7,
         .trainerScale = 256,
         .trainerOffset = 0,
-        .frontPic = gMonFrontPic_LinooneGalarian,
+        .frontPic = gMonFrontPic_LinooneGalar,
         .frontPicSize = MON_COORDS_SIZE(64, 40),
         .frontPicYOffset = 13,
-        .frontAnimFrames = sAnims_LinooneGalarian,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
-        .backPic = gMonBackPic_LinooneGalarian,
+        .backPic = gMonBackPic_LinooneGalar,
         .backPicSize = MON_COORDS_SIZE(64, 40),
         .backPicYOffset = 13,
         //.backAnimId = BACK_ANIM_NONE,
-        .palette = gMonPalette_LinooneGalarian,
-        .shinyPalette = gMonShinyPalette_LinooneGalarian,
-        .iconSprite = gMonIcon_LinooneGalarian,
+        .palette = gMonPalette_LinooneGalar,
+        .shinyPalette = gMonShinyPalette_LinooneGalar,
+        .iconSprite = gMonIcon_LinooneGalar,
         .iconPalIndex = 0,
+        SHADOW(-4, 0, SHADOW_SIZE_L)
         FOOTPRINT(Linoone)
+        OVERWORLD(
+            gObjectEventPic_LinooneGalar,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_LinooneGalar,
+            gShinyOverworldPalette_LinooneGalar
+        )
         .isGalarianForm = TRUE,
-        .levelUpLearnset = sLinooneGalarianLevelUpLearnset,
-        .teachableLearnset = sLinooneGalarianTeachableLearnset,
+        .levelUpLearnset = sLinooneGalarLevelUpLearnset,
+        .teachableLearnset = sLinooneGalarTeachableLearnset,
         .formSpeciesIdTable = sLinooneFormSpeciesIdTable,
         .evolutions = EVOLUTION({EVO_LEVEL_NIGHT, 35, SPECIES_OBSTAGOON}),
     },
@@ -1076,7 +1383,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Obstagoon,
         .frontPicSize = MON_COORDS_SIZE(56, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Obstagoon,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Obstagoon,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -1086,7 +1393,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_Obstagoon,
         .iconSprite = gMonIcon_Obstagoon,
         .iconPalIndex = 0,
+        SHADOW(2, 13, SHADOW_SIZE_M)
         FOOTPRINT(Obstagoon)
+        OVERWORLD(
+            gObjectEventPic_Obstagoon,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Obstagoon,
+            gShinyOverworldPalette_Obstagoon
+        )
         .levelUpLearnset = sObstagoonLevelUpLearnset,
         .teachableLearnset = sObstagoonTeachableLearnset,
     },
@@ -1137,19 +1454,33 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Wurmple,
-        .frontPicSize = MON_COORDS_SIZE(40, 40),
-        .frontPicYOffset = 12,
-        .frontAnimFrames = sAnims_Wurmple,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(32, 40) : MON_COORDS_SIZE(40, 40),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 14 : 12,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 35),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Wurmple,
-        .backPicSize = MON_COORDS_SIZE(64, 56),
-        .backPicYOffset = 6,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(64, 56),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 11 : 6,
         .backAnimId = BACK_ANIM_V_STRETCH,
         .palette = gMonPalette_Wurmple,
         .shinyPalette = gMonShinyPalette_Wurmple,
         .iconSprite = gMonIcon_Wurmple,
         .iconPalIndex = 0,
+        SHADOW(0, 1, SHADOW_SIZE_S)
         FOOTPRINT(Wurmple)
+        OVERWORLD(
+            gObjectEventPic_Wurmple,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_BUG,
+            sAnimTable_Following,
+            gOverworldPalette_Wurmple,
+            gShinyOverworldPalette_Wurmple
+        )
         .tmIlliterate = TRUE,
         .levelUpLearnset = sWurmpleLevelUpLearnset,
         .teachableLearnset = sWurmpleTeachableLearnset,
@@ -1192,19 +1523,33 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Silcoon,
-        .frontPicSize = MON_COORDS_SIZE(56, 48),
-        .frontPicYOffset = 10,
-        .frontAnimFrames = sAnims_Silcoon,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 40) : MON_COORDS_SIZE(56, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 17 : 10,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 25),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Silcoon,
-        .backPicSize = MON_COORDS_SIZE(64, 40),
-        .backPicYOffset = 13,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 24) : MON_COORDS_SIZE(64, 40),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 21 : 13,
         .backAnimId = BACK_ANIM_H_SHAKE,
         .palette = gMonPalette_Silcoon,
         .shinyPalette = gMonShinyPalette_Silcoon,
         .iconSprite = gMonIcon_Silcoon,
         .iconPalIndex = 2,
+        SHADOW(0, -4, SHADOW_SIZE_M)
         FOOTPRINT(Silcoon)
+        OVERWORLD(
+            gObjectEventPic_Silcoon,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_BUG,
+            sAnimTable_Following,
+            gOverworldPalette_Silcoon,
+            gShinyOverworldPalette_Silcoon
+        )
         .tmIlliterate = TRUE,
         .levelUpLearnset = sSilcoonLevelUpLearnset,
         .teachableLearnset = sSilcoonTeachableLearnset,
@@ -1255,24 +1600,53 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Beautifly,
-        .frontPicFemale = gMonFrontPic_BeautiflyF,
-        .frontPicSize = MON_COORDS_SIZE(64, 56),
-        .frontPicSizeFemale = MON_COORDS_SIZE(64, 56),
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 56),
         .frontPicYOffset = 9,
-        .frontAnimFrames = sAnims_Beautifly,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 2),
+            ANIMCMD_FRAME(1, 2),
+            ANIMCMD_FRAME(0, 2),
+            ANIMCMD_FRAME(1, 2),
+            ANIMCMD_FRAME(0, 2),
+            ANIMCMD_FRAME(1, 2),
+            ANIMCMD_FRAME(0, 2),
+            ANIMCMD_FRAME(1, 2),
+            ANIMCMD_FRAME(0, 2),
+        ),
         .frontAnimId = ANIM_V_SLIDE,
-        .enemyMonElevation = 10,
+        .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 8 : 10,
         .backPic = gMonBackPic_Beautifly,
-        .backPicFemale = gMonBackPic_BeautiflyF,
         .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicSizeFemale = MON_COORDS_SIZE(64, 64),
         .backPicYOffset = 0,
         .backAnimId = BACK_ANIM_CONVEX_DOUBLE_ARC,
         .palette = gMonPalette_Beautifly,
         .shinyPalette = gMonShinyPalette_Beautifly,
         .iconSprite = gMonIcon_Beautifly,
         .iconPalIndex = 0,
+#if P_GENDER_DIFFERENCES
+        .frontPicFemale = gMonFrontPic_BeautiflyF,
+        .frontPicSizeFemale = MON_COORDS_SIZE(64, 56),
+        .backPicFemale = gMonBackPic_BeautiflyF,
+        .backPicSizeFemale = MON_COORDS_SIZE(64, 64),
+#endif //P_GENDER_DIFFERENCES
+        SHADOW(-5, 12, SHADOW_SIZE_S)
         FOOTPRINT(Beautifly)
+        OVERWORLD(
+            gObjectEventPic_Beautifly,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Beautifly,
+            gShinyOverworldPalette_Beautifly
+        )
+        OVERWORLD_FEMALE(
+            gObjectEventPic_BeautiflyF,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following
+        )
         .levelUpLearnset = sBeautiflyLevelUpLearnset,
         .teachableLearnset = sBeautiflyTeachableLearnset,
     },
@@ -1318,19 +1692,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Cascoon,
-        .frontPicSize = MON_COORDS_SIZE(56, 48),
-        .frontPicYOffset = 10,
-        .frontAnimFrames = sAnims_Cascoon,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 32) : MON_COORDS_SIZE(56, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 16 : 10,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 20),
+        ),
         .frontAnimId = ANIM_V_SLIDE,
         .backPic = gMonBackPic_Cascoon,
-        .backPicSize = MON_COORDS_SIZE(56, 40),
-        .backPicYOffset = 15,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 24) : MON_COORDS_SIZE(56, 40),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 20 : 15,
         .backAnimId = BACK_ANIM_H_SHAKE,
         .palette = gMonPalette_Cascoon,
         .shinyPalette = gMonShinyPalette_Cascoon,
         .iconSprite = gMonIcon_Cascoon,
         .iconPalIndex = 2,
+        SHADOW(0, -4, SHADOW_SIZE_M)
         FOOTPRINT(Cascoon)
+        OVERWORLD(
+            gObjectEventPic_Cascoon,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_BUG,
+            sAnimTable_Following,
+            gOverworldPalette_Cascoon,
+            gShinyOverworldPalette_Cascoon
+        )
         .tmIlliterate = TRUE,
         .levelUpLearnset = sCascoonLevelUpLearnset,
         .teachableLearnset = sCascoonTeachableLearnset,
@@ -1383,24 +1773,59 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Dustox,
-        .frontPicFemale = gMonFrontPic_DustoxF,
         .frontPicSize = MON_COORDS_SIZE(64, 48),
-        .frontPicSizeFemale = MON_COORDS_SIZE(64, 48),
-        .frontPicYOffset = 12,
-        .frontAnimFrames = sAnims_Dustox,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 15 : 12,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 1),
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 1),
+            ANIMCMD_FRAME(0, 2),
+            ANIMCMD_FRAME(1, 2),
+            ANIMCMD_FRAME(0, 3),
+            ANIMCMD_FRAME(1, 3),
+            ANIMCMD_FRAME(0, 4),
+            ANIMCMD_FRAME(1, 4),
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 8),
+            ANIMCMD_FRAME(0, 12),
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 20),
+        ),
         .frontAnimId = ANIM_V_JUMPS_H_JUMPS,
-        .enemyMonElevation = 12,
+        .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 10 : 12,
         .backPic = gMonBackPic_Dustox,
-        .backPicFemale = gMonBackPic_DustoxF,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicSizeFemale = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 1,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 24) : MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 20 : 1,
         .backAnimId = BACK_ANIM_TRIANGLE_DOWN,
         .palette = gMonPalette_Dustox,
         .shinyPalette = gMonShinyPalette_Dustox,
         .iconSprite = gMonIcon_Dustox,
-        .iconPalIndex = 5,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 1 : 5,
+#if P_GENDER_DIFFERENCES
+        .frontPicFemale = gMonFrontPic_DustoxF,
+        .frontPicSizeFemale = MON_COORDS_SIZE(64, 48),
+        .backPicFemale = gMonBackPic_DustoxF,
+        .backPicSizeFemale = MON_COORDS_SIZE(64, 64),
+#endif //P_GENDER_DIFFERENCES
+        SHADOW(-2, 11, SHADOW_SIZE_S)
         FOOTPRINT(Dustox)
+        OVERWORLD(
+            gObjectEventPic_Dustox,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Dustox,
+            gShinyOverworldPalette_Dustox
+        )
+        OVERWORLD_FEMALE(
+            gObjectEventPic_DustoxF,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following
+        )
         .levelUpLearnset = sDustoxLevelUpLearnset,
         .teachableLearnset = sDustoxTeachableLearnset,
     },
@@ -1443,19 +1868,33 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Lotad,
-        .frontPicSize = MON_COORDS_SIZE(40, 40),
-        .frontPicYOffset = 13,
-        .frontAnimFrames = sAnims_Lotad,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 40) : MON_COORDS_SIZE(40, 40),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 14 : 13,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 55),
+            ANIMCMD_FRAME(0, 22),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Lotad,
         .backPicSize = MON_COORDS_SIZE(56, 40),
-        .backPicYOffset = 12,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 15 : 12,
         .backAnimId = BACK_ANIM_H_SLIDE,
         .palette = gMonPalette_Lotad,
         .shinyPalette = gMonShinyPalette_Lotad,
         .iconSprite = gMonIcon_Lotad,
-        .iconPalIndex = 4,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 1 : 4,
+        SHADOW(2, -3, SHADOW_SIZE_S)
         FOOTPRINT(Lotad)
+        OVERWORLD(
+            gObjectEventPic_Lotad,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Lotad,
+            gShinyOverworldPalette_Lotad
+        )
         .levelUpLearnset = sLotadLevelUpLearnset,
         .teachableLearnset = sLotadTeachableLearnset,
         .eggMoveLearnset = sLotadEggMoveLearnset,
@@ -1499,18 +1938,34 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Lombre,
         .frontPicSize = MON_COORDS_SIZE(48, 48),
-        .frontPicYOffset = 10,
-        .frontAnimFrames = sAnims_Lombre,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 9 : 10,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 30),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 30),
+            ANIMCMD_FRAME(0, 7),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Lombre,
-        .backPicSize = MON_COORDS_SIZE(48, 56),
-        .backPicYOffset = 6,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(48, 56),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 6,
         .backAnimId = BACK_ANIM_CONCAVE_ARC_LARGE,
         .palette = gMonPalette_Lombre,
         .shinyPalette = gMonShinyPalette_Lombre,
         .iconSprite = gMonIcon_Lombre,
         .iconPalIndex = 1,
+        SHADOW(4, 2, SHADOW_SIZE_S)
         FOOTPRINT(Lombre)
+        OVERWORLD(
+            gObjectEventPic_Lombre,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Lombre,
+            gShinyOverworldPalette_Lombre
+        )
         .levelUpLearnset = sLombreLevelUpLearnset,
         .teachableLearnset = sLombreTeachableLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_WATER_STONE, SPECIES_LUDICOLO}),
@@ -1558,23 +2013,50 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 268,
         .trainerOffset = -1,
         .frontPic = gMonFrontPic_Ludicolo,
-        .frontPicFemale = gMonFrontPic_LudicoloF,
-        .frontPicSize = MON_COORDS_SIZE(56, 64),
-        .frontPicSizeFemale = MON_COORDS_SIZE(56, 64),
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 64) : MON_COORDS_SIZE(56, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Ludicolo,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 22),
+        ),
         .frontAnimId = ANIM_BOUNCE_ROTATE_TO_SIDES_SLOW,
         .backPic = gMonBackPic_Ludicolo,
-        .backPicFemale = gMonBackPic_LudicoloF,
-        .backPicSize = MON_COORDS_SIZE(64, 56),
-        .backPicSizeFemale = MON_COORDS_SIZE(64, 56),
-        .backPicYOffset = 6,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 56),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 10 : 6,
         .backAnimId = BACK_ANIM_CONCAVE_ARC_LARGE,
         .palette = gMonPalette_Ludicolo,
         .shinyPalette = gMonShinyPalette_Ludicolo,
         .iconSprite = gMonIcon_Ludicolo,
         .iconPalIndex = 1,
+#if P_GENDER_DIFFERENCES
+        .frontPicFemale = gMonFrontPic_LudicoloF,
+        .frontPicSizeFemale = MON_COORDS_SIZE(56, 64),
+        .backPicFemale = gMonBackPic_LudicoloF,
+        .backPicSizeFemale = MON_COORDS_SIZE(64, 56),
+#endif //P_GENDER_DIFFERENCES
+        SHADOW(-3, 14, SHADOW_SIZE_M)
         FOOTPRINT(Ludicolo)
+        OVERWORLD(
+            gObjectEventPic_Ludicolo,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Ludicolo,
+            gShinyOverworldPalette_Ludicolo
+        )
+        OVERWORLD_FEMALE(
+            gObjectEventPic_LudicoloF,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following
+        )
         .levelUpLearnset = sLudicoloLevelUpLearnset,
         .teachableLearnset = sLudicoloTeachableLearnset,
     },
@@ -1617,19 +2099,39 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Seedot,
-        .frontPicSize = MON_COORDS_SIZE(32, 40),
-        .frontPicYOffset = 12,
-        .frontAnimFrames = sAnims_Seedot,
-        .frontAnimId = ANIM_V_JUMPS_H_JUMPS,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(32, 48) : MON_COORDS_SIZE(32, 40),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 16 : 12,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
+        .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_BOUNCE_ROTATE_TO_SIDES : ANIM_V_JUMPS_H_JUMPS,
         .backPic = gMonBackPic_Seedot,
-        .backPicSize = MON_COORDS_SIZE(48, 48),
-        .backPicYOffset = 10,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(48, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 9 : 10,
         .backAnimId = BACK_ANIM_DIP_RIGHT_SIDE,
         .palette = gMonPalette_Seedot,
         .shinyPalette = gMonShinyPalette_Seedot,
         .iconSprite = gMonIcon_Seedot,
-        .iconPalIndex = 2,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 1 : 2,
+        SHADOW(0, 1, SHADOW_SIZE_S)
         FOOTPRINT(Seedot)
+        OVERWORLD(
+            gObjectEventPic_Seedot,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Seedot,
+            gShinyOverworldPalette_Seedot
+        )
         .levelUpLearnset = sSeedotLevelUpLearnset,
         .teachableLearnset = sSeedotTeachableLearnset,
         .eggMoveLearnset = sSeedotEggMoveLearnset,
@@ -1672,23 +2174,52 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Nuzleaf,
-        .frontPicFemale = gMonFrontPic_NuzleafF,
-        .frontPicSize = MON_COORDS_SIZE(40, 56),
-        .frontPicSizeFemale = MON_COORDS_SIZE(40, 56),
-        .frontPicYOffset = 7,
-        .frontAnimFrames = sAnims_Nuzleaf,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 48) : MON_COORDS_SIZE(40, 56),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 7,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 7),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Nuzleaf,
-        .backPicFemale = gMonBackPic_NuzleafF,
         .backPicSize = MON_COORDS_SIZE(56, 48),
-        .backPicSizeFemale = MON_COORDS_SIZE(56, 48),
-        .backPicYOffset = 9,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 10 : 9,
         .backAnimId = BACK_ANIM_V_SHAKE,
         .palette = gMonPalette_Nuzleaf,
         .shinyPalette = gMonShinyPalette_Nuzleaf,
         .iconSprite = gMonIcon_Nuzleaf,
         .iconPalIndex = 1,
+#if P_GENDER_DIFFERENCES
+        .frontPicFemale = gMonFrontPic_NuzleafF,
+        .frontPicSizeFemale = MON_COORDS_SIZE(40, 56),
+        .backPicFemale = gMonBackPic_NuzleafF,
+        .backPicSizeFemale = MON_COORDS_SIZE(56, 48),
+#endif //P_GENDER_DIFFERENCES
+        SHADOW(-3, 5, SHADOW_SIZE_S)
         FOOTPRINT(Nuzleaf)
+        OVERWORLD(
+            gObjectEventPic_Nuzleaf,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Nuzleaf,
+            gShinyOverworldPalette_Nuzleaf
+        )
+        OVERWORLD_FEMALE(
+            gObjectEventPic_NuzleafF,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following
+        )
         .levelUpLearnset = sNuzleafLevelUpLearnset,
         .teachableLearnset = sNuzleafTeachableLearnset,
         .evolutions = EVOLUTION({EVO_ITEM, ITEM_LEAF_STONE, SPECIES_SHIFTRY}),
@@ -1740,23 +2271,46 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Shiftry,
-        .frontPicFemale = gMonFrontPic_ShiftryF,
-        .frontPicSize = MON_COORDS_SIZE(64, 56),
-        .frontPicSizeFemale = MON_COORDS_SIZE(64, 56),
-        .frontPicYOffset = 7,
-        .frontAnimFrames = sAnims_Shiftry,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 64) : MON_COORDS_SIZE(64, 56),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 2 : 7,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 35),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_H_VIBRATE,
         .backPic = gMonBackPic_Shiftry,
-        .backPicFemale = gMonBackPic_ShiftryF,
-        .backPicSize = MON_COORDS_SIZE(64, 56),
-        .backPicSizeFemale = MON_COORDS_SIZE(64, 56),
-        .backPicYOffset = 9,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 56),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 9,
         .backAnimId = BACK_ANIM_SHRINK_GROW_VIBRATE,
         .palette = gMonPalette_Shiftry,
         .shinyPalette = gMonShinyPalette_Shiftry,
         .iconSprite = gMonIcon_Shiftry,
-        .iconPalIndex = 5,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 0 : 5,
+#if P_GENDER_DIFFERENCES
+        .frontPicFemale = gMonFrontPic_ShiftryF,
+        .frontPicSizeFemale = MON_COORDS_SIZE(64, 56),
+        .backPicFemale = gMonBackPic_ShiftryF,
+        .backPicSizeFemale = MON_COORDS_SIZE(64, 56),
+#endif //P_GENDER_DIFFERENCES
+        SHADOW(-5, 5, SHADOW_SIZE_M)
         FOOTPRINT(Shiftry)
+        OVERWORLD(
+            gObjectEventPic_Shiftry,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Shiftry,
+            gShinyOverworldPalette_Shiftry
+        )
+        OVERWORLD_FEMALE(
+            gObjectEventPic_ShiftryF,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following
+        )
         .levelUpLearnset = sShiftryLevelUpLearnset,
         .teachableLearnset = sShiftryTeachableLearnset,
     },
@@ -1798,19 +2352,39 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Taillow,
-        .frontPicSize = MON_COORDS_SIZE(48, 48),
-        .frontPicYOffset = 11,
-        .frontAnimFrames = sAnims_Taillow,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 32) : MON_COORDS_SIZE(48, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 16 : 11,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 2),
+            ANIMCMD_FRAME(1, 2),
+            ANIMCMD_FRAME(0, 2),
+            ANIMCMD_FRAME(1, 2),
+            ANIMCMD_FRAME(0, 2),
+            ANIMCMD_FRAME(1, 2),
+            ANIMCMD_FRAME(0, 1),
+        ),
         .frontAnimId = ANIM_V_JUMPS_BIG,
         .backPic = gMonBackPic_Taillow,
-        .backPicSize = MON_COORDS_SIZE(56, 40),
-        .backPicYOffset = 15,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 32) : MON_COORDS_SIZE(56, 40),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 17 : 15,
         .backAnimId = BACK_ANIM_CONCAVE_ARC_SMALL,
         .palette = gMonPalette_Taillow,
         .shinyPalette = gMonShinyPalette_Taillow,
         .iconSprite = gMonIcon_Taillow,
         .iconPalIndex = 2,
+        SHADOW(-3, 1, SHADOW_SIZE_S)
         FOOTPRINT(Taillow)
+        OVERWORLD(
+            gObjectEventPic_Taillow,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Taillow,
+            gShinyOverworldPalette_Taillow
+        )
         .levelUpLearnset = sTaillowLevelUpLearnset,
         .teachableLearnset = sTaillowTeachableLearnset,
         .eggMoveLearnset = sTaillowEggMoveLearnset,
@@ -1859,18 +2433,32 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Swellow,
         .frontPicSize = MON_COORDS_SIZE(64, 56),
-        .frontPicYOffset = 5,
-        .frontAnimFrames = sAnims_Swellow,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 6 : 5,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 18),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = ANIM_CIRCULAR_STRETCH_TWICE,
         .backPic = gMonBackPic_Swellow,
-        .backPicSize = MON_COORDS_SIZE(56, 56),
-        .backPicYOffset = 6,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(56, 56),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 6,
         .backAnimId = BACK_ANIM_JOLT_RIGHT,
         .palette = gMonPalette_Swellow,
         .shinyPalette = gMonShinyPalette_Swellow,
         .iconSprite = gMonIcon_Swellow,
         .iconPalIndex = 2,
+        SHADOW(-7, 7, SHADOW_SIZE_M)
         FOOTPRINT(Swellow)
+        OVERWORLD(
+            gObjectEventPic_Swellow,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Swellow,
+            gShinyOverworldPalette_Swellow
+        )
         .levelUpLearnset = sSwellowLevelUpLearnset,
         .teachableLearnset = sSwellowTeachableLearnset,
     },
@@ -1895,7 +2483,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_1, EGG_GROUP_FLYING),
+    #if P_UPDATED_ABILITIES >= GEN_7
         .abilities = { ABILITY_KEEN_EYE, ABILITY_HYDRATION, ABILITY_RAIN_DISH },
+    #else
+        .abilities = { ABILITY_KEEN_EYE, ABILITY_NONE, ABILITY_RAIN_DISH },
+    #endif
         .bodyColor = BODY_COLOR_WHITE,
         .speciesName = _("Wingull"),
         .cryId = CRY_WINGULL,
@@ -1913,20 +2505,34 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Wingull,
-        .frontPicSize = MON_COORDS_SIZE(64, 48),
-        .frontPicYOffset = 11,
-        .frontAnimFrames = sAnims_Wingull,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 32) : MON_COORDS_SIZE(64, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 24 : 11,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 17),
+            ANIMCMD_FRAME(1, 23),
+            ANIMCMD_FRAME(0, 13),
+        ),
         .frontAnimId = ANIM_H_PIVOT,
-        .enemyMonElevation = 15,
+        .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 16 : 15,
         .backPic = gMonBackPic_Wingull,
         .backPicSize = MON_COORDS_SIZE(64, 40),
-        .backPicYOffset = 13,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 14 : 13,
         .backAnimId = BACK_ANIM_CONVEX_DOUBLE_ARC,
         .palette = gMonPalette_Wingull,
         .shinyPalette = gMonShinyPalette_Wingull,
         .iconSprite = gMonIcon_Wingull,
         .iconPalIndex = 0,
+        SHADOW(-2, 15, SHADOW_SIZE_S)
         FOOTPRINT(Wingull)
+        OVERWORLD(
+            gObjectEventPic_Wingull,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Wingull,
+            gShinyOverworldPalette_Wingull
+        )
         .levelUpLearnset = sWingullLevelUpLearnset,
         .teachableLearnset = sWingullTeachableLearnset,
         .eggMoveLearnset = sWingullEggMoveLearnset,
@@ -1957,7 +2563,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_1, EGG_GROUP_FLYING),
+    #if P_UPDATED_ABILITIES >= GEN_7
         .abilities = { ABILITY_KEEN_EYE, ABILITY_DRIZZLE, ABILITY_RAIN_DISH },
+    #else
+        .abilities = { ABILITY_KEEN_EYE, ABILITY_NONE, ABILITY_RAIN_DISH },
+    #endif
         .bodyColor = BODY_COLOR_YELLOW,
         .speciesName = _("Pelipper"),
         .cryId = CRY_PELIPPER,
@@ -1975,9 +2585,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Pelipper,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 2,
-        .frontAnimFrames = sAnims_Pelipper,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 2,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 5),
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 5),
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 5),
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 5),
+            ANIMCMD_FRAME(0, 5),
+        ),
         .frontAnimId = ANIM_V_SLIDE_WOBBLE,
         .enemyMonElevation = 8,
         .backPic = gMonBackPic_Pelipper,
@@ -1987,8 +2607,18 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .palette = gMonPalette_Pelipper,
         .shinyPalette = gMonShinyPalette_Pelipper,
         .iconSprite = gMonIcon_Pelipper,
-        .iconPalIndex = 2,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 0 : 2,
+        SHADOW(-1, 17, SHADOW_SIZE_M)
         FOOTPRINT(Pelipper)
+        OVERWORLD(
+            gObjectEventPic_Pelipper,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Pelipper,
+            gShinyOverworldPalette_Pelipper
+        )
         .levelUpLearnset = sPelipperLevelUpLearnset,
         .teachableLearnset = sPelipperTeachableLearnset,
     },
@@ -2039,8 +2669,12 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Ralts,
         .frontPicSize = MON_COORDS_SIZE(24, 40),
-        .frontPicYOffset = 12,
-        .frontAnimFrames = sAnims_Ralts,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 15 : 12,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 25),
+            ANIMCMD_FRAME(0, 8),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
         .backPic = gMonBackPic_Ralts,
         .backPicSize = MON_COORDS_SIZE(32, 40),
@@ -2050,7 +2684,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_Ralts,
         .iconSprite = gMonIcon_Ralts,
         .iconPalIndex = 1,
+        SHADOW(0, 1, SHADOW_SIZE_S)
         FOOTPRINT(Ralts)
+        OVERWORLD(
+            gObjectEventPic_Ralts,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Ralts,
+            gShinyOverworldPalette_Ralts
+        )
         .levelUpLearnset = sRaltsLevelUpLearnset,
         .teachableLearnset = sRaltsTeachableLearnset,
         .eggMoveLearnset = sRaltsEggMoveLearnset,
@@ -2094,17 +2738,31 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Kirlia,
         .frontPicSize = MON_COORDS_SIZE(32, 56),
         .frontPicYOffset = 6,
-        .frontAnimFrames = sAnims_Kirlia,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 39),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Kirlia,
-        .backPicSize = MON_COORDS_SIZE(48, 56),
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 56) : MON_COORDS_SIZE(48, 56),
         .backPicYOffset = 6,
         .backAnimId = BACK_ANIM_SHRINK_GROW_VIBRATE,
         .palette = gMonPalette_Kirlia,
         .shinyPalette = gMonShinyPalette_Kirlia,
         .iconSprite = gMonIcon_Kirlia,
         .iconPalIndex = 1,
+        SHADOW(-2, 7, SHADOW_SIZE_S)
         FOOTPRINT(Kirlia)
+        OVERWORLD(
+            gObjectEventPic_Kirlia,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Kirlia,
+            gShinyOverworldPalette_Kirlia
+        )
         .levelUpLearnset = sKirliaLevelUpLearnset,
         .teachableLearnset = sKirliaTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 30, SPECIES_GARDEVOIR},
@@ -2152,19 +2810,33 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Gardevoir,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Gardevoir,
-        .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 64) : MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 0,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 30),
+            ANIMCMD_FRAME(1, 30),
+            ANIMCMD_FRAME(0, 20),
+        ),
+        .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_V_SQUISH_AND_BOUNCE : ANIM_V_SQUISH_AND_BOUNCE_SLOW,
         .backPic = gMonBackPic_Gardevoir,
-        .backPicSize = MON_COORDS_SIZE(48, 56),
-        .backPicYOffset = 6,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(48, 56),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 6,
         .backAnimId = BACK_ANIM_SHRINK_GROW_VIBRATE,
         .palette = gMonPalette_Gardevoir,
         .shinyPalette = gMonShinyPalette_Gardevoir,
         .iconSprite = gMonIcon_Gardevoir,
         .iconPalIndex = 1,
+        SHADOW(0, 14, SHADOW_SIZE_L)
         FOOTPRINT(Gardevoir)
+        OVERWORLD(
+            gObjectEventPic_Gardevoir,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Gardevoir,
+            gShinyOverworldPalette_Gardevoir
+        )
         .levelUpLearnset = sGardevoirLevelUpLearnset,
         .teachableLearnset = sGardevoirTeachableLearnset,
         .formSpeciesIdTable = sGardevoirFormSpeciesIdTable,
@@ -2209,7 +2881,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_GardevoirMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_GardevoirMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_GardevoirMega,
         .backPicSize = MON_COORDS_SIZE(48, 56),
@@ -2219,7 +2891,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_GardevoirMega,
         .iconSprite = gMonIcon_GardevoirMega,
         .iconPalIndex = 1,
+        SHADOW(1, 14, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Gardevoir)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_GardevoirMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_GardevoirMega,
+            gShinyOverworldPalette_GardevoirMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sGardevoirLevelUpLearnset,
         .teachableLearnset = sGardevoirTeachableLearnset,
@@ -2276,7 +2960,10 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Gallade,
         .frontPicSize = MON_COORDS_SIZE(56, 64),
         .frontPicYOffset = 1,
-        .frontAnimFrames = sAnims_Gallade,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 20),
+        ),
         .frontAnimId = ANIM_H_VIBRATE,
         .backPic = gMonBackPic_Gallade,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -2286,7 +2973,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_Gallade,
         .iconSprite = gMonIcon_Gallade,
         .iconPalIndex = 1,
+        SHADOW(4, 13, SHADOW_SIZE_L)
         FOOTPRINT(Gallade)
+        OVERWORLD(
+            gObjectEventPic_Gallade,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Gallade,
+            gShinyOverworldPalette_Gallade
+        )
         .levelUpLearnset = sGalladeLevelUpLearnset,
         .teachableLearnset = sGalladeTeachableLearnset,
         .formSpeciesIdTable = sGalladeFormSpeciesIdTable,
@@ -2331,7 +3028,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_GalladeMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 1,
-        .frontAnimFrames = sAnims_GalladeMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_GalladeMega,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -2341,7 +3038,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_GalladeMega,
         .iconSprite = gMonIcon_GalladeMega,
         .iconPalIndex = 1,
+        SHADOW(-2, 13, SHADOW_SIZE_L)
         FOOTPRINT(Gallade)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_GalladeMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_GalladeMega,
+            gShinyOverworldPalette_GalladeMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sGalladeLevelUpLearnset,
         .teachableLearnset = sGalladeTeachableLearnset,
@@ -2389,19 +3098,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Surskit,
-        .frontPicSize = MON_COORDS_SIZE(48, 48),
-        .frontPicYOffset = 8,
-        .frontAnimFrames = sAnims_Surskit,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 40) : MON_COORDS_SIZE(48, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 15 : 8,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 18),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 18),
+            ANIMCMD_FRAME(0, 8),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Surskit,
-        .backPicSize = MON_COORDS_SIZE(56, 40),
-        .backPicYOffset = 13,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(56, 40),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 11 : 13,
         .backAnimId = BACK_ANIM_H_SPRING,
         .palette = gMonPalette_Surskit,
         .shinyPalette = gMonShinyPalette_Surskit,
         .iconSprite = gMonIcon_Surskit,
-        .iconPalIndex = 0,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 2 : 0,
+        SHADOW(-1, -3, SHADOW_SIZE_S)
         FOOTPRINT(Surskit)
+        OVERWORLD(
+            gObjectEventPic_Surskit,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_BUG,
+            sAnimTable_Following,
+            gOverworldPalette_Surskit,
+            gShinyOverworldPalette_Surskit
+        )
         .levelUpLearnset = sSurskitLevelUpLearnset,
         .teachableLearnset = sSurskitTeachableLearnset,
         .eggMoveLearnset = sSurskitEggMoveLearnset,
@@ -2452,8 +3177,18 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Masquerain,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 4,
-        .frontAnimFrames = sAnims_Masquerain,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 4,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 8),
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 8),
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 8),
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 8),
+            ANIMCMD_FRAME(0, 8),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .enemyMonElevation = 10,
         .backPic = gMonBackPic_Masquerain,
@@ -2464,7 +3199,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_Masquerain,
         .iconSprite = gMonIcon_Masquerain,
         .iconPalIndex = 0,
+        SHADOW(-4, 17, SHADOW_SIZE_M)
         FOOTPRINT(Masquerain)
+        OVERWORLD(
+            gObjectEventPic_Masquerain,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Masquerain,
+            gShinyOverworldPalette_Masquerain
+        )
         .levelUpLearnset = sMasquerainLevelUpLearnset,
         .teachableLearnset = sMasquerainTeachableLearnset,
     },
@@ -2490,7 +3235,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_FLUCTUATING,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FAIRY, EGG_GROUP_GRASS),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_EFFECT_SPORE, ABILITY_POISON_HEAL, ABILITY_QUICK_FEET },
+    #else
+        .abilities = { ABILITY_EFFECT_SPORE, ABILITY_NONE, ABILITY_QUICK_FEET },
+    #endif
         .bodyColor = BODY_COLOR_BROWN,
         .speciesName = _("Shroomish"),
         .cryId = CRY_SHROOMISH,
@@ -2508,19 +3257,41 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Shroomish,
-        .frontPicSize = MON_COORDS_SIZE(40, 40),
-        .frontPicYOffset = 14,
-        .frontAnimFrames = sAnims_Shroomish,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 32) : MON_COORDS_SIZE(40, 40),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 16 : 14,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Shroomish,
-        .backPicSize = MON_COORDS_SIZE(56, 48),
-        .backPicYOffset = 9,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 40) : MON_COORDS_SIZE(56, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 13 : 9,
         .backAnimId = BACK_ANIM_DIP_RIGHT_SIDE,
         .palette = gMonPalette_Shroomish,
         .shinyPalette = gMonShinyPalette_Shroomish,
         .iconSprite = gMonIcon_Shroomish,
         .iconPalIndex = 1,
+        SHADOW(0, 0, SHADOW_SIZE_S)
         FOOTPRINT(Shroomish)
+        OVERWORLD(
+            gObjectEventPic_Shroomish,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Shroomish,
+            gShinyOverworldPalette_Shroomish
+        )
         .levelUpLearnset = sShroomishLevelUpLearnset,
         .teachableLearnset = sShroomishTeachableLearnset,
         .eggMoveLearnset = sShroomishEggMoveLearnset,
@@ -2546,7 +3317,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_FLUCTUATING,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FAIRY, EGG_GROUP_GRASS),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_EFFECT_SPORE, ABILITY_POISON_HEAL, ABILITY_TECHNICIAN },
+    #else
+        .abilities = { ABILITY_EFFECT_SPORE, ABILITY_NONE, ABILITY_TECHNICIAN },
+    #endif
         .bodyColor = BODY_COLOR_GREEN,
         .speciesName = _("Breloom"),
         .cryId = CRY_BRELOOM,
@@ -2564,19 +3339,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Breloom,
-        .frontPicSize = MON_COORDS_SIZE(48, 64),
-        .frontPicYOffset = 3,
-        .frontAnimFrames = sAnims_Breloom,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(48, 64),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 3,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 30),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 30),
+            ANIMCMD_FRAME(0, 7),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Breloom,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 3,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 3,
         .backAnimId = BACK_ANIM_JOLT_RIGHT,
         .palette = gMonPalette_Breloom,
         .shinyPalette = gMonShinyPalette_Breloom,
         .iconSprite = gMonIcon_Breloom,
         .iconPalIndex = 1,
+        SHADOW(-4, 9, SHADOW_SIZE_M)
         FOOTPRINT(Breloom)
+        OVERWORLD(
+            gObjectEventPic_Breloom,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Breloom,
+            gShinyOverworldPalette_Breloom
+        )
         .levelUpLearnset = sBreloomLevelUpLearnset,
         .teachableLearnset = sBreloomTeachableLearnset,
     },
@@ -2618,19 +3409,36 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Slakoth,
-        .frontPicSize = MON_COORDS_SIZE(56, 40),
-        .frontPicYOffset = 15,
-        .frontAnimFrames = sAnims_Slakoth,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 32) : MON_COORDS_SIZE(56, 40),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 18 : 15,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 13),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 11),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
         .backPic = gMonBackPic_Slakoth,
         .backPicSize = MON_COORDS_SIZE(64, 40),
-        .backPicYOffset = 12,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 15 : 12,
         .backAnimId = BACK_ANIM_H_SLIDE,
         .palette = gMonPalette_Slakoth,
         .shinyPalette = gMonShinyPalette_Slakoth,
         .iconSprite = gMonIcon_Slakoth,
         .iconPalIndex = 2,
+        SHADOW(1, -4, SHADOW_SIZE_M)
         FOOTPRINT(Slakoth)
+        OVERWORLD(
+            gObjectEventPic_Slakoth,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Slakoth,
+            gShinyOverworldPalette_Slakoth
+        )
         .levelUpLearnset = sSlakothLevelUpLearnset,
         .teachableLearnset = sSlakothTeachableLearnset,
         .eggMoveLearnset = sSlakothEggMoveLearnset,
@@ -2672,19 +3480,37 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Vigoroth,
-        .frontPicSize = MON_COORDS_SIZE(64, 56),
-        .frontPicYOffset = 7,
-        .frontAnimFrames = sAnims_Vigoroth,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 64) : MON_COORDS_SIZE(64, 56),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 0 : 7,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 13),
+            ANIMCMD_FRAME(1, 7),
+            ANIMCMD_FRAME(0, 13),
+            ANIMCMD_FRAME(1, 7),
+            ANIMCMD_FRAME(0, 13),
+            ANIMCMD_FRAME(1, 7),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = ANIM_H_JUMPS,
         .backPic = gMonBackPic_Vigoroth,
-        .backPicSize = MON_COORDS_SIZE(56, 64),
-        .backPicYOffset = 0,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(56, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 10 : 0,
         .backAnimId = BACK_ANIM_CONCAVE_ARC_LARGE,
         .palette = gMonPalette_Vigoroth,
         .shinyPalette = gMonShinyPalette_Vigoroth,
         .iconSprite = gMonIcon_Vigoroth,
         .iconPalIndex = 2,
+        SHADOW(4, 6, SHADOW_SIZE_M)
         FOOTPRINT(Vigoroth)
+        OVERWORLD(
+            gObjectEventPic_Vigoroth,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Vigoroth,
+            gShinyOverworldPalette_Vigoroth
+        )
         .levelUpLearnset = sVigorothLevelUpLearnset,
         .teachableLearnset = sVigorothTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 36, SPECIES_SLAKING}),
@@ -2731,19 +3557,37 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 300,
         .trainerOffset = 1,
         .frontPic = gMonFrontPic_Slaking,
-        .frontPicSize = MON_COORDS_SIZE(64, 56),
-        .frontPicYOffset = 7,
-        .frontAnimFrames = sAnims_Slaking,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 56),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 7,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 22),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
         .backPic = gMonBackPic_Slaking,
-        .backPicSize = MON_COORDS_SIZE(64, 56),
-        .backPicYOffset = 6,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 56),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 6,
         .backAnimId = BACK_ANIM_H_SHAKE,
         .palette = gMonPalette_Slaking,
         .shinyPalette = gMonShinyPalette_Slaking,
         .iconSprite = gMonIcon_Slaking,
-        .iconPalIndex = 2,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 1 : 2,
+        SHADOW(0, 6, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Slaking)
+        OVERWORLD(
+            gObjectEventPic_Slaking,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Slaking,
+            gShinyOverworldPalette_Slaking
+        )
         .levelUpLearnset = sSlakingLevelUpLearnset,
         .teachableLearnset = sSlakingTeachableLearnset,
     },
@@ -2787,18 +3631,34 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Nincada,
         .frontPicSize = MON_COORDS_SIZE(56, 32),
-        .frontPicYOffset = 16,
-        .frontAnimFrames = sAnims_Nincada,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 18 : 16,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 11),
+            ANIMCMD_FRAME(1, 33),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Nincada,
-        .backPicSize = MON_COORDS_SIZE(64, 32),
-        .backPicYOffset = 18,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 24) : MON_COORDS_SIZE(64, 32),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 20 : 18,
         .backAnimId = BACK_ANIM_V_SHAKE_H_SLIDE,
         .palette = gMonPalette_Nincada,
         .shinyPalette = gMonShinyPalette_Nincada,
         .iconSprite = gMonIcon_Nincada,
         .iconPalIndex = 1,
+        SHADOW(2, -3, SHADOW_SIZE_M)
         FOOTPRINT(Nincada)
+        OVERWORLD(
+            gObjectEventPic_Nincada,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_BUG,
+            sAnimTable_Following,
+            gOverworldPalette_Nincada,
+            gShinyOverworldPalette_Nincada
+        )
         .levelUpLearnset = sNincadaLevelUpLearnset,
         .teachableLearnset = sNincadaTeachableLearnset,
         .eggMoveLearnset = sNincadaEggMoveLearnset,
@@ -2842,19 +3702,48 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Ninjask,
         .frontPicSize = MON_COORDS_SIZE(64, 48),
-        .frontPicYOffset = 11,
-        .frontAnimFrames = sAnims_Ninjask,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 10 : 11,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 1),
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 1),
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 1),
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 1),
+            ANIMCMD_FRAME(0, 33),
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 1),
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 1),
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 1),
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 1),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = ANIM_H_SLIDE_SLOW,
         .enemyMonElevation = 10,
         .backPic = gMonBackPic_Ninjask,
-        .backPicSize = MON_COORDS_SIZE(64, 40),
-        .backPicYOffset = 13,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 40),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 13,
         .backAnimId = BACK_ANIM_H_VIBRATE,
         .palette = gMonPalette_Ninjask,
         .shinyPalette = gMonShinyPalette_Ninjask,
         .iconSprite = gMonIcon_Ninjask,
         .iconPalIndex = 1,
+        SHADOW(-2, 10, SHADOW_SIZE_S)
         FOOTPRINT(Ninjask)
+        OVERWORLD(
+            gObjectEventPic_Ninjask,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Ninjask,
+            gShinyOverworldPalette_Ninjask
+        )
         .levelUpLearnset = sNinjaskLevelUpLearnset,
         .teachableLearnset = sNinjaskTeachableLearnset,
     },
@@ -2896,18 +3785,34 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Shedinja,
         .frontPicSize = MON_COORDS_SIZE(48, 48),
         .frontPicYOffset = 10,
-        .frontAnimFrames = sAnims_Shedinja,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 33),
+            ANIMCMD_FRAME(1, 33),
+            ANIMCMD_FRAME(0, 33),
+            ANIMCMD_FRAME(1, 33),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = ANIM_V_SLIDE_WOBBLE,
         .enemyMonElevation = 8,
         .backPic = gMonBackPic_Shedinja,
-        .backPicSize = MON_COORDS_SIZE(64, 56),
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(64, 56),
         .backPicYOffset = 6,
         .backAnimId = BACK_ANIM_SHRINK_GROW_VIBRATE,
         .palette = gMonPalette_Shedinja,
         .shinyPalette = gMonShinyPalette_Shedinja,
         .iconSprite = gMonIcon_Shedinja,
         .iconPalIndex = 1,
+        SHADOW(-2, 9, SHADOW_SIZE_S)
         FOOTPRINT(Shedinja)
+        OVERWORLD(
+            gObjectEventPic_Shedinja,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Shedinja,
+            gShinyOverworldPalette_Shedinja
+        )
         .levelUpLearnset = sShedinjaLevelUpLearnset,
         .teachableLearnset = sShedinjaTeachableLearnset,
     },
@@ -2949,19 +3854,40 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Whismur,
-        .frontPicSize = MON_COORDS_SIZE(48, 40),
-        .frontPicYOffset = 13,
-        .frontAnimFrames = sAnims_Whismur,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 40) : MON_COORDS_SIZE(48, 40),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 14 : 13,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 9),
+            ANIMCMD_FRAME(1, 9),
+            ANIMCMD_FRAME(0, 9),
+            ANIMCMD_FRAME(1, 9),
+            ANIMCMD_FRAME(0, 33),
+            ANIMCMD_FRAME(0, 9),
+            ANIMCMD_FRAME(1, 9),
+            ANIMCMD_FRAME(0, 9),
+            ANIMCMD_FRAME(1, 9),
+            ANIMCMD_FRAME(0, 9),
+        ),
         .frontAnimId = ANIM_H_SLIDE,
         .backPic = gMonBackPic_Whismur,
-        .backPicSize = MON_COORDS_SIZE(56, 40),
-        .backPicYOffset = 12,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 40) : MON_COORDS_SIZE(56, 40),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 13 : 12,
         .backAnimId = BACK_ANIM_DIP_RIGHT_SIDE,
         .palette = gMonPalette_Whismur,
         .shinyPalette = gMonShinyPalette_Whismur,
         .iconSprite = gMonIcon_Whismur,
-        .iconPalIndex = 1,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 0 : 1,
+        SHADOW(1, 0, SHADOW_SIZE_S)
         FOOTPRINT(Whismur)
+        OVERWORLD(
+            gObjectEventPic_Whismur,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Whismur,
+            gShinyOverworldPalette_Whismur
+        )
         .levelUpLearnset = sWhismurLevelUpLearnset,
         .teachableLearnset = sWhismurTeachableLearnset,
         .eggMoveLearnset = sWhismurEggMoveLearnset,
@@ -3005,17 +3931,33 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Loudred,
         .frontPicSize = MON_COORDS_SIZE(56, 64),
         .frontPicYOffset = 3,
-        .frontAnimFrames = sAnims_Loudred,
-        .frontAnimId = ANIM_SHRINK_GROW,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 9),
+            ANIMCMD_FRAME(1, 9),
+            ANIMCMD_FRAME(0, 9),
+            ANIMCMD_FRAME(1, 9),
+            ANIMCMD_FRAME(0, 33),
+        ),
+        .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_BOUNCE_ROTATE_TO_SIDES_SLOW : ANIM_SHRINK_GROW,
         .backPic = gMonBackPic_Loudred,
-        .backPicSize = MON_COORDS_SIZE(64, 56),
-        .backPicYOffset = 8,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 56),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 9 : 8,
         .backAnimId = BACK_ANIM_V_SHAKE,
         .palette = gMonPalette_Loudred,
         .shinyPalette = gMonShinyPalette_Loudred,
         .iconSprite = gMonIcon_Loudred,
         .iconPalIndex = 2,
+        SHADOW(1, 9, SHADOW_SIZE_M)
         FOOTPRINT(Loudred)
+        OVERWORLD(
+            gObjectEventPic_Loudred,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Loudred,
+            gShinyOverworldPalette_Loudred
+        )
         .levelUpLearnset = sLoudredLevelUpLearnset,
         .teachableLearnset = sLoudredTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 40, SPECIES_EXPLOUD}),
@@ -3065,18 +4007,32 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Exploud,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Exploud,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 0,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 9),
+            ANIMCMD_FRAME(1, 44),
+            ANIMCMD_FRAME(0, 9),
+        ),
         .frontAnimId = ANIM_V_SHAKE_TWICE,
         .backPic = gMonBackPic_Exploud,
         .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 0,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 3 : 0,
         .backAnimId = BACK_ANIM_GROW_STUTTER,
         .palette = gMonPalette_Exploud,
         .shinyPalette = gMonShinyPalette_Exploud,
         .iconSprite = gMonIcon_Exploud,
         .iconPalIndex = 2,
+        SHADOW(0, 12, SHADOW_SIZE_L)
         FOOTPRINT(Exploud)
+        OVERWORLD(
+            gObjectEventPic_Exploud,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Exploud,
+            gShinyOverworldPalette_Exploud
+        )
         .levelUpLearnset = sExploudLevelUpLearnset,
         .teachableLearnset = sExploudTeachableLearnset,
     },
@@ -3119,19 +4075,39 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Makuhita,
-        .frontPicSize = MON_COORDS_SIZE(48, 48),
-        .frontPicYOffset = 8,
-        .frontAnimFrames = sAnims_Makuhita,
-        .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 40) : MON_COORDS_SIZE(48, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 12 : 8,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 7),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 22),
+        ),
+        .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_SWING_CONCAVE : ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Makuhita,
-        .backPicSize = MON_COORDS_SIZE(56, 56),
-        .backPicYOffset = 8,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(56, 56),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 11 : 8,
         .backAnimId = BACK_ANIM_V_SHAKE_LOW,
         .palette = gMonPalette_Makuhita,
         .shinyPalette = gMonShinyPalette_Makuhita,
         .iconSprite = gMonIcon_Makuhita,
-        .iconPalIndex = 1,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 2 : 1,
+        SHADOW(1, 5, SHADOW_SIZE_M)
         FOOTPRINT(Makuhita)
+        OVERWORLD(
+            gObjectEventPic_Makuhita,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Makuhita,
+            gShinyOverworldPalette_Makuhita
+        )
         .levelUpLearnset = sMakuhitaLevelUpLearnset,
         .teachableLearnset = sMakuhitaTeachableLearnset,
         .eggMoveLearnset = sMakuhitaEggMoveLearnset,
@@ -3175,18 +4151,33 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 7,
         .frontPic = gMonFrontPic_Hariyama,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Hariyama,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 0,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 30),
+            ANIMCMD_FRAME(1, 30),
+            ANIMCMD_FRAME(1, 16),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = ANIM_ROTATE_UP_TO_SIDES,
         .backPic = gMonBackPic_Hariyama,
         .backPicSize = MON_COORDS_SIZE(64, 56),
-        .backPicYOffset = 4,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 7 : 4,
         .backAnimId = BACK_ANIM_V_SHAKE_LOW,
         .palette = gMonPalette_Hariyama,
         .shinyPalette = gMonShinyPalette_Hariyama,
         .iconSprite = gMonIcon_Hariyama,
-        .iconPalIndex = 2,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 1 : 2,
+        SHADOW(-3, 9, SHADOW_SIZE_L)
         FOOTPRINT(Hariyama)
+        OVERWORLD(
+            gObjectEventPic_Hariyama,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Hariyama,
+            gShinyOverworldPalette_Hariyama
+        )
         .levelUpLearnset = sHariyamaLevelUpLearnset,
         .teachableLearnset = sHariyamaTeachableLearnset,
     },
@@ -3230,18 +4221,36 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 3,
         .frontPic = gMonFrontPic_Nosepass,
         .frontPicSize = MON_COORDS_SIZE(40, 48),
-        .frontPicYOffset = 10,
-        .frontAnimFrames = sAnims_Nosepass,
-        .frontAnimId = ANIM_H_SLIDE_SLOW,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 12 : 10,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 27),
+            ANIMCMD_FRAME(1, 27),
+            ANIMCMD_FRAME(0, 27),
+            ANIMCMD_FRAME(1, 27),
+            ANIMCMD_FRAME(0, 27),
+            ANIMCMD_FRAME(1, 27),
+            ANIMCMD_FRAME(0, 3),
+        ),
+        .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_BOUNCE_ROTATE_TO_SIDES_SLOW : ANIM_H_SLIDE_SLOW,
         .backPic = gMonBackPic_Nosepass,
-        .backPicSize = MON_COORDS_SIZE(56, 48),
-        .backPicYOffset = 10,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 40) : MON_COORDS_SIZE(56, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 12 : 10,
         .backAnimId = BACK_ANIM_V_SHAKE_LOW,
         .palette = gMonPalette_Nosepass,
         .shinyPalette = gMonShinyPalette_Nosepass,
         .iconSprite = gMonIcon_Nosepass,
         .iconPalIndex = 0,
+        SHADOW(-1, 3, SHADOW_SIZE_M)
         FOOTPRINT(Nosepass)
+        OVERWORLD(
+            gObjectEventPic_Nosepass,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Nosepass,
+            gShinyOverworldPalette_Nosepass
+        )
         .levelUpLearnset = sNosepassLevelUpLearnset,
         .teachableLearnset = sNosepassTeachableLearnset,
         .eggMoveLearnset = sNosepassEggMoveLearnset,
@@ -3289,7 +4298,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Probopass,
         .frontPicSize = MON_COORDS_SIZE(56, 56),
         .frontPicYOffset = 4,
-        .frontAnimFrames = sAnims_Probopass,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_V_SLIDE,
         .enemyMonElevation = 6,
         .backPic = gMonBackPic_Probopass,
@@ -3300,7 +4315,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_Probopass,
         .iconSprite = gMonIcon_Probopass,
         .iconPalIndex = 0,
+        SHADOW(-1, 13, SHADOW_SIZE_L)
         FOOTPRINT(Probopass)
+        OVERWORLD(
+            gObjectEventPic_Probopass,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Probopass,
+            gShinyOverworldPalette_Probopass
+        )
         .levelUpLearnset = sProbopassLevelUpLearnset,
         .teachableLearnset = sProbopassTeachableLearnset,
     },
@@ -3325,7 +4350,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_FAIRY),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_CUTE_CHARM, ABILITY_NORMALIZE, ABILITY_WONDER_SKIN },
+    #else
+        .abilities = { ABILITY_CUTE_CHARM, ABILITY_NONE, ABILITY_WONDER_SKIN },
+    #endif
         .bodyColor = BODY_COLOR_PINK,
         .speciesName = _("Skitty"),
         .cryId = CRY_SKITTY,
@@ -3343,19 +4372,33 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Skitty,
-        .frontPicSize = MON_COORDS_SIZE(56, 40),
-        .frontPicYOffset = 12,
-        .frontAnimFrames = sAnims_Skitty,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(56, 40),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 11 : 12,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 35),
+            ANIMCMD_FRAME(0, 9),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Skitty,
-        .backPicSize = MON_COORDS_SIZE(64, 56),
-        .backPicYOffset = 6,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 56),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 10 : 6,
         .backAnimId = BACK_ANIM_DIP_RIGHT_SIDE,
         .palette = gMonPalette_Skitty,
         .shinyPalette = gMonShinyPalette_Skitty,
         .iconSprite = gMonIcon_Skitty,
         .iconPalIndex = 0,
+        SHADOW(-3, 1, SHADOW_SIZE_S)
         FOOTPRINT(Skitty)
+        OVERWORLD(
+            gObjectEventPic_Skitty,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Skitty,
+            gShinyOverworldPalette_Skitty
+        )
         .levelUpLearnset = sSkittyLevelUpLearnset,
         .teachableLearnset = sSkittyTeachableLearnset,
         .eggMoveLearnset = sSkittyEggMoveLearnset,
@@ -3386,7 +4429,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_FAIRY),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_CUTE_CHARM, ABILITY_NORMALIZE, ABILITY_WONDER_SKIN },
+    #else
+        .abilities = { ABILITY_CUTE_CHARM, ABILITY_NONE, ABILITY_WONDER_SKIN },
+    #endif
         .bodyColor = BODY_COLOR_PURPLE,
         .speciesName = _("Delcatty"),
         .cryId = CRY_DELCATTY,
@@ -3404,19 +4451,33 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Delcatty,
-        .frontPicSize = MON_COORDS_SIZE(56, 56),
-        .frontPicYOffset = 4,
-        .frontAnimFrames = sAnims_Delcatty,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(56, 56),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 4,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 46),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_V_STRETCH,
         .backPic = gMonBackPic_Delcatty,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 0,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 0,
         .backAnimId = BACK_ANIM_CONCAVE_ARC_SMALL,
         .palette = gMonPalette_Delcatty,
         .shinyPalette = gMonShinyPalette_Delcatty,
         .iconSprite = gMonIcon_Delcatty,
         .iconPalIndex = 2,
+        SHADOW(-1, 9, SHADOW_SIZE_S)
         FOOTPRINT(Delcatty)
+        OVERWORLD(
+            gObjectEventPic_Delcatty,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Delcatty,
+            gShinyOverworldPalette_Delcatty
+        )
         .levelUpLearnset = sDelcattyLevelUpLearnset,
         .teachableLearnset = sDelcattyTeachableLearnset,
     },
@@ -3442,7 +4503,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = 35,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_HUMAN_LIKE),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_KEEN_EYE, ABILITY_STALL, ABILITY_PRANKSTER },
+    #else
+        .abilities = { ABILITY_KEEN_EYE, ABILITY_NONE, ABILITY_PRANKSTER },
+    #endif
         .bodyColor = BODY_COLOR_PURPLE,
         .speciesName = _("Sableye"),
         .cryId = CRY_SABLEYE,
@@ -3461,18 +4526,34 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Sableye,
         .frontPicSize = MON_COORDS_SIZE(48, 48),
-        .frontPicYOffset = 10,
-        .frontAnimFrames = sAnims_Sableye,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 9 : 10,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_GLOW_BLACK,
         .backPic = gMonBackPic_Sableye,
-        .backPicSize = MON_COORDS_SIZE(48, 48),
-        .backPicYOffset = 13,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(48, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 13,
         .backAnimId = BACK_ANIM_H_VIBRATE,
         .palette = gMonPalette_Sableye,
         .shinyPalette = gMonShinyPalette_Sableye,
         .iconSprite = gMonIcon_Sableye,
         .iconPalIndex = 2,
+        SHADOW(2, 3, SHADOW_SIZE_S)
         FOOTPRINT(Sableye)
+        OVERWORLD(
+            gObjectEventPic_Sableye,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Sableye,
+            gShinyOverworldPalette_Sableye
+        )
         .levelUpLearnset = sSableyeLevelUpLearnset,
         .teachableLearnset = sSableyeTeachableLearnset,
         .eggMoveLearnset = sSableyeEggMoveLearnset,
@@ -3518,7 +4599,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_SableyeMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 5,
-        .frontAnimFrames = sAnims_SableyeMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_SableyeMega,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -3528,7 +4609,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_SableyeMega,
         .iconSprite = gMonIcon_SableyeMega,
         .iconPalIndex = 2,
+        SHADOW(3, 7, SHADOW_SIZE_S)
         FOOTPRINT(Sableye)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_SableyeMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_SableyeMega,
+            gShinyOverworldPalette_SableyeMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sSableyeLevelUpLearnset,
         .teachableLearnset = sSableyeTeachableLearnset,
@@ -3583,19 +4676,37 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Mawile,
-        .frontPicSize = MON_COORDS_SIZE(64, 48),
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(64, 48),
         .frontPicYOffset = 8,
-        .frontAnimFrames = sAnims_Mawile,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Mawile,
         .backPicSize = MON_COORDS_SIZE(64, 56),
-        .backPicYOffset = 7,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 7,
         .backAnimId = BACK_ANIM_V_SHAKE,
         .palette = gMonPalette_Mawile,
         .shinyPalette = gMonShinyPalette_Mawile,
         .iconSprite = gMonIcon_Mawile,
         .iconPalIndex = 2,
+        SHADOW(1, 4, SHADOW_SIZE_L)
         FOOTPRINT(Mawile)
+        OVERWORLD(
+            gObjectEventPic_Mawile,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Mawile,
+            gShinyOverworldPalette_Mawile
+        )
         .levelUpLearnset = sMawileLevelUpLearnset,
         .teachableLearnset = sMawileTeachableLearnset,
         .eggMoveLearnset = sMawileEggMoveLearnset,
@@ -3642,7 +4753,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_MawileMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 5,
-        .frontAnimFrames = sAnims_MawileMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_MawileMega,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -3652,7 +4763,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_MawileMega,
         .iconSprite = gMonIcon_MawileMega,
         .iconPalIndex = 0,
+        SHADOW(0, 9, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Mawile)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_MawileMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_MawileMega,
+            gShinyOverworldPalette_MawileMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sMawileLevelUpLearnset,
         .teachableLearnset = sMawileTeachableLearnset,
@@ -3700,19 +4823,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Aron,
-        .frontPicSize = MON_COORDS_SIZE(32, 40),
-        .frontPicYOffset = 14,
-        .frontAnimFrames = sAnims_Aron,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(32, 24) : MON_COORDS_SIZE(32, 40),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 20 : 14,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 33),
+            ANIMCMD_FRAME(1, 44),
+            ANIMCMD_FRAME(0, 33),
+            ANIMCMD_FRAME(1, 33),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
         .backPic = gMonBackPic_Aron,
-        .backPicSize = MON_COORDS_SIZE(48, 40),
-        .backPicYOffset = 12,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 32) : MON_COORDS_SIZE(48, 40),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 17 : 12,
         .backAnimId = BACK_ANIM_JOLT_RIGHT,
         .palette = gMonPalette_Aron,
         .shinyPalette = gMonShinyPalette_Aron,
         .iconSprite = gMonIcon_Aron,
         .iconPalIndex = 2,
+        SHADOW(2, -3, SHADOW_SIZE_S)
         FOOTPRINT(Aron)
+        OVERWORLD(
+            gObjectEventPic_Aron,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Aron,
+            gShinyOverworldPalette_Aron
+        )
         .levelUpLearnset = sAronLevelUpLearnset,
         .teachableLearnset = sAronTeachableLearnset,
         .eggMoveLearnset = sAronEggMoveLearnset,
@@ -3755,19 +4894,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Lairon,
-        .frontPicSize = MON_COORDS_SIZE(56, 48),
-        .frontPicYOffset = 8,
-        .frontAnimFrames = sAnims_Lairon,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 40) : MON_COORDS_SIZE(56, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 13 : 8,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 12),
+            ANIMCMD_FRAME(1, 29),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 29),
+            ANIMCMD_FRAME(0, 1),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Lairon,
-        .backPicSize = MON_COORDS_SIZE(64, 40),
-        .backPicYOffset = 15,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 32) : MON_COORDS_SIZE(64, 40),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 17 : 15,
         .backAnimId = BACK_ANIM_V_SHAKE,
         .palette = gMonPalette_Lairon,
         .shinyPalette = gMonShinyPalette_Lairon,
         .iconSprite = gMonIcon_Lairon,
         .iconPalIndex = 2,
+        SHADOW(4, 2, SHADOW_SIZE_L)
         FOOTPRINT(Lairon)
+        OVERWORLD(
+            gObjectEventPic_Lairon,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Lairon,
+            gShinyOverworldPalette_Lairon
+        )
         .levelUpLearnset = sLaironLevelUpLearnset,
         .teachableLearnset = sLaironTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 42, SPECIES_AGGRON}),
@@ -3817,17 +4972,31 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Aggron,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Aggron,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 44),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = ANIM_V_SHAKE_TWICE,
         .backPic = gMonBackPic_Aggron,
         .backPicSize = MON_COORDS_SIZE(64, 56),
-        .backPicYOffset = 5,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 7 : 5,
         .backAnimId = BACK_ANIM_V_SHAKE_LOW,
         .palette = gMonPalette_Aggron,
         .shinyPalette = gMonShinyPalette_Aggron,
         .iconSprite = gMonIcon_Aggron,
         .iconPalIndex = 2,
+        SHADOW(5, 12, SHADOW_SIZE_L)
         FOOTPRINT(Aggron)
+        OVERWORLD(
+            gObjectEventPic_Aggron,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Aggron,
+            gShinyOverworldPalette_Aggron
+        )
         .levelUpLearnset = sAggronLevelUpLearnset,
         .teachableLearnset = sAggronTeachableLearnset,
         .formSpeciesIdTable = sAggronFormSpeciesIdTable,
@@ -3873,7 +5042,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_AggronMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_AggronMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_AggronMega,
         .backPicSize = MON_COORDS_SIZE(64, 56),
@@ -3883,7 +5052,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_AggronMega,
         .iconSprite = gMonIcon_AggronMega,
         .iconPalIndex = 2,
+        SHADOW(1, 12, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Aggron)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_AggronMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_AggronMega,
+            gShinyOverworldPalette_AggronMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sAggronLevelUpLearnset,
         .teachableLearnset = sAggronTeachableLearnset,
@@ -3929,23 +5110,46 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Meditite,
-        .frontPicFemale = gMonFrontPic_MedititeF,
-        .frontPicSize = MON_COORDS_SIZE(48, 48),
-        .frontPicSizeFemale = MON_COORDS_SIZE(48, 48),
-        .frontPicYOffset = 10,
-        .frontAnimFrames = sAnims_Meditite,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 40) : MON_COORDS_SIZE(48, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 12 : 10,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 2),
+            ANIMCMD_FRAME(0, 22),
+        ),
         .frontAnimId = ANIM_BOUNCE_ROTATE_TO_SIDES,
         .backPic = gMonBackPic_Meditite,
-        .backPicFemale = gMonBackPic_MedititeF,
-        .backPicSize = MON_COORDS_SIZE(48, 48),
-        .backPicSizeFemale = MON_COORDS_SIZE(48, 48),
-        .backPicYOffset = 9,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(48, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 11 : 9,
         .backAnimId = BACK_ANIM_SHRINK_GROW_VIBRATE,
         .palette = gMonPalette_Meditite,
         .shinyPalette = gMonShinyPalette_Meditite,
         .iconSprite = gMonIcon_Meditite,
         .iconPalIndex = 0,
+#if P_GENDER_DIFFERENCES
+        .frontPicFemale = gMonFrontPic_MedititeF,
+        .frontPicSizeFemale = MON_COORDS_SIZE(48, 48),
+        .backPicFemale = gMonBackPic_MedititeF,
+        .backPicSizeFemale = MON_COORDS_SIZE(48, 48),
+#endif //P_GENDER_DIFFERENCES
+        SHADOW(0, 1, SHADOW_SIZE_S)
         FOOTPRINT(Meditite)
+        OVERWORLD(
+            gObjectEventPic_Meditite,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Meditite,
+            gShinyOverworldPalette_Meditite
+        )
+        OVERWORLD_FEMALE(
+            gObjectEventPic_MedititeF,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following
+        )
         .levelUpLearnset = sMedititeLevelUpLearnset,
         .teachableLearnset = sMedititeTeachableLearnset,
         .eggMoveLearnset = sMedititeEggMoveLearnset,
@@ -3987,23 +5191,50 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Medicham,
-        .frontPicFemale = gMonFrontPic_MedichamF,
-        .frontPicSize = MON_COORDS_SIZE(40, 64),
-        .frontPicSizeFemale = MON_COORDS_SIZE(40, 64),
-        .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Medicham,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 64) : MON_COORDS_SIZE(40, 64),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 0,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 11),
+            ANIMCMD_FRAME(1, 11),
+            ANIMCMD_FRAME(0, 11),
+            ANIMCMD_FRAME(1, 11),
+            ANIMCMD_FRAME(0, 11),
+            ANIMCMD_FRAME(1, 11),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
         .backPic = gMonBackPic_Medicham,
-        .backPicFemale = gMonBackPic_MedichamF,
-        .backPicSize = MON_COORDS_SIZE(56, 64),
-        .backPicSizeFemale = MON_COORDS_SIZE(56, 64),
-        .backPicYOffset = 0,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 64) : MON_COORDS_SIZE(56, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 3 : 0,
         .backAnimId = BACK_ANIM_SHRINK_GROW_VIBRATE,
         .palette = gMonPalette_Medicham,
         .shinyPalette = gMonShinyPalette_Medicham,
         .iconSprite = gMonIcon_Medicham,
         .iconPalIndex = 0,
+#if P_GENDER_DIFFERENCES
+        .frontPicFemale = gMonFrontPic_MedichamF,
+        .frontPicSizeFemale = MON_COORDS_SIZE(40, 64),
+        .backPicFemale = gMonBackPic_MedichamF,
+        .backPicSizeFemale = MON_COORDS_SIZE(56, 64),
+#endif //P_GENDER_DIFFERENCES
+        SHADOW(-2, 13, SHADOW_SIZE_S)
         FOOTPRINT(Medicham)
+        OVERWORLD(
+            gObjectEventPic_Medicham,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Medicham,
+            gShinyOverworldPalette_Medicham
+        )
+        OVERWORLD_FEMALE(
+            gObjectEventPic_MedichamF,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following
+        )
         .levelUpLearnset = sMedichamLevelUpLearnset,
         .teachableLearnset = sMedichamTeachableLearnset,
         .formSpeciesIdTable = sMedichamFormSpeciesIdTable,
@@ -4038,9 +5269,9 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .weight = 315,
         .description = COMPOUND_STRING(
             "It uses its amped-up willpower to create\n"
-            "additional arms for itself. The more it has\n"
-            "trained its spirit, the more realistic and\n"
-            "dexterous these self-created arms become."),
+            "additional arms for itself. The more it\n"
+            "has trained its spirit, the more realistic\n"
+            "and dexterous these arms become."),
         .pokemonScale = 298,
         .pokemonOffset = 5,
         .trainerScale = 256,
@@ -4048,7 +5279,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_MedichamMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_MedichamMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_MedichamMega,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -4058,7 +5289,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_MedichamMega,
         .iconSprite = gMonIcon_MedichamMega,
         .iconPalIndex = 0,
+        SHADOW(-2, 13, SHADOW_SIZE_S)
         FOOTPRINT(Medicham)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_MedichamMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_MedichamMega,
+            gShinyOverworldPalette_MedichamMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sMedichamLevelUpLearnset,
         .teachableLearnset = sMedichamTeachableLearnset,
@@ -4104,19 +5347,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Electrike,
-        .frontPicSize = MON_COORDS_SIZE(48, 40),
-        .frontPicYOffset = 14,
-        .frontAnimFrames = sAnims_Electrike,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 32) : MON_COORDS_SIZE(48, 40),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 18 : 14,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 25),
+            ANIMCMD_FRAME(0, 17),
+            ANIMCMD_FRAME(1, 25),
+            ANIMCMD_FRAME(0, 3),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Electrike,
-        .backPicSize = MON_COORDS_SIZE(56, 40),
-        .backPicYOffset = 13,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 32) : MON_COORDS_SIZE(56, 40),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 16 : 13,
         .backAnimId = BACK_ANIM_JOLT_RIGHT,
         .palette = gMonPalette_Electrike,
         .shinyPalette = gMonShinyPalette_Electrike,
         .iconSprite = gMonIcon_Electrike,
         .iconPalIndex = 1,
+        SHADOW(3, -1, SHADOW_SIZE_M)
         FOOTPRINT(Electrike)
+        OVERWORLD(
+            gObjectEventPic_Electrike,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Electrike,
+            gShinyOverworldPalette_Electrike
+        )
         .levelUpLearnset = sElectrikeLevelUpLearnset,
         .teachableLearnset = sElectrikeTeachableLearnset,
         .eggMoveLearnset = sElectrikeEggMoveLearnset,
@@ -4158,19 +5417,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 257,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Manectric,
-        .frontPicSize = MON_COORDS_SIZE(56, 64),
-        .frontPicYOffset = 2,
-        .frontAnimFrames = sAnims_Manectric,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 56) : MON_COORDS_SIZE(56, 64),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 2,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 33),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 25),
+            ANIMCMD_FRAME(0, 3),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Manectric,
-        .backPicSize = MON_COORDS_SIZE(56, 64),
-        .backPicYOffset = 0,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(56, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 0,
         .backAnimId = BACK_ANIM_V_SHAKE,
         .palette = gMonPalette_Manectric,
         .shinyPalette = gMonShinyPalette_Manectric,
         .iconSprite = gMonIcon_Manectric,
         .iconPalIndex = 0,
+        SHADOW(1, 10, SHADOW_SIZE_M)
         FOOTPRINT(Manectric)
+        OVERWORLD(
+            gObjectEventPic_Manectric,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Manectric,
+            gShinyOverworldPalette_Manectric
+        )
         .levelUpLearnset = sManectricLevelUpLearnset,
         .teachableLearnset = sManectricTeachableLearnset,
         .formSpeciesIdTable = sManectricFormSpeciesIdTable,
@@ -4214,7 +5489,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_ManectricMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 2,
-        .frontAnimFrames = sAnims_ManectricMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_ManectricMega,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -4224,7 +5499,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_ManectricMega,
         .iconSprite = gMonIcon_ManectricMega,
         .iconPalIndex = 0,
+        SHADOW(1, 10, SHADOW_SIZE_L)
         FOOTPRINT(Manectric)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_ManectricMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_ManectricMega,
+            gShinyOverworldPalette_ManectricMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sManectricLevelUpLearnset,
         .teachableLearnset = sManectricTeachableLearnset,
@@ -4253,7 +5540,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FAIRY),
+    #if P_UPDATED_ABILITIES >= GEN_6
         .abilities = { ABILITY_PLUS, ABILITY_NONE, ABILITY_LIGHTNING_ROD },
+    #else
+        .abilities = { ABILITY_PLUS, ABILITY_NONE, ABILITY_NONE },
+    #endif
         .bodyColor = BODY_COLOR_YELLOW,
         .speciesName = _("Plusle"),
         .cryId = CRY_PLUSLE,
@@ -4272,18 +5563,34 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Plusle,
         .frontPicSize = MON_COORDS_SIZE(40, 48),
-        .frontPicYOffset = 11,
-        .frontAnimFrames = sAnims_Plusle,
-        .frontAnimId = ANIM_V_JUMPS_H_JUMPS,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 14 : 11,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
+        .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_V_SQUISH_AND_BOUNCE : ANIM_V_JUMPS_H_JUMPS,
         .backPic = gMonBackPic_Plusle,
-        .backPicSize = MON_COORDS_SIZE(56, 64),
-        .backPicYOffset = 3,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(56, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 3,
         .backAnimId = BACK_ANIM_CONCAVE_ARC_SMALL,
         .palette = gMonPalette_Plusle,
         .shinyPalette = gMonShinyPalette_Plusle,
         .iconSprite = gMonIcon_Plusle,
         .iconPalIndex = 0,
+        SHADOW(2, 3, SHADOW_SIZE_S)
         FOOTPRINT(Plusle)
+        OVERWORLD(
+            gObjectEventPic_Plusle,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Plusle,
+            gShinyOverworldPalette_Plusle
+        )
         .levelUpLearnset = sPlusleLevelUpLearnset,
         .teachableLearnset = sPlusleTeachableLearnset,
         .eggMoveLearnset = sPlusleEggMoveLearnset,
@@ -4309,7 +5616,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FAIRY),
+    #if P_UPDATED_ABILITIES >= GEN_6
         .abilities = { ABILITY_MINUS, ABILITY_NONE, ABILITY_VOLT_ABSORB },
+    #else
+        .abilities = { ABILITY_MINUS, ABILITY_NONE, ABILITY_NONE },
+    #endif
         .bodyColor = BODY_COLOR_YELLOW,
         .speciesName = _("Minun"),
         .cryId = CRY_MINUN,
@@ -4327,19 +5638,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Minun,
-        .frontPicSize = MON_COORDS_SIZE(40, 48),
-        .frontPicYOffset = 11,
-        .frontAnimFrames = sAnims_Minun,
-        .frontAnimId = ANIM_V_JUMPS_H_JUMPS,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(40, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 12 : 11,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
+        .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_CIRCULAR_STRETCH_TWICE : ANIM_V_JUMPS_H_JUMPS,
         .backPic = gMonBackPic_Minun,
-        .backPicSize = MON_COORDS_SIZE(48, 64),
-        .backPicYOffset = 4,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(48, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 4,
         .backAnimId = BACK_ANIM_CONCAVE_ARC_SMALL,
         .palette = gMonPalette_Minun,
         .shinyPalette = gMonShinyPalette_Minun,
         .iconSprite = gMonIcon_Minun,
         .iconPalIndex = 0,
+        SHADOW(-4, 3, SHADOW_SIZE_S)
         FOOTPRINT(Minun)
+        OVERWORLD(
+            gObjectEventPic_Minun,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Minun,
+            gShinyOverworldPalette_Minun
+        )
         .levelUpLearnset = sMinunLevelUpLearnset,
         .teachableLearnset = sMinunTeachableLearnset,
         .eggMoveLearnset = sMinunEggMoveLearnset,
@@ -4389,19 +5716,37 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Volbeat,
-        .frontPicSize = MON_COORDS_SIZE(48, 56),
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(48, 56),
         .frontPicYOffset = 8,
-        .frontAnimFrames = sAnims_Volbeat,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 11),
+            ANIMCMD_FRAME(1, 11),
+            ANIMCMD_FRAME(0, 11),
+            ANIMCMD_FRAME(1, 11),
+            ANIMCMD_FRAME(0, 11),
+            ANIMCMD_FRAME(1, 11),
+            ANIMCMD_FRAME(0, 5),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Volbeat,
-        .backPicSize = MON_COORDS_SIZE(48, 64),
-        .backPicYOffset = 3,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(48, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 3,
         .backAnimId = BACK_ANIM_CONVEX_DOUBLE_ARC,
         .palette = gMonPalette_Volbeat,
         .shinyPalette = gMonShinyPalette_Volbeat,
         .iconSprite = gMonIcon_Volbeat,
         .iconPalIndex = 0,
+        SHADOW(0, 5, SHADOW_SIZE_S)
         FOOTPRINT(Volbeat)
+        OVERWORLD(
+            gObjectEventPic_Volbeat,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Volbeat,
+            gShinyOverworldPalette_Volbeat
+        )
         .levelUpLearnset = sVolbeatLevelUpLearnset,
         .teachableLearnset = sVolbeatTeachableLearnset,
         .eggMoveLearnset = sVolbeatEggMoveLearnset,
@@ -4431,7 +5776,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_FLUCTUATING,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_BUG, EGG_GROUP_HUMAN_LIKE),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_OBLIVIOUS, ABILITY_TINTED_LENS, ABILITY_PRANKSTER },
+    #else
+        .abilities = { ABILITY_OBLIVIOUS, ABILITY_NONE, ABILITY_PRANKSTER },
+    #endif
         .bodyColor = BODY_COLOR_PURPLE,
         .speciesName = _("Illumise"),
         .cryId = CRY_ILLUMISE,
@@ -4450,18 +5799,34 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Illumise,
         .frontPicSize = MON_COORDS_SIZE(40, 48),
-        .frontPicYOffset = 10,
-        .frontAnimFrames = sAnims_Illumise,
-        .frontAnimId = ANIM_RISING_WOBBLE,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 10,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 11),
+        ),
+        .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_BOUNCE_ROTATE_TO_SIDES : ANIM_RISING_WOBBLE,
         .backPic = gMonBackPic_Illumise,
         .backPicSize = MON_COORDS_SIZE(48, 56),
-        .backPicYOffset = 8,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 6 : 8,
         .backAnimId = BACK_ANIM_CONVEX_DOUBLE_ARC,
         .palette = gMonPalette_Illumise,
         .shinyPalette = gMonShinyPalette_Illumise,
         .iconSprite = gMonIcon_Illumise,
         .iconPalIndex = 2,
+        SHADOW(0, 5, SHADOW_SIZE_S)
         FOOTPRINT(Illumise)
+        OVERWORLD(
+            gObjectEventPic_Illumise,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Illumise,
+            gShinyOverworldPalette_Illumise
+        )
         .levelUpLearnset = sIllumiseLevelUpLearnset,
         .teachableLearnset = sIllumiseTeachableLearnset,
         .eggMoveLearnset = sIllumiseEggMoveLearnset,
@@ -4509,7 +5874,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Budew,
         .frontPicSize = MON_COORDS_SIZE(32, 40),
         .frontPicYOffset = 14,
-        .frontAnimFrames = sAnims_Budew,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 30),
+            ANIMCMD_FRAME(1, 30),
+            ANIMCMD_FRAME(0, 20),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
         .backPic = gMonBackPic_Budew,
         .backPicSize = MON_COORDS_SIZE(40, 56),
@@ -4519,7 +5888,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_Budew,
         .iconSprite = gMonIcon_Budew,
         .iconPalIndex = 1,
+        SHADOW(-3, 0, SHADOW_SIZE_S)
         FOOTPRINT(Budew)
+        OVERWORLD(
+            gObjectEventPic_Budew,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Budew,
+            gShinyOverworldPalette_Budew
+        )
         .levelUpLearnset = sBudewLevelUpLearnset,
         .teachableLearnset = sBudewTeachableLearnset,
         .eggMoveLearnset = sBudewEggMoveLearnset,
@@ -4564,23 +5943,46 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Roselia,
-        .frontPicFemale = gMonFrontPic_RoseliaF,
         .frontPicSize = MON_COORDS_SIZE(56, 48),
-        .frontPicSizeFemale = MON_COORDS_SIZE(56, 48),
-        .frontPicYOffset = 11,
-        .frontAnimFrames = sAnims_Roselia,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 11,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 18),
+            ANIMCMD_FRAME(1, 44),
+            ANIMCMD_FRAME(0, 22),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
         .backPic = gMonBackPic_Roselia,
-        .backPicFemale = gMonBackPic_RoseliaF,
-        .backPicSize = MON_COORDS_SIZE(64, 56),
-        .backPicSizeFemale = MON_COORDS_SIZE(64, 56),
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 56),
         .backPicYOffset = 8,
         .backAnimId = BACK_ANIM_SHAKE_GLOW_GREEN,
         .palette = gMonPalette_Roselia,
         .shinyPalette = gMonShinyPalette_Roselia,
         .iconSprite = gMonIcon_Roselia,
-        .iconPalIndex = 4,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 0 : 4,
+#if P_GENDER_DIFFERENCES
+        .frontPicFemale = gMonFrontPic_RoseliaF,
+        .frontPicSizeFemale = MON_COORDS_SIZE(56, 48),
+        .backPicFemale = gMonBackPic_RoseliaF,
+        .backPicSizeFemale = MON_COORDS_SIZE(64, 56),
+#endif //P_GENDER_DIFFERENCES
+        SHADOW(-2, 3, SHADOW_SIZE_S)
         FOOTPRINT(Roselia)
+        OVERWORLD(
+            gObjectEventPic_Roselia,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Roselia,
+            gShinyOverworldPalette_Roselia
+        )
+        OVERWORLD_FEMALE(
+            gObjectEventPic_RoseliaF,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following
+        )
         .levelUpLearnset = sRoseliaLevelUpLearnset,
         .teachableLearnset = sRoseliaTeachableLearnset,
         .eggMoveLearnset = sRoseliaEggMoveLearnset,
@@ -4633,23 +6035,45 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Roserade,
-        .frontPicFemale = gMonFrontPic_RoseradeF,
         .frontPicSize = MON_COORDS_SIZE(48, 56),
-        .frontPicSizeFemale = MON_COORDS_SIZE(48, 56),
         .frontPicYOffset = 7,
-        .frontAnimFrames = sAnims_Roserade,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 20),
+        ),
         .frontAnimId = ANIM_H_VIBRATE,
         .backPic = gMonBackPic_Roserade,
-        .backPicFemale = gMonBackPic_RoseradeF,
         .backPicSize = MON_COORDS_SIZE(64, 56),
-        .backPicSizeFemale = MON_COORDS_SIZE(64, 56),
         .backPicYOffset = 6,
         .backAnimId = BACK_ANIM_SHRINK_GROW_VIBRATE,
         .palette = gMonPalette_Roserade,
         .shinyPalette = gMonShinyPalette_Roserade,
         .iconSprite = gMonIcon_Roserade,
         .iconPalIndex = 0,
+#if P_GENDER_DIFFERENCES
+        .frontPicFemale = gMonFrontPic_RoseradeF,
+        .frontPicSizeFemale = MON_COORDS_SIZE(48, 56),
+        .backPicFemale = gMonBackPic_RoseradeF,
+        .backPicSizeFemale = MON_COORDS_SIZE(64, 56),
+#endif //P_GENDER_DIFFERENCES
+        SHADOW(0, 6, SHADOW_SIZE_S)
         FOOTPRINT(Roserade)
+        OVERWORLD(
+            gObjectEventPic_Roserade,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Roserade,
+            gShinyOverworldPalette_Roserade
+        )
+        OVERWORLD_FEMALE(
+            gObjectEventPic_RoseradeF,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following
+        )
         .levelUpLearnset = sRoseradeLevelUpLearnset,
         .teachableLearnset = sRoseradeTeachableLearnset,
     },
@@ -4694,23 +6118,48 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Gulpin,
-        .frontPicFemale = gMonFrontPic_GulpinF,
-        .frontPicSize = MON_COORDS_SIZE(40, 48),
-        .frontPicSizeFemale = MON_COORDS_SIZE(40, 48),
-        .frontPicYOffset = 15,
-        .frontAnimFrames = sAnims_Gulpin,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 40) : MON_COORDS_SIZE(40, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 18 : 15,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 14),
+            ANIMCMD_FRAME(1, 14),
+            ANIMCMD_FRAME(0, 14),
+            ANIMCMD_FRAME(1, 14),
+            ANIMCMD_FRAME(0, 4),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_Gulpin,
-        .backPicFemale = gMonBackPic_GulpinF,
-        .backPicSize = MON_COORDS_SIZE(56, 48),
-        .backPicSizeFemale = MON_COORDS_SIZE(56, 48),
-        .backPicYOffset = 9,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(56, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 11 : 9,
         .backAnimId = BACK_ANIM_V_STRETCH,
         .palette = gMonPalette_Gulpin,
         .shinyPalette = gMonShinyPalette_Gulpin,
         .iconSprite = gMonIcon_Gulpin,
         .iconPalIndex = 1,
+#if P_GENDER_DIFFERENCES
+        .frontPicFemale = gMonFrontPic_GulpinF,
+        .frontPicSizeFemale = MON_COORDS_SIZE(40, 48),
+        .backPicFemale = gMonBackPic_GulpinF,
+        .backPicSizeFemale = MON_COORDS_SIZE(56, 48),
+#endif //P_GENDER_DIFFERENCES
+        SHADOW(1, -2, SHADOW_SIZE_S)
         FOOTPRINT(Gulpin)
+        OVERWORLD(
+            gObjectEventPic_Gulpin,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_SPOT,
+            sAnimTable_Following,
+            gOverworldPalette_Gulpin,
+            gShinyOverworldPalette_Gulpin
+        )
+        OVERWORLD_FEMALE(
+            gObjectEventPic_GulpinF,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_SPOT,
+            sAnimTable_Following
+        )
         .levelUpLearnset = sGulpinLevelUpLearnset,
         .teachableLearnset = sGulpinTeachableLearnset,
         .eggMoveLearnset = sGulpinEggMoveLearnset,
@@ -4754,23 +6203,47 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 345,
         .trainerOffset = 3,
         .frontPic = gMonFrontPic_Swalot,
-        .frontPicFemale = gMonFrontPic_SwalotF,
-        .frontPicSize = MON_COORDS_SIZE(56, 56),
-        .frontPicSizeFemale = MON_COORDS_SIZE(56, 56),
-        .frontPicYOffset = 5,
-        .frontAnimFrames = sAnims_Swalot,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(56, 56),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 5,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 30),
+            ANIMCMD_FRAME(1, 30),
+            ANIMCMD_FRAME(0, 30),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
         .backPic = gMonBackPic_Swalot,
-        .backPicFemale = gMonBackPic_SwalotF,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicSizeFemale = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 2,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 6 : 2,
         .backAnimId = BACK_ANIM_V_STRETCH,
         .palette = gMonPalette_Swalot,
         .shinyPalette = gMonShinyPalette_Swalot,
         .iconSprite = gMonIcon_Swalot,
         .iconPalIndex = 2,
+#if P_GENDER_DIFFERENCES
+        .frontPicFemale = gMonFrontPic_SwalotF,
+        .frontPicSizeFemale = MON_COORDS_SIZE(56, 56),
+        .backPicFemale = gMonBackPic_SwalotF,
+        .backPicSizeFemale = MON_COORDS_SIZE(64, 64),
+#endif //P_GENDER_DIFFERENCES
+        SHADOW(4, 3, SHADOW_SIZE_L)
         FOOTPRINT(Swalot)
+        OVERWORLD(
+            gObjectEventPic_Swalot,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_SLITHER,
+            sAnimTable_Following,
+            gOverworldPalette_Swalot,
+            gShinyOverworldPalette_Swalot
+        )
+        OVERWORLD_FEMALE(
+            gObjectEventPic_SwalotF,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_SLITHER,
+            sAnimTable_Following
+        )
         .levelUpLearnset = sSwalotLevelUpLearnset,
         .teachableLearnset = sSwalotTeachableLearnset,
     },
@@ -4815,17 +6288,37 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Carvanha,
         .frontPicSize = MON_COORDS_SIZE(48, 56),
         .frontPicYOffset = 6,
-        .frontAnimFrames = sAnims_Carvanha,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+        ),
         .frontAnimId = ANIM_BOUNCE_ROTATE_TO_SIDES_SLOW,
         .backPic = gMonBackPic_Carvanha,
-        .backPicSize = MON_COORDS_SIZE(64, 48),
-        .backPicYOffset = 10,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 7 : 10,
         .backAnimId = BACK_ANIM_H_SPRING_REPEATED,
         .palette = gMonPalette_Carvanha,
         .shinyPalette = gMonShinyPalette_Carvanha,
         .iconSprite = gMonIcon_Carvanha,
         .iconPalIndex = 0,
+        SHADOW(-1, 8, SHADOW_SIZE_S)
         FOOTPRINT(Carvanha)
+        OVERWORLD(
+            gObjectEventPic_Carvanha,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Carvanha,
+            gShinyOverworldPalette_Carvanha
+        )
         .levelUpLearnset = sCarvanhaLevelUpLearnset,
         .teachableLearnset = sCarvanhaTeachableLearnset,
         .eggMoveLearnset = sCarvanhaEggMoveLearnset,
@@ -4868,19 +6361,39 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 317,
         .trainerOffset = 3,
         .frontPic = gMonFrontPic_Sharpedo,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Sharpedo,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 64) : MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 3 : 0,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 22),
+        ),
         .frontAnimId = ANIM_H_JUMPS_V_STRETCH_TWICE,
         .backPic = gMonBackPic_Sharpedo,
         .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 3,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 2 : 3,
         .backAnimId = BACK_ANIM_JOLT_RIGHT,
         .palette = gMonPalette_Sharpedo,
         .shinyPalette = gMonShinyPalette_Sharpedo,
         .iconSprite = gMonIcon_Sharpedo,
         .iconPalIndex = 0,
+        SHADOW(-2, 14, SHADOW_SIZE_M)
         FOOTPRINT(Sharpedo)
+        OVERWORLD(
+            gObjectEventPic_Sharpedo,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Sharpedo,
+            gShinyOverworldPalette_Sharpedo
+        )
         .levelUpLearnset = sSharpedoLevelUpLearnset,
         .teachableLearnset = sSharpedoTeachableLearnset,
         .formSpeciesIdTable = sSharpedoFormSpeciesIdTable,
@@ -4926,7 +6439,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_SharpedoMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_SharpedoMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .enemyMonElevation = 1,
         .backPic = gMonBackPic_SharpedoMega,
@@ -4937,7 +6450,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_SharpedoMega,
         .iconSprite = gMonIcon_SharpedoMega,
         .iconPalIndex = 0,
+        SHADOW(-2, 14, SHADOW_SIZE_M)
         FOOTPRINT(Sharpedo)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_SharpedoMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_SharpedoMega,
+            gShinyOverworldPalette_SharpedoMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sSharpedoLevelUpLearnset,
         .teachableLearnset = sSharpedoTeachableLearnset,
@@ -4983,19 +6508,37 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 493,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Wailmer,
-        .frontPicSize = MON_COORDS_SIZE(64, 48),
-        .frontPicYOffset = 10,
-        .frontAnimFrames = sAnims_Wailmer,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 40) : MON_COORDS_SIZE(64, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 15 : 10,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 22),
+        ),
         .frontAnimId = ANIM_CIRCULAR_STRETCH_TWICE,
         .backPic = gMonBackPic_Wailmer,
-        .backPicSize = MON_COORDS_SIZE(64, 48),
-        .backPicYOffset = 9,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 24) : MON_COORDS_SIZE(64, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 21 : 9,
         .backAnimId = BACK_ANIM_SHAKE_GLOW_BLUE,
         .palette = gMonPalette_Wailmer,
         .shinyPalette = gMonShinyPalette_Wailmer,
         .iconSprite = gMonIcon_Wailmer,
         .iconPalIndex = 2,
+        SHADOW(0, 3, SHADOW_SIZE_L)
         FOOTPRINT(Wailmer)
+        OVERWORLD(
+            gObjectEventPic_Wailmer,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_SPOT,
+            sAnimTable_Following,
+            gOverworldPalette_Wailmer,
+            gShinyOverworldPalette_Wailmer
+        )
         .levelUpLearnset = sWailmerLevelUpLearnset,
         .teachableLearnset = sWailmerTeachableLearnset,
         .eggMoveLearnset = sWailmerEggMoveLearnset,
@@ -5038,19 +6581,33 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 18,
         .frontPic = gMonFrontPic_Wailord,
         .frontPicSize = MON_COORDS_SIZE(64, 56),
-        .frontPicYOffset = 4,
-        .frontAnimFrames = sAnims_Wailord,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 10 : 4,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 26),
+            ANIMCMD_FRAME(1, 48),
+            ANIMCMD_FRAME(0, 33),
+        ),
         .frontAnimId = ANIM_V_SLIDE_WOBBLE,
         .frontAnimDelay = 10,
         .backPic = gMonBackPic_Wailord,
-        .backPicSize = MON_COORDS_SIZE(64, 40),
-        .backPicYOffset = 14,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 24) : MON_COORDS_SIZE(64, 40),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 22 : 14,
         .backAnimId = BACK_ANIM_SHAKE_GLOW_BLUE,
         .palette = gMonPalette_Wailord,
         .shinyPalette = gMonShinyPalette_Wailord,
         .iconSprite = gMonIcon_Wailord,
         .iconPalIndex = 0,
+        SHADOW(1, 7, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Wailord)
+        OVERWORLD(
+            gObjectEventPic_Wailord,
+            SIZE_64x64,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Wailord,
+            gShinyOverworldPalette_Wailord
+        )
         .levelUpLearnset = sWailordLevelUpLearnset,
         .teachableLearnset = sWailordTeachableLearnset,
     },
@@ -5074,7 +6631,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_OBLIVIOUS, ABILITY_SIMPLE, ABILITY_OWN_TEMPO },
+    #else
+        .abilities = { ABILITY_OBLIVIOUS, ABILITY_NONE, ABILITY_OWN_TEMPO },
+    #endif
         .bodyColor = BODY_COLOR_YELLOW,
         .speciesName = _("Numel"),
         .cryId = CRY_NUMEL,
@@ -5092,23 +6653,48 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Numel,
-        .frontPicFemale = gMonFrontPic_NumelF,
-        .frontPicSize = MON_COORDS_SIZE(40, 48),
-        .frontPicSizeFemale = MON_COORDS_SIZE(40, 48),
-        .frontPicYOffset = 9,
-        .frontAnimFrames = sAnims_Numel,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 40) : MON_COORDS_SIZE(40, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 15 : 9,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 20),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 40),
+        ),
         .frontAnimId = ANIM_V_SLIDE,
         .backPic = gMonBackPic_Numel,
-        .backPicFemale = gMonBackPic_NumelF,
-        .backPicSize = MON_COORDS_SIZE(56, 56),
-        .backPicSizeFemale = MON_COORDS_SIZE(56, 56),
-        .backPicYOffset = 6,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(56, 56),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 11 : 6,
         .backAnimId = BACK_ANIM_V_SHAKE_LOW,
         .palette = gMonPalette_Numel,
         .shinyPalette = gMonShinyPalette_Numel,
         .iconSprite = gMonIcon_Numel,
         .iconPalIndex = 1,
+#if P_GENDER_DIFFERENCES
+        .frontPicFemale = gMonFrontPic_NumelF,
+        .frontPicSizeFemale = MON_COORDS_SIZE(40, 48),
+        .backPicFemale = gMonBackPic_NumelF,
+        .backPicSizeFemale = MON_COORDS_SIZE(56, 56),
+#endif //P_GENDER_DIFFERENCES
+        SHADOW(4, 2, SHADOW_SIZE_S)
         FOOTPRINT(Numel)
+        OVERWORLD(
+            gObjectEventPic_Numel,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Numel,
+            gShinyOverworldPalette_Numel
+        )
+        OVERWORLD_FEMALE(
+            gObjectEventPic_NumelF,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following
+        )
         .levelUpLearnset = sNumelLevelUpLearnset,
         .teachableLearnset = sNumelTeachableLearnset,
         .eggMoveLearnset = sNumelEggMoveLearnset,
@@ -5133,7 +6719,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_MAGMA_ARMOR, ABILITY_SOLID_ROCK, ABILITY_ANGER_POINT },
+    #else
+        .abilities = { ABILITY_MAGMA_ARMOR, ABILITY_NONE, ABILITY_ANGER_POINT },
+    #endif
         .bodyColor = BODY_COLOR_RED,
         .speciesName = _("Camerupt"),
         .cryId = CRY_CAMERUPT,
@@ -5151,23 +6741,50 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 345,
         .trainerOffset = 6,
         .frontPic = gMonFrontPic_Camerupt,
-        .frontPicFemale = gMonFrontPic_CameruptF,
         .frontPicSize = MON_COORDS_SIZE(64, 56),
-        .frontPicSizeFemale = MON_COORDS_SIZE(64, 56),
-        .frontPicYOffset = 6,
-        .frontAnimFrames = sAnims_Camerupt,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 9 : 6,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SHAKE,
         .backPic = gMonBackPic_Camerupt,
-        .backPicFemale = gMonBackPic_CameruptF,
-        .backPicSize = MON_COORDS_SIZE(64, 40),
-        .backPicSizeFemale = MON_COORDS_SIZE(64, 40),
-        .backPicYOffset = 13,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 32) : MON_COORDS_SIZE(64, 40),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 19 : 13,
         .backAnimId = BACK_ANIM_SHAKE_GLOW_RED,
         .palette = gMonPalette_Camerupt,
         .shinyPalette = gMonShinyPalette_Camerupt,
         .iconSprite = gMonIcon_Camerupt,
         .iconPalIndex = 0,
+#if P_GENDER_DIFFERENCES
+        .frontPicFemale = gMonFrontPic_CameruptF,
+        .frontPicSizeFemale = MON_COORDS_SIZE(64, 56),
+        .backPicFemale = gMonBackPic_CameruptF,
+        .backPicSizeFemale = MON_COORDS_SIZE(64, 40),
+#endif //P_GENDER_DIFFERENCES
+        SHADOW(2, 4, SHADOW_SIZE_L)
         FOOTPRINT(Camerupt)
+        OVERWORLD(
+            gObjectEventPic_Camerupt,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Camerupt,
+            gShinyOverworldPalette_Camerupt
+        )
+        OVERWORLD_FEMALE(
+            gObjectEventPic_CameruptF,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following
+        )
         .levelUpLearnset = sCameruptLevelUpLearnset,
         .teachableLearnset = sCameruptTeachableLearnset,
         .formSpeciesIdTable = sCameruptFormSpeciesIdTable,
@@ -5213,7 +6830,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_CameruptMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 4,
-        .frontAnimFrames = sAnims_CameruptMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_CameruptMega,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -5223,7 +6840,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_CameruptMega,
         .iconSprite = gMonIcon_CameruptMega,
         .iconPalIndex = 0,
+        SHADOW(1, 6, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Camerupt)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_CameruptMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_CameruptMega,
+            gShinyOverworldPalette_CameruptMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sCameruptLevelUpLearnset,
         .teachableLearnset = sCameruptTeachableLearnset,
@@ -5252,7 +6881,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+    #if P_UPDATED_ABILITIES >= GEN_7
         .abilities = { ABILITY_WHITE_SMOKE, ABILITY_DROUGHT, ABILITY_SHELL_ARMOR },
+    #else
+        .abilities = { ABILITY_WHITE_SMOKE, ABILITY_NONE, ABILITY_SHELL_ARMOR },
+    #endif
         .bodyColor = BODY_COLOR_BROWN,
         .speciesName = _("Torkoal"),
         .cryId = CRY_TORKOAL,
@@ -5271,18 +6904,34 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Torkoal,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 3,
-        .frontAnimFrames = sAnims_Torkoal,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 2 : 3,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_STRETCH,
         .backPic = gMonBackPic_Torkoal,
         .backPicSize = MON_COORDS_SIZE(64, 48),
-        .backPicYOffset = 8,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 10 : 8,
         .backAnimId = BACK_ANIM_SHAKE_GLOW_RED,
         .palette = gMonPalette_Torkoal,
         .shinyPalette = gMonShinyPalette_Torkoal,
         .iconSprite = gMonIcon_Torkoal,
-        .iconPalIndex = 2,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 1 : 2,
+        SHADOW(2, 7, SHADOW_SIZE_L)
         FOOTPRINT(Torkoal)
+        OVERWORLD(
+            gObjectEventPic_Torkoal,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Torkoal,
+            gShinyOverworldPalette_Torkoal
+        )
         .levelUpLearnset = sTorkoalLevelUpLearnset,
         .teachableLearnset = sTorkoalTeachableLearnset,
         .eggMoveLearnset = sTorkoalEggMoveLearnset,
@@ -5327,17 +6976,39 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Spoink,
         .frontPicSize = MON_COORDS_SIZE(32, 48),
         .frontPicYOffset = 9,
-        .frontAnimFrames = sAnims_Spoink,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_H_JUMPS_V_STRETCH_TWICE,
         .backPic = gMonBackPic_Spoink,
-        .backPicSize = MON_COORDS_SIZE(40, 64),
-        .backPicYOffset = 4,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 48) : MON_COORDS_SIZE(40, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 11 : 4,
         .backAnimId = BACK_ANIM_CONCAVE_ARC_LARGE,
         .palette = gMonPalette_Spoink,
         .shinyPalette = gMonShinyPalette_Spoink,
         .iconSprite = gMonIcon_Spoink,
         .iconPalIndex = 0,
+        SHADOW(-1, 5, SHADOW_SIZE_S)
         FOOTPRINT(Spoink)
+        OVERWORLD(
+            gObjectEventPic_Spoink,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_SPOT,
+            sAnimTable_Following,
+            gOverworldPalette_Spoink,
+            gShinyOverworldPalette_Spoink
+        )
         .levelUpLearnset = sSpoinkLevelUpLearnset,
         .teachableLearnset = sSpoinkTeachableLearnset,
         .eggMoveLearnset = sSpoinkEggMoveLearnset,
@@ -5379,20 +7050,36 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Grumpig,
-        .frontPicSize = MON_COORDS_SIZE(56, 64),
-        .frontPicYOffset = 2,
-        .frontAnimFrames = sAnims_Grumpig,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(56, 64),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 5 : 2,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_H_JUMPS_V_STRETCH,
         .frontAnimDelay = 15,
         .backPic = gMonBackPic_Grumpig,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 2,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 2,
         .backAnimId = BACK_ANIM_SHRINK_GROW_VIBRATE,
         .palette = gMonPalette_Grumpig,
         .shinyPalette = gMonShinyPalette_Grumpig,
         .iconSprite = gMonIcon_Grumpig,
         .iconPalIndex = 2,
+        SHADOW(-1, 8, SHADOW_SIZE_M)
         FOOTPRINT(Grumpig)
+        OVERWORLD(
+            gObjectEventPic_Grumpig,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Grumpig,
+            gShinyOverworldPalette_Grumpig
+        )
         .levelUpLearnset = sGrumpigLevelUpLearnset,
         .teachableLearnset = sGrumpigTeachableLearnset,
     },
@@ -5416,7 +7103,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD, EGG_GROUP_HUMAN_LIKE),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_OWN_TEMPO, ABILITY_TANGLED_FEET, ABILITY_CONTRARY },
+    #else
+        .abilities = { ABILITY_OWN_TEMPO, ABILITY_NONE, ABILITY_CONTRARY },
+    #endif
         .bodyColor = BODY_COLOR_BROWN,
         .noFlip = TRUE,
         .speciesName = _("Spinda"),
@@ -5437,8 +7128,14 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Spinda,
         .frontPicSize = MON_COORDS_SIZE(48, 64),
         .frontPicYOffset = 8,
-        .frontAnimFrames = sAnims_Spinda,
-        .frontAnimId = ANIM_CIRCLE_INTO_BG,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 17),
+            ANIMCMD_FRAME(1, 23),
+            ANIMCMD_FRAME(0, 17),
+            ANIMCMD_FRAME(1, 23),
+            ANIMCMD_FRAME(0, 13),
+        ),
+        .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_H_JUMPS : ANIM_CIRCLE_INTO_BG,
         .backPic = gMonBackPic_Spinda,
         .backPicSize = MON_COORDS_SIZE(56, 56),
         .backPicYOffset = 4,
@@ -5447,7 +7144,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_Spinda,
         .iconSprite = gMonIcon_Spinda,
         .iconPalIndex = 1,
+        SHADOW(2, 6, SHADOW_SIZE_S)
         FOOTPRINT(Spinda)
+        OVERWORLD(
+            gObjectEventPic_Spinda,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Spinda,
+            gShinyOverworldPalette_Spinda
+        )
         .levelUpLearnset = sSpindaLevelUpLearnset,
         .teachableLearnset = sSpindaTeachableLearnset,
         .eggMoveLearnset = sSpindaEggMoveLearnset,
@@ -5495,19 +7202,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Trapinch,
-        .frontPicSize = MON_COORDS_SIZE(40, 40),
-        .frontPicYOffset = 12,
-        .frontAnimFrames = sAnims_Trapinch,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 32) : MON_COORDS_SIZE(40, 40),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 16 : 12,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SHAKE,
         .backPic = gMonBackPic_Trapinch,
-        .backPicSize = MON_COORDS_SIZE(48, 48),
-        .backPicYOffset = 10,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 40) : MON_COORDS_SIZE(48, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 14 : 10,
         .backAnimId = BACK_ANIM_DIP_RIGHT_SIDE,
         .palette = gMonPalette_Trapinch,
         .shinyPalette = gMonShinyPalette_Trapinch,
         .iconSprite = gMonIcon_Trapinch,
-        .iconPalIndex = 0,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 1 : 0,
+        SHADOW(4, -1, SHADOW_SIZE_S)
         FOOTPRINT(Trapinch)
+        OVERWORLD(
+            gObjectEventPic_Trapinch,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Trapinch,
+            gShinyOverworldPalette_Trapinch
+        )
         .levelUpLearnset = sTrapinchLevelUpLearnset,
         .teachableLearnset = sTrapinchTeachableLearnset,
         .eggMoveLearnset = sTrapinchEggMoveLearnset,
@@ -5555,18 +7278,36 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Vibrava,
         .frontPicSize = MON_COORDS_SIZE(64, 48),
-        .frontPicYOffset = 10,
-        .frontAnimFrames = sAnims_Vibrava,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 12 : 10,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 50),
+        ),
         .frontAnimId = ANIM_H_SHAKE,
         .backPic = gMonBackPic_Vibrava,
-        .backPicSize = MON_COORDS_SIZE(64, 40),
-        .backPicYOffset = 12,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 32) : MON_COORDS_SIZE(64, 40),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 17 : 12,
         .backAnimId = BACK_ANIM_H_VIBRATE,
         .palette = gMonPalette_Vibrava,
         .shinyPalette = gMonShinyPalette_Vibrava,
         .iconSprite = gMonIcon_Vibrava,
         .iconPalIndex = 1,
+        SHADOW(-2, 0, SHADOW_SIZE_L)
         FOOTPRINT(Vibrava)
+        OVERWORLD(
+            gObjectEventPic_Vibrava,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Vibrava,
+            gShinyOverworldPalette_Vibrava
+        )
         .levelUpLearnset = sVibravaLevelUpLearnset,
         .teachableLearnset = sVibravaTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 45, SPECIES_FLYGON}),
@@ -5620,18 +7361,36 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Flygon,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 1,
-        .frontAnimFrames = sAnims_Flygon,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 50),
+        ),
         .frontAnimId = ANIM_ZIGZAG_SLOW,
         .enemyMonElevation = 7,
         .backPic = gMonBackPic_Flygon,
         .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 3,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 2 : 3,
         .backAnimId = BACK_ANIM_TRIANGLE_DOWN,
         .palette = gMonPalette_Flygon,
         .shinyPalette = gMonShinyPalette_Flygon,
         .iconSprite = gMonIcon_Flygon,
         .iconPalIndex = 1,
+        SHADOW(0, 17, SHADOW_SIZE_M)
         FOOTPRINT(Flygon)
+        OVERWORLD(
+            gObjectEventPic_Flygon,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Flygon,
+            gShinyOverworldPalette_Flygon
+        )
         .levelUpLearnset = sFlygonLevelUpLearnset,
         .teachableLearnset = sFlygonTeachableLearnset,
     },
@@ -5674,19 +7433,41 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Cacnea,
-        .frontPicSize = MON_COORDS_SIZE(56, 40),
-        .frontPicYOffset = 13,
-        .frontAnimFrames = sAnims_Cacnea,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 32) : MON_COORDS_SIZE(56, 40),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 16 : 13,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_BOUNCE_ROTATE_TO_SIDES_SLOW,
         .backPic = gMonBackPic_Cacnea,
         .backPicSize = MON_COORDS_SIZE(64, 40),
-        .backPicYOffset = 12,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 15 : 12,
         .backAnimId = BACK_ANIM_V_SHAKE_H_SLIDE,
         .palette = gMonPalette_Cacnea,
         .shinyPalette = gMonShinyPalette_Cacnea,
         .iconSprite = gMonIcon_Cacnea,
         .iconPalIndex = 1,
+        SHADOW(0, 1, SHADOW_SIZE_S)
         FOOTPRINT(Cacnea)
+        OVERWORLD(
+            gObjectEventPic_Cacnea,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Cacnea,
+            gShinyOverworldPalette_Cacnea
+        )
         .levelUpLearnset = sCacneaLevelUpLearnset,
         .teachableLearnset = sCacneaTeachableLearnset,
         .eggMoveLearnset = sCacneaEggMoveLearnset,
@@ -5730,21 +7511,46 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Cacturne,
-        .frontPicFemale = gMonFrontPic_CacturneF,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicSizeFemale = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Cacturne,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SLIDE,
         .backPic = gMonBackPic_Cacturne,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 0,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 7 : 0,
         .backAnimId = BACK_ANIM_H_SHAKE,
         .palette = gMonPalette_Cacturne,
         .shinyPalette = gMonShinyPalette_Cacturne,
         .iconSprite = gMonIcon_Cacturne,
         .iconPalIndex = 1,
+#if P_GENDER_DIFFERENCES
+        .frontPicFemale = gMonFrontPic_CacturneF,
+        .frontPicSizeFemale = MON_COORDS_SIZE(64, 64),
+#endif //P_GENDER_DIFFERENCES
+        SHADOW(-1, 14, SHADOW_SIZE_M)
         FOOTPRINT(Cacturne)
+        OVERWORLD(
+            gObjectEventPic_Cacturne,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Cacturne,
+            gShinyOverworldPalette_Cacturne
+        )
+        OVERWORLD_FEMALE(
+            gObjectEventPic_CacturneF,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following
+        )
         .levelUpLearnset = sCacturneLevelUpLearnset,
         .teachableLearnset = sCacturneTeachableLearnset,
     },
@@ -5786,19 +7592,38 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Swablu,
-        .frontPicSize = MON_COORDS_SIZE(48, 40),
-        .frontPicYOffset = 14,
-        .frontAnimFrames = sAnims_Swablu,
-        .frontAnimId = ANIM_GROW_VIBRATE,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(48, 40),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 17 : 14,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
+        .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_V_SLIDE : ANIM_GROW_VIBRATE,
+        .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 12 : 0,
         .backPic = gMonBackPic_Swablu,
         .backPicSize = MON_COORDS_SIZE(64, 48),
-        .backPicYOffset = 11,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 9 : 11,
         .backAnimId = BACK_ANIM_CONVEX_DOUBLE_ARC,
         .palette = gMonPalette_Swablu,
         .shinyPalette = gMonShinyPalette_Swablu,
         .iconSprite = gMonIcon_Swablu,
         .iconPalIndex = 0,
+        SHADOW(-2, 0, SHADOW_SIZE_S)
         FOOTPRINT(Swablu)
+        OVERWORLD(
+            gObjectEventPic_Swablu,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Swablu,
+            gShinyOverworldPalette_Swablu
+        )
         .levelUpLearnset = sSwabluLevelUpLearnset,
         .teachableLearnset = sSwabluTeachableLearnset,
         .eggMoveLearnset = sSwabluEggMoveLearnset,
@@ -5841,18 +7666,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Altaria,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 1,
-        .frontAnimFrames = sAnims_Altaria,
-        .frontAnimId = ANIM_V_STRETCH,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 2 : 1,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 15),
+        ),
+        .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_H_STRETCH : ANIM_V_STRETCH,
+        .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 8 : 0,
         .backPic = gMonBackPic_Altaria,
-        .backPicSize = MON_COORDS_SIZE(64, 48),
-        .backPicYOffset = 10,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 6 : 10,
         .backAnimId = BACK_ANIM_CONVEX_DOUBLE_ARC,
         .palette = gMonPalette_Altaria,
         .shinyPalette = gMonShinyPalette_Altaria,
         .iconSprite = gMonIcon_Altaria,
         .iconPalIndex = 0,
+        SHADOW(-1, 14, SHADOW_SIZE_L)
         FOOTPRINT(Altaria)
+        OVERWORLD(
+            gObjectEventPic_Altaria,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Altaria,
+            gShinyOverworldPalette_Altaria
+        )
         .levelUpLearnset = sAltariaLevelUpLearnset,
         .teachableLearnset = sAltariaTeachableLearnset,
         .formSpeciesIdTable = sAltariaFormSpeciesIdTable,
@@ -5897,7 +7739,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_AltariaMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_AltariaMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .enemyMonElevation = 6,
         .backPic = gMonBackPic_AltariaMega,
@@ -5908,7 +7750,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_AltariaMega,
         .iconSprite = gMonIcon_AltariaMega,
         .iconPalIndex = 0,
+        SHADOW(-2, 17, SHADOW_SIZE_L)
         FOOTPRINT(Altaria)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_AltariaMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_AltariaMega,
+            gShinyOverworldPalette_AltariaMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sAltariaLevelUpLearnset,
         .teachableLearnset = sAltariaTeachableLearnset,
@@ -5956,19 +7810,37 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Zangoose,
-        .frontPicSize = MON_COORDS_SIZE(56, 56),
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(56, 56),
         .frontPicYOffset = 5,
-        .frontAnimFrames = sAnims_Zangoose,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 50),
+        ),
         .frontAnimId = ANIM_GROW_VIBRATE,
         .backPic = gMonBackPic_Zangoose,
-        .backPicSize = MON_COORDS_SIZE(64, 56),
-        .backPicYOffset = 6,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 64) : MON_COORDS_SIZE(64, 56),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 6,
         .backAnimId = BACK_ANIM_JOLT_RIGHT,
         .palette = gMonPalette_Zangoose,
         .shinyPalette = gMonShinyPalette_Zangoose,
         .iconSprite = gMonIcon_Zangoose,
         .iconPalIndex = 0,
+        SHADOW(-1, 8, SHADOW_SIZE_M)
         FOOTPRINT(Zangoose)
+        OVERWORLD(
+            gObjectEventPic_Zangoose,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Zangoose,
+            gShinyOverworldPalette_Zangoose
+        )
         .levelUpLearnset = sZangooseLevelUpLearnset,
         .teachableLearnset = sZangooseTeachableLearnset,
         .eggMoveLearnset = sZangooseEggMoveLearnset,
@@ -6014,19 +7886,37 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Seviper,
-        .frontPicSize = MON_COORDS_SIZE(64, 56),
-        .frontPicYOffset = 6,
-        .frontAnimFrames = sAnims_Seviper,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(64, 56),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 6,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 50),
+        ),
         .frontAnimId = ANIM_V_STRETCH,
         .backPic = gMonBackPic_Seviper,
         .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 1,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 3 : 1,
         .backAnimId = BACK_ANIM_V_STRETCH,
         .palette = gMonPalette_Seviper,
         .shinyPalette = gMonShinyPalette_Seviper,
         .iconSprite = gMonIcon_Seviper,
         .iconPalIndex = 2,
+        SHADOW(-3, 7, SHADOW_SIZE_L)
         FOOTPRINT(Seviper)
+        OVERWORLD(
+            gObjectEventPic_Seviper,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_BIKE_TIRE,
+            sAnimTable_Following,
+            gOverworldPalette_Seviper,
+            gShinyOverworldPalette_Seviper
+        )
         .levelUpLearnset = sSeviperLevelUpLearnset,
         .teachableLearnset = sSeviperTeachableLearnset,
         .eggMoveLearnset = sSeviperEggMoveLearnset,
@@ -6079,18 +7969,34 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Lunatone,
         .frontPicSize = MON_COORDS_SIZE(48, 48),
         .frontPicYOffset = 9,
-        .frontAnimFrames = sAnims_Lunatone,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_SWING_CONVEX_FAST,
         .enemyMonElevation = 13,
         .backPic = gMonBackPic_Lunatone,
-        .backPicSize = MON_COORDS_SIZE(48, 48),
-        .backPicYOffset = 8,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(48, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 5 : 8,
         .backAnimId = BACK_ANIM_DIP_RIGHT_SIDE,
         .palette = gMonPalette_Lunatone,
         .shinyPalette = gMonShinyPalette_Lunatone,
         .iconSprite = gMonIcon_Lunatone,
         .iconPalIndex = 1,
+        SHADOW(0, 15, SHADOW_SIZE_S)
         FOOTPRINT(Lunatone)
+        OVERWORLD(
+            gObjectEventPic_Lunatone,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Lunatone,
+            gShinyOverworldPalette_Lunatone
+        )
         .levelUpLearnset = sLunatoneLevelUpLearnset,
         .teachableLearnset = sLunatoneTeachableLearnset,
     },
@@ -6141,19 +8047,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Solrock,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Solrock,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 0,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_ROTATE_TO_SIDES_TWICE,
         .enemyMonElevation = 4,
         .backPic = gMonBackPic_Solrock,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 2,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 5 : 2,
         .backAnimId = BACK_ANIM_DIP_RIGHT_SIDE,
         .palette = gMonPalette_Solrock,
         .shinyPalette = gMonShinyPalette_Solrock,
         .iconSprite = gMonIcon_Solrock,
         .iconPalIndex = 0,
+        SHADOW(0, 15, SHADOW_SIZE_M)
         FOOTPRINT(Solrock)
+        OVERWORLD(
+            gObjectEventPic_Solrock,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Solrock,
+            gShinyOverworldPalette_Solrock
+        )
         .levelUpLearnset = sSolrockLevelUpLearnset,
         .teachableLearnset = sSolrockTeachableLearnset,
     },
@@ -6177,7 +8099,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_2),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_OBLIVIOUS, ABILITY_ANTICIPATION, ABILITY_HYDRATION },
+    #else
+        .abilities = { ABILITY_OBLIVIOUS, ABILITY_NONE, ABILITY_HYDRATION },
+    #endif
         .bodyColor = BODY_COLOR_GRAY,
         .speciesName = _("Barboach"),
         .cryId = CRY_BARBOACH,
@@ -6195,20 +8121,44 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Barboach,
-        .frontPicSize = MON_COORDS_SIZE(48, 40),
-        .frontPicYOffset = 15,
-        .frontAnimFrames = sAnims_Barboach,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(32, 48) : MON_COORDS_SIZE(48, 40),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 11 : 15,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 50),
+        ),
         .frontAnimId = ANIM_BOUNCE_ROTATE_TO_SIDES_SLOW,
-        .enemyMonElevation = 7,
+        .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 0 : 7,
         .backPic = gMonBackPic_Barboach,
-        .backPicSize = MON_COORDS_SIZE(56, 48),
-        .backPicYOffset = 9,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(56, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 10 : 9,
         .backAnimId = BACK_ANIM_V_STRETCH,
         .palette = gMonPalette_Barboach,
         .shinyPalette = gMonShinyPalette_Barboach,
         .iconSprite = gMonIcon_Barboach,
         .iconPalIndex = 0,
+        SHADOW(0, 3, SHADOW_SIZE_M)
         FOOTPRINT(Barboach)
+        OVERWORLD(
+            gObjectEventPic_Barboach,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_SPOT,
+            sAnimTable_Following,
+            gOverworldPalette_Barboach,
+            gShinyOverworldPalette_Barboach
+        )
         .levelUpLearnset = sBarboachLevelUpLearnset,
         .teachableLearnset = sBarboachTeachableLearnset,
         .eggMoveLearnset = sBarboachEggMoveLearnset,
@@ -6232,7 +8182,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_2),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_OBLIVIOUS, ABILITY_ANTICIPATION, ABILITY_HYDRATION },
+    #else
+        .abilities = { ABILITY_OBLIVIOUS, ABILITY_NONE, ABILITY_HYDRATION },
+    #endif
         .bodyColor = BODY_COLOR_BLUE,
         .speciesName = _("Whiscash"),
         .cryId = CRY_WHISCASH,
@@ -6250,19 +8204,43 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Whiscash,
-        .frontPicSize = MON_COORDS_SIZE(64, 48),
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(64, 48),
         .frontPicYOffset = 9,
-        .frontAnimFrames = sAnims_Whiscash,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_BOUNCE_ROTATE_TO_SIDES_SLOW,
         .backPic = gMonBackPic_Whiscash,
         .backPicSize = MON_COORDS_SIZE(64, 48),
-        .backPicYOffset = 11,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 10 : 11,
         .backAnimId = BACK_ANIM_V_SHAKE,
         .palette = gMonPalette_Whiscash,
         .shinyPalette = gMonShinyPalette_Whiscash,
         .iconSprite = gMonIcon_Whiscash,
         .iconPalIndex = 0,
+        SHADOW(0, 3, SHADOW_SIZE_L)
         FOOTPRINT(Whiscash)
+        OVERWORLD(
+            gObjectEventPic_Whiscash,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Whiscash,
+            gShinyOverworldPalette_Whiscash
+        )
         .levelUpLearnset = sWhiscashLevelUpLearnset,
         .teachableLearnset = sWhiscashTeachableLearnset,
     },
@@ -6304,19 +8282,37 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Corphish,
-        .frontPicSize = MON_COORDS_SIZE(56, 48),
-        .frontPicYOffset = 8,
-        .frontAnimFrames = sAnims_Corphish,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(56, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 12 : 8,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 50),
+        ),
         .frontAnimId = ANIM_V_SHAKE,
         .backPic = gMonBackPic_Corphish,
-        .backPicSize = MON_COORDS_SIZE(64, 48),
-        .backPicYOffset = 8,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(64, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 7 : 8,
         .backAnimId = BACK_ANIM_TRIANGLE_DOWN,
         .palette = gMonPalette_Corphish,
         .shinyPalette = gMonShinyPalette_Corphish,
         .iconSprite = gMonIcon_Corphish,
         .iconPalIndex = 0,
+        SHADOW(1, 5, SHADOW_SIZE_M)
         FOOTPRINT(Corphish)
+        OVERWORLD(
+            gObjectEventPic_Corphish,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Corphish,
+            gShinyOverworldPalette_Corphish
+        )
         .levelUpLearnset = sCorphishLevelUpLearnset,
         .teachableLearnset = sCorphishTeachableLearnset,
         .eggMoveLearnset = sCorphishEggMoveLearnset,
@@ -6359,18 +8355,34 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Crawdaunt,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 4,
-        .frontAnimFrames = sAnims_Crawdaunt,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 4,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_GROW_VIBRATE,
         .backPic = gMonBackPic_Crawdaunt,
         .backPicSize = MON_COORDS_SIZE(64, 56),
-        .backPicYOffset = 7,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 5 : 7,
         .backAnimId = BACK_ANIM_JOLT_RIGHT,
         .palette = gMonPalette_Crawdaunt,
         .shinyPalette = gMonShinyPalette_Crawdaunt,
         .iconSprite = gMonIcon_Crawdaunt,
         .iconPalIndex = 0,
+        SHADOW(6, 9, SHADOW_SIZE_M)
         FOOTPRINT(Crawdaunt)
+        OVERWORLD(
+            gObjectEventPic_Crawdaunt,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Crawdaunt,
+            gShinyOverworldPalette_Crawdaunt
+        )
         .levelUpLearnset = sCrawdauntLevelUpLearnset,
         .teachableLearnset = sCrawdauntTeachableLearnset,
     },
@@ -6414,10 +8426,18 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Baltoy,
         .frontPicSize = MON_COORDS_SIZE(40, 40),
-        .frontPicYOffset = 14,
-        .frontAnimFrames = sAnims_Baltoy,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 16 : 14,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 50),
+        ),
         .frontAnimId = ANIM_H_SLIDE_WOBBLE,
-        .enemyMonElevation = 8,
+        .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 4 : 8,
         .backPic = gMonBackPic_Baltoy,
         .backPicSize = MON_COORDS_SIZE(64, 48),
         .backPicYOffset = 8,
@@ -6425,8 +8445,18 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .palette = gMonPalette_Baltoy,
         .shinyPalette = gMonShinyPalette_Baltoy,
         .iconSprite = gMonIcon_Baltoy,
-        .iconPalIndex = 2,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 1 : 2,
+        SHADOW(-2, 5, SHADOW_SIZE_S)
         FOOTPRINT(Baltoy)
+        OVERWORLD(
+            gObjectEventPic_Baltoy,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_SPOT,
+            sAnimTable_Following,
+            gOverworldPalette_Baltoy,
+            gShinyOverworldPalette_Baltoy
+        )
         .levelUpLearnset = sBaltoyLevelUpLearnset,
         .teachableLearnset = sBaltoyTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 36, SPECIES_CLAYDOL}),
@@ -6469,8 +8499,16 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 1,
         .frontPic = gMonFrontPic_Claydol,
         .frontPicSize = MON_COORDS_SIZE(56, 64),
-        .frontPicYOffset = 3,
-        .frontAnimFrames = sAnims_Claydol,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 6 : 3,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SLIDE_WOBBLE_SMALL,
         .enemyMonElevation = 10,
         .backPic = gMonBackPic_Claydol,
@@ -6481,7 +8519,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_Claydol,
         .iconSprite = gMonIcon_Claydol,
         .iconPalIndex = 0,
+        SHADOW(0, 18, SHADOW_SIZE_M)
         FOOTPRINT(Claydol)
+        OVERWORLD(
+            gObjectEventPic_Claydol,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Claydol,
+            gShinyOverworldPalette_Claydol
+        )
         .levelUpLearnset = sClaydolLevelUpLearnset,
         .teachableLearnset = sClaydolTeachableLearnset,
     },
@@ -6532,17 +8580,33 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Lileep,
         .frontPicSize = MON_COORDS_SIZE(48, 56),
         .frontPicYOffset = 7,
-        .frontAnimFrames = sAnims_Lileep,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_STRETCH,
         .backPic = gMonBackPic_Lileep,
-        .backPicSize = MON_COORDS_SIZE(48, 48),
-        .backPicYOffset = 8,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(48, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 9 : 8,
         .backAnimId = BACK_ANIM_H_STRETCH,
         .palette = gMonPalette_Lileep,
         .shinyPalette = gMonShinyPalette_Lileep,
         .iconSprite = gMonIcon_Lileep,
         .iconPalIndex = 2,
+        SHADOW(0, 5, SHADOW_SIZE_S)
         FOOTPRINT(Lileep)
+        OVERWORLD(
+            gObjectEventPic_Lileep,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_SLITHER,
+            sAnimTable_Following,
+            gOverworldPalette_Lileep,
+            gShinyOverworldPalette_Lileep
+        )
         .levelUpLearnset = sLileepLevelUpLearnset,
         .teachableLearnset = sLileepTeachableLearnset,
         .eggMoveLearnset = sLileepEggMoveLearnset,
@@ -6593,17 +8657,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Cradily,
         .frontPicSize = MON_COORDS_SIZE(56, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Cradily,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SHAKE_TWICE,
         .backPic = gMonBackPic_Cradily,
-        .backPicSize = MON_COORDS_SIZE(56, 64),
-        .backPicYOffset = 0,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(56, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 0,
         .backAnimId = BACK_ANIM_V_STRETCH,
         .palette = gMonPalette_Cradily,
         .shinyPalette = gMonShinyPalette_Cradily,
         .iconSprite = gMonIcon_Cradily,
-        .iconPalIndex = 1,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 0 : 1,
+        SHADOW(2, 11, SHADOW_SIZE_M)
         FOOTPRINT(Cradily)
+        OVERWORLD(
+            gObjectEventPic_Cradily,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_SLITHER,
+            sAnimTable_Following,
+            gOverworldPalette_Cradily,
+            gShinyOverworldPalette_Cradily
+        )
         .levelUpLearnset = sCradilyLevelUpLearnset,
         .teachableLearnset = sCradilyTeachableLearnset,
     },
@@ -6651,19 +8733,37 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Anorith,
-        .frontPicSize = MON_COORDS_SIZE(48, 56),
-        .frontPicYOffset = 7,
-        .frontAnimFrames = sAnims_Anorith,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(48, 56),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 7,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_TWIST,
         .backPic = gMonBackPic_Anorith,
-        .backPicSize = MON_COORDS_SIZE(56, 32),
-        .backPicYOffset = 19,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 24) : MON_COORDS_SIZE(56, 32),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 23 : 19,
         .backAnimId = BACK_ANIM_TRIANGLE_DOWN,
         .palette = gMonPalette_Anorith,
         .shinyPalette = gMonShinyPalette_Anorith,
         .iconSprite = gMonIcon_Anorith,
         .iconPalIndex = 0,
+        SHADOW(0, 4, SHADOW_SIZE_S)
         FOOTPRINT(Anorith)
+        OVERWORLD(
+            gObjectEventPic_Anorith,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_BUG,
+            sAnimTable_Following,
+            gOverworldPalette_Anorith,
+            gShinyOverworldPalette_Anorith
+        )
         .levelUpLearnset = sAnorithLevelUpLearnset,
         .teachableLearnset = sAnorithTeachableLearnset,
         .eggMoveLearnset = sAnorithEggMoveLearnset,
@@ -6712,18 +8812,34 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Armaldo,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 2,
-        .frontAnimFrames = sAnims_Armaldo,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 0 : 2,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SHAKE,
         .backPic = gMonBackPic_Armaldo,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 0,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 5 : 0,
         .backAnimId = BACK_ANIM_V_SHAKE,
         .palette = gMonPalette_Armaldo,
         .shinyPalette = gMonShinyPalette_Armaldo,
         .iconSprite = gMonIcon_Armaldo,
-        .iconPalIndex = 2,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 0 : 2,
+        SHADOW(-2, 11, SHADOW_SIZE_L)
         FOOTPRINT(Armaldo)
+        OVERWORLD(
+            gObjectEventPic_Armaldo,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Armaldo,
+            gShinyOverworldPalette_Armaldo
+        )
         .levelUpLearnset = sArmaldoLevelUpLearnset,
         .teachableLearnset = sArmaldoTeachableLearnset,
     },
@@ -6747,7 +8863,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_ERRATIC,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_1, EGG_GROUP_DRAGON),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_SWIFT_SWIM, ABILITY_OBLIVIOUS, ABILITY_ADAPTABILITY },
+    #else
+        .abilities = { ABILITY_SWIFT_SWIM, ABILITY_NONE, ABILITY_ADAPTABILITY },
+    #endif
         .bodyColor = BODY_COLOR_BROWN,
         .speciesName = _("Feebas"),
         .cryId = CRY_FEEBAS,
@@ -6765,19 +8885,37 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Feebas,
-        .frontPicSize = MON_COORDS_SIZE(40, 48),
-        .frontPicYOffset = 10,
-        .frontAnimFrames = sAnims_Feebas,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(32, 48) : MON_COORDS_SIZE(40, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 13 : 10,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_BOUNCE_ROTATE_TO_SIDES_SLOW,
         .backPic = gMonBackPic_Feebas,
         .backPicSize = MON_COORDS_SIZE(48, 56),
-        .backPicYOffset = 6,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 7 : 6,
         .backAnimId = BACK_ANIM_H_SPRING,
         .palette = gMonPalette_Feebas,
         .shinyPalette = gMonShinyPalette_Feebas,
         .iconSprite = gMonIcon_Feebas,
         .iconPalIndex = 2,
+        SHADOW(-2, 2, SHADOW_SIZE_S)
         FOOTPRINT(Feebas)
+        OVERWORLD(
+            gObjectEventPic_Feebas,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_SPOT,
+            sAnimTable_Following,
+            gOverworldPalette_Feebas,
+            gShinyOverworldPalette_Feebas
+        )
         .levelUpLearnset = sFeebasLevelUpLearnset,
         .teachableLearnset = sFeebasTeachableLearnset,
         .eggMoveLearnset = sFeebasEggMoveLearnset,
@@ -6803,7 +8941,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_ERRATIC,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_1, EGG_GROUP_DRAGON),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_MARVEL_SCALE, ABILITY_COMPETITIVE, ABILITY_CUTE_CHARM },
+    #else
+        .abilities = { ABILITY_MARVEL_SCALE, ABILITY_NONE, ABILITY_CUTE_CHARM },
+    #endif
         .bodyColor = BODY_COLOR_PINK,
         .speciesName = _("Milotic"),
         .cryId = CRY_MILOTIC,
@@ -6821,24 +8963,51 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 360,
         .trainerOffset = 7,
         .frontPic = gMonFrontPic_Milotic,
-        .frontPicFemale = gMonFrontPic_MiloticF,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicSizeFemale = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 2,
-        .frontAnimFrames = sAnims_Milotic,
-        .frontAnimId = ANIM_CIRCULAR_STRETCH_TWICE,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 0 : 2,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
+        .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_GLOW_BLUE : ANIM_CIRCULAR_STRETCH_TWICE,
         .frontAnimDelay = 45,
         .backPic = gMonBackPic_Milotic,
-        .backPicFemale = gMonBackPic_MiloticF,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicSizeFemale = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 0,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 64) : MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 2 : 0,
         .backAnimId = BACK_ANIM_SHAKE_GLOW_BLUE,
         .palette = gMonPalette_Milotic,
         .shinyPalette = gMonShinyPalette_Milotic,
         .iconSprite = gMonIcon_Milotic,
-        .iconPalIndex = 2,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 0 : 2,
+#if P_GENDER_DIFFERENCES
+        .frontPicFemale = gMonFrontPic_MiloticF,
+        .frontPicSizeFemale = MON_COORDS_SIZE(64, 64),
+        .backPicFemale = gMonBackPic_MiloticF,
+        .backPicSizeFemale = MON_COORDS_SIZE(64, 64),
+#endif //P_GENDER_DIFFERENCES
+        SHADOW(0, 12, SHADOW_SIZE_M)
         FOOTPRINT(Milotic)
+        OVERWORLD(
+            gObjectEventPic_Milotic,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_SLITHER,
+            sAnimTable_Following,
+            gOverworldPalette_Milotic,
+            gShinyOverworldPalette_Milotic
+        )
+        OVERWORLD_FEMALE(
+            gObjectEventPic_MiloticF,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_SLITHER,
+            sAnimTable_Following
+        )
         .levelUpLearnset = sMiloticLevelUpLearnset,
         .teachableLearnset = sMiloticTeachableLearnset,
     },
@@ -6884,7 +9053,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_CastformNormal,
         .frontPicSize = MON_COORDS_SIZE(24, 32),
         .frontPicYOffset = 17,
-        .frontAnimFrames = sAnims_CastformNormal,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 12),
+            ANIMCMD_FRAME(1, 24),
+            ANIMCMD_FRAME(0, 24),
+            ANIMCMD_FRAME(1, 24),
+            ANIMCMD_FRAME(0, 24),
+        ),
         .frontAnimId = ANIM_H_SLIDE_WOBBLE,
         .enemyMonElevation = 16,
         .backPic = gMonBackPic_CastformNormal,
@@ -6895,7 +9070,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_CastformNormal,
         .iconSprite = gMonIcon_CastformNormal,
         .iconPalIndex = 0,
+        SHADOW(1, 10, SHADOW_SIZE_S)
         FOOTPRINT(Castform)
+        OVERWORLD(
+            gObjectEventPic_CastformNormal,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_CastformNormal,
+            gShinyOverworldPalette_CastformNormal
+        )
         .levelUpLearnset = sCastformLevelUpLearnset,
         .teachableLearnset = sCastformTeachableLearnset,
         .eggMoveLearnset = sCastformEggMoveLearnset,
@@ -6942,7 +9127,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_CastformSunny,
         .frontPicSize = MON_COORDS_SIZE(40, 48),
         .frontPicYOffset = 9,
-        .frontAnimFrames = sAnims_CastformSunny,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 12),
+            ANIMCMD_FRAME(1, 12),
+            ANIMCMD_FRAME(0, 12),
+            ANIMCMD_FRAME(1, 12),
+            ANIMCMD_FRAME(0, 12),
+            ANIMCMD_FRAME(1, 12),
+            ANIMCMD_FRAME(0, 12),
+        ),
         .frontAnimId = ANIM_GROW_VIBRATE,
         .enemyMonElevation = 5,
         .backPic = gMonBackPic_CastformSunny,
@@ -6953,7 +9146,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_CastformSunny,
         .iconSprite = gMonIcon_CastformSunny,
         .iconPalIndex = 0,
+        SHADOW(0, 7, SHADOW_SIZE_S)
         FOOTPRINT(Castform)
+        OVERWORLD(
+            gObjectEventPic_CastformSunny,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_CastformSunny,
+            gShinyOverworldPalette_CastformSunny
+        )
         .levelUpLearnset = sCastformLevelUpLearnset,
         .teachableLearnset = sCastformTeachableLearnset,
         .eggMoveLearnset = sCastformEggMoveLearnset,
@@ -7000,7 +9203,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_CastformRainy,
         .frontPicSize = MON_COORDS_SIZE(32, 48),
         .frontPicYOffset = 9,
-        .frontAnimFrames = sAnims_CastformRainy,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 22),
+            ANIMCMD_FRAME(0, 11),
+        ),
         .frontAnimId = ANIM_SWING_CONVEX_FAST,
         .enemyMonElevation = 5,
         .backPic = gMonBackPic_CastformRainy,
@@ -7011,7 +9220,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_CastformRainy,
         .iconSprite = gMonIcon_CastformRainy,
         .iconPalIndex = 0,
+        SHADOW(0, 7, SHADOW_SIZE_S)
         FOOTPRINT(Castform)
+        OVERWORLD(
+            gObjectEventPic_CastformRainy,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_CastformRainy,
+            gShinyOverworldPalette_CastformRainy
+        )
         .levelUpLearnset = sCastformLevelUpLearnset,
         .teachableLearnset = sCastformTeachableLearnset,
         .eggMoveLearnset = sCastformEggMoveLearnset,
@@ -7058,7 +9277,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_CastformSnowy,
         .frontPicSize = MON_COORDS_SIZE(40, 56),
         .frontPicYOffset = 8,
-        .frontAnimFrames = sAnims_CastformSnowy,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 12),
+            ANIMCMD_FRAME(0, 12),
+            ANIMCMD_FRAME(1, 29),
+            ANIMCMD_FRAME(0, 12),
+        ),
         .frontAnimId = ANIM_V_STRETCH,
         .enemyMonElevation = 5,
         .backPic = gMonBackPic_CastformSnowy,
@@ -7069,7 +9294,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_CastformSnowy,
         .iconSprite = gMonIcon_CastformSnowy,
         .iconPalIndex = 0,
+        SHADOW(0, 8, SHADOW_SIZE_S)
         FOOTPRINT(Castform)
+        OVERWORLD(
+            gObjectEventPic_CastformSnowy,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_CastformSnowy,
+            gShinyOverworldPalette_CastformSnowy
+        )
         .levelUpLearnset = sCastformLevelUpLearnset,
         .teachableLearnset = sCastformTeachableLearnset,
         .eggMoveLearnset = sCastformEggMoveLearnset,
@@ -7096,7 +9331,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+    #if P_UPDATED_ABILITIES >= GEN_6
         .abilities = { ABILITY_COLOR_CHANGE, ABILITY_NONE, ABILITY_PROTEAN },
+    #else
+        .abilities = { ABILITY_COLOR_CHANGE, ABILITY_NONE, ABILITY_NONE },
+    #endif
         .bodyColor = BODY_COLOR_GREEN,
         .speciesName = _("Kecleon"),
         .cryId = CRY_KECLEON,
@@ -7115,19 +9354,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Kecleon,
         .frontPicSize = MON_COORDS_SIZE(48, 56),
-        .frontPicYOffset = 5,
-        .frontAnimFrames = sAnims_Kecleon,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 7 : 5,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 18),
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 8),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_FLICKER_INCREASING,
         .frontAnimDelay = 30,
         .backPic = gMonBackPic_Kecleon,
-        .backPicSize = MON_COORDS_SIZE(56, 56),
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(56, 56),
         .backPicYOffset = 6,
         .backAnimId = BACK_ANIM_H_VIBRATE,
         .palette = gMonPalette_Kecleon,
         .shinyPalette = gMonShinyPalette_Kecleon,
         .iconSprite = gMonIcon_Kecleon,
         .iconPalIndex = 1,
+        SHADOW(2, 8, SHADOW_SIZE_S)
         FOOTPRINT(Kecleon)
+        OVERWORLD(
+            gObjectEventPic_Kecleon,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Kecleon,
+            gShinyOverworldPalette_Kecleon
+        )
         .levelUpLearnset = sKecleonLevelUpLearnset,
         .teachableLearnset = sKecleonTeachableLearnset,
         .eggMoveLearnset = sKecleonEggMoveLearnset,
@@ -7153,7 +9408,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = 35,
         .growthRate = GROWTH_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_AMORPHOUS),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_INSOMNIA, ABILITY_FRISK, ABILITY_CURSED_BODY },
+    #else
+        .abilities = { ABILITY_INSOMNIA, ABILITY_NONE, ABILITY_CURSED_BODY },
+    #endif
         .bodyColor = BODY_COLOR_BLACK,
         .speciesName = _("Shuppet"),
         .cryId = CRY_SHUPPET,
@@ -7171,20 +9430,38 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Shuppet,
-        .frontPicSize = MON_COORDS_SIZE(40, 40),
-        .frontPicYOffset = 13,
-        .frontAnimFrames = sAnims_Shuppet,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 48) : MON_COORDS_SIZE(40, 40),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 14 : 13,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SLIDE_WOBBLE,
-        .enemyMonElevation = 14,
+        .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 12 : 14,
         .backPic = gMonBackPic_Shuppet,
         .backPicSize = MON_COORDS_SIZE(56, 56),
-        .backPicYOffset = 5,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 6 : 5,
         .backAnimId = BACK_ANIM_H_VIBRATE,
         .palette = gMonPalette_Shuppet,
         .shinyPalette = gMonShinyPalette_Shuppet,
         .iconSprite = gMonIcon_Shuppet,
         .iconPalIndex = 0,
+        SHADOW(2, 12, SHADOW_SIZE_S)
         FOOTPRINT(Shuppet)
+        OVERWORLD(
+            gObjectEventPic_Shuppet,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Shuppet,
+            gShinyOverworldPalette_Shuppet
+        )
         .levelUpLearnset = sShuppetLevelUpLearnset,
         .teachableLearnset = sShuppetTeachableLearnset,
         .eggMoveLearnset = sShuppetEggMoveLearnset,
@@ -7209,7 +9486,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = 35,
         .growthRate = GROWTH_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_AMORPHOUS),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_INSOMNIA, ABILITY_FRISK, ABILITY_CURSED_BODY },
+    #else
+        .abilities = { ABILITY_INSOMNIA, ABILITY_NONE, ABILITY_CURSED_BODY },
+    #endif
         .bodyColor = BODY_COLOR_BLACK,
         .speciesName = _("Banette"),
         .cryId = CRY_BANETTE,
@@ -7227,19 +9508,38 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Banette,
-        .frontPicSize = MON_COORDS_SIZE(56, 56),
-        .frontPicYOffset = 7,
-        .frontAnimFrames = sAnims_Banette,
-        .frontAnimId = ANIM_CIRCULAR_STRETCH_TWICE,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 40) : MON_COORDS_SIZE(56, 56),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 12 : 7,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
+        .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_SWING_CONVEX : ANIM_CIRCULAR_STRETCH_TWICE,
+        .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 8 : 0,
         .backPic = gMonBackPic_Banette,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 5,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 40) : MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 12 : 5,
         .backAnimId = BACK_ANIM_H_VIBRATE,
         .palette = gMonPalette_Banette,
         .shinyPalette = gMonShinyPalette_Banette,
         .iconSprite = gMonIcon_Banette,
         .iconPalIndex = 0,
+        SHADOW(0, 7, SHADOW_SIZE_S)
         FOOTPRINT(Banette)
+        OVERWORLD(
+            gObjectEventPic_Banette,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Banette,
+            gShinyOverworldPalette_Banette
+        )
         .levelUpLearnset = sBanetteLevelUpLearnset,
         .teachableLearnset = sBanetteTeachableLearnset,
         .formSpeciesIdTable = sBanetteFormSpeciesIdTable,
@@ -7284,7 +9584,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_BanetteMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_BanetteMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .enemyMonElevation = 5,
         .backPic = gMonBackPic_BanetteMega,
@@ -7295,7 +9595,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_BanetteMega,
         .iconSprite = gMonIcon_BanetteMega,
         .iconPalIndex = 0,
+        SHADOW(0, 16, SHADOW_SIZE_M)
         FOOTPRINT(Banette)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_BanetteMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_BanetteMega,
+            gShinyOverworldPalette_BanetteMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sBanetteLevelUpLearnset,
         .teachableLearnset = sBanetteTeachableLearnset,
@@ -7325,7 +9637,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = 35,
         .growthRate = GROWTH_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_AMORPHOUS),
+    #if P_UPDATED_ABILITIES >= GEN_6
         .abilities = { ABILITY_LEVITATE, ABILITY_NONE, ABILITY_FRISK },
+    #else
+        .abilities = { ABILITY_LEVITATE, ABILITY_NONE, ABILITY_NONE },
+    #endif
         .bodyColor = BODY_COLOR_BLACK,
         .speciesName = _("Duskull"),
         .cryId = CRY_DUSKULL,
@@ -7343,20 +9659,36 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Duskull,
-        .frontPicSize = MON_COORDS_SIZE(40, 48),
-        .frontPicYOffset = 12,
-        .frontAnimFrames = sAnims_Duskull,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(40, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 10 : 12,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_ZIGZAG_FAST,
-        .enemyMonElevation = 13,
+        .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 9 : 13,
         .backPic = gMonBackPic_Duskull,
-        .backPicSize = MON_COORDS_SIZE(56, 56),
-        .backPicYOffset = 8,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(56, 56),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 11 : 8,
         .backAnimId = BACK_ANIM_H_VIBRATE,
         .palette = gMonPalette_Duskull,
         .shinyPalette = gMonShinyPalette_Duskull,
         .iconSprite = gMonIcon_Duskull,
         .iconPalIndex = 0,
+        SHADOW(0, 12, SHADOW_SIZE_S)
         FOOTPRINT(Duskull)
+        OVERWORLD(
+            gObjectEventPic_Duskull,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Duskull,
+            gShinyOverworldPalette_Duskull
+        )
         .levelUpLearnset = sDuskullLevelUpLearnset,
         .teachableLearnset = sDuskullTeachableLearnset,
         .eggMoveLearnset = sDuskullEggMoveLearnset,
@@ -7382,7 +9714,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = 35,
         .growthRate = GROWTH_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_AMORPHOUS),
+    #if P_UPDATED_ABILITIES >= GEN_6
         .abilities = { ABILITY_PRESSURE, ABILITY_NONE, ABILITY_FRISK },
+    #else
+        .abilities = { ABILITY_PRESSURE, ABILITY_NONE, ABILITY_NONE },
+    #endif
         .bodyColor = BODY_COLOR_BLACK,
         .speciesName = _("Dusclops"),
         .cryId = CRY_DUSCLOPS,
@@ -7400,20 +9736,36 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 299,
         .trainerOffset = 1,
         .frontPic = gMonFrontPic_Dusclops,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 3,
-        .frontAnimFrames = sAnims_Dusclops,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 5 : 3,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_H_VIBRATE,
         .frontAnimDelay = 30,
         .backPic = gMonBackPic_Dusclops,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 2,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 2,
         .backAnimId = BACK_ANIM_H_VIBRATE,
         .palette = gMonPalette_Dusclops,
         .shinyPalette = gMonShinyPalette_Dusclops,
         .iconSprite = gMonIcon_Dusclops,
         .iconPalIndex = 0,
+        SHADOW(-2, 8, SHADOW_SIZE_M)
         FOOTPRINT(Dusclops)
+        OVERWORLD(
+            gObjectEventPic_Dusclops,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Dusclops,
+            gShinyOverworldPalette_Dusclops
+        )
         .levelUpLearnset = sDusclopsLevelUpLearnset,
         .teachableLearnset = sDusclopsTeachableLearnset,
         .evolutions = EVOLUTION({EVO_TRADE_ITEM, ITEM_REAPER_CLOTH, SPECIES_DUSKNOIR},
@@ -7446,7 +9798,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = 35,
         .growthRate = GROWTH_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_AMORPHOUS),
+    #if P_UPDATED_ABILITIES >= GEN_6
         .abilities = { ABILITY_PRESSURE, ABILITY_NONE, ABILITY_FRISK },
+    #else
+        .abilities = { ABILITY_PRESSURE, ABILITY_NONE, ABILITY_NONE },
+    #endif
         .bodyColor = BODY_COLOR_BLACK,
         .speciesName = _("Dusknoir"),
         .cryId = CRY_DUSKNOIR,
@@ -7466,7 +9822,18 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Dusknoir,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 4,
-        .frontAnimFrames = sAnims_Dusknoir,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(1, 9),
+            ANIMCMD_FRAME(0, 9),
+            ANIMCMD_FRAME(1, 9),
+            ANIMCMD_FRAME(0, 9),
+            ANIMCMD_FRAME(1, 9),
+            ANIMCMD_FRAME(0, 9),
+            ANIMCMD_FRAME(1, 9),
+            ANIMCMD_FRAME(0, 9),
+            ANIMCMD_FRAME(1, 9),
+            ANIMCMD_FRAME(0, 9),
+        ),
         .frontAnimId = ANIM_H_SLIDE,
         .enemyMonElevation = 6,
         .backPic = gMonBackPic_Dusknoir,
@@ -7477,7 +9844,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_Dusknoir,
         .iconSprite = gMonIcon_Dusknoir,
         .iconPalIndex = 2,
+        SHADOW(6, 13, SHADOW_SIZE_M)
         FOOTPRINT(Dusknoir)
+        OVERWORLD(
+            gObjectEventPic_Dusknoir,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Dusknoir,
+            gShinyOverworldPalette_Dusknoir
+        )
         .levelUpLearnset = sDusknoirLevelUpLearnset,
         .teachableLearnset = sDusknoirTeachableLearnset,
     },
@@ -7502,7 +9879,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_MONSTER, EGG_GROUP_GRASS),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_CHLOROPHYLL, ABILITY_SOLAR_POWER, ABILITY_HARVEST },
+    #else
+        .abilities = { ABILITY_CHLOROPHYLL, ABILITY_NONE, ABILITY_HARVEST },
+    #endif
         .bodyColor = BODY_COLOR_GREEN,
         .speciesName = _("Tropius"),
         .cryId = CRY_TROPIUS,
@@ -7522,17 +9903,33 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Tropius,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Tropius,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SHAKE,
         .backPic = gMonBackPic_Tropius,
-        .backPicSize = MON_COORDS_SIZE(56, 64),
-        .backPicYOffset = 0,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(56, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 7 : 0,
         .backAnimId = BACK_ANIM_V_SHAKE_LOW,
         .palette = gMonPalette_Tropius,
         .shinyPalette = gMonShinyPalette_Tropius,
         .iconSprite = gMonIcon_Tropius,
         .iconPalIndex = 1,
+        SHADOW(-6, 13, SHADOW_SIZE_L)
         FOOTPRINT(Tropius)
+        OVERWORLD(
+            gObjectEventPic_Tropius,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Tropius,
+            gShinyOverworldPalette_Tropius
+        )
         .levelUpLearnset = sTropiusLevelUpLearnset,
         .teachableLearnset = sTropiusTeachableLearnset,
         .eggMoveLearnset = sTropiusEggMoveLearnset,
@@ -7579,7 +9976,16 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Chingling,
         .frontPicSize = MON_COORDS_SIZE(40, 40),
         .frontPicYOffset = 15,
-        .frontAnimFrames = sAnims_Chingling,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(1, 12),
+            ANIMCMD_FRAME(0, 12),
+            ANIMCMD_FRAME(1, 12),
+            ANIMCMD_FRAME(0, 30),
+            ANIMCMD_FRAME(1, 12),
+            ANIMCMD_FRAME(0, 12),
+            ANIMCMD_FRAME(1, 12),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_H_SLIDE_WOBBLE,
         .backPic = gMonBackPic_Chingling,
         .backPicSize = MON_COORDS_SIZE(48, 48),
@@ -7589,7 +9995,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_Chingling,
         .iconSprite = gMonIcon_Chingling,
         .iconPalIndex = 1,
+        SHADOW(-1, -2, SHADOW_SIZE_S)
         FOOTPRINT(Chingling)
+        OVERWORLD(
+            gObjectEventPic_Chingling,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Chingling,
+            gShinyOverworldPalette_Chingling
+        )
         .levelUpLearnset = sChinglingLevelUpLearnset,
         .teachableLearnset = sChinglingTeachableLearnset,
         .eggMoveLearnset = sChinglingEggMoveLearnset,
@@ -7642,18 +10058,38 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Chimecho,
         .frontPicSize = MON_COORDS_SIZE(48, 48),
         .frontPicYOffset = 11,
-        .frontAnimFrames = sAnims_Chimecho,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_H_SLIDE_WOBBLE,
-        .enemyMonElevation = 16,
+        .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 12 : 16,
         .backPic = gMonBackPic_Chimecho,
         .backPicSize = MON_COORDS_SIZE(64, 56),
-        .backPicYOffset = 9,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 7 : 9,
         .backAnimId = BACK_ANIM_CONVEX_DOUBLE_ARC,
         .palette = gMonPalette_Chimecho,
         .shinyPalette = gMonShinyPalette_Chimecho,
         .iconSprite = gMonIcon_Chimecho,
         .iconPalIndex = 0,
+        SHADOW(-3, 16, SHADOW_SIZE_S)
         FOOTPRINT(Chimecho)
+        OVERWORLD(
+            gObjectEventPic_Chimecho,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Chimecho,
+            gShinyOverworldPalette_Chimecho
+        )
         .levelUpLearnset = sChimechoLevelUpLearnset,
         .teachableLearnset = sChimechoTeachableLearnset,
         .eggMoveLearnset = sChimechoEggMoveLearnset,
@@ -7678,7 +10114,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = 35,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FIELD),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_PRESSURE, ABILITY_SUPER_LUCK, ABILITY_JUSTIFIED },
+    #else
+        .abilities = { ABILITY_PRESSURE, ABILITY_NONE, ABILITY_JUSTIFIED },
+    #endif
         .bodyColor = BODY_COLOR_WHITE,
         .noFlip = TRUE,
         .speciesName = _("Absol"),
@@ -7697,20 +10137,36 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Absol,
-        .frontPicSize = MON_COORDS_SIZE(56, 64),
-        .frontPicYOffset = 2,
-        .frontAnimFrames = sAnims_Absol,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 64) : MON_COORDS_SIZE(56, 64),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 0 : 2,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_CIRCULAR_VIBRATE,
         .frontAnimDelay = 45,
         .backPic = gMonBackPic_Absol,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 64) : MON_COORDS_SIZE(64, 64),
         .backPicYOffset = 3,
         .backAnimId = BACK_ANIM_SHRINK_GROW_VIBRATE,
         .palette = gMonPalette_Absol,
         .shinyPalette = gMonShinyPalette_Absol,
         .iconSprite = gMonIcon_Absol,
         .iconPalIndex = 0,
+        SHADOW(4, 6, SHADOW_SIZE_L)
         FOOTPRINT(Absol)
+        OVERWORLD(
+            gObjectEventPic_Absol,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Absol,
+            gShinyOverworldPalette_Absol
+        )
         .levelUpLearnset = sAbsolLevelUpLearnset,
         .teachableLearnset = sAbsolTeachableLearnset,
         .eggMoveLearnset = sAbsolEggMoveLearnset,
@@ -7757,7 +10213,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_AbsolMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 2,
-        .frontAnimFrames = sAnims_AbsolMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_AbsolMega,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -7767,7 +10223,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_AbsolMega,
         .iconSprite = gMonIcon_AbsolMega,
         .iconPalIndex = 0,
+        SHADOW(1, 7, SHADOW_SIZE_L)
         FOOTPRINT(Absol)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_AbsolMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_AbsolMega,
+            gShinyOverworldPalette_AbsolMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sAbsolLevelUpLearnset,
         .teachableLearnset = sAbsolTeachableLearnset,
@@ -7797,7 +10265,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FAIRY, EGG_GROUP_MINERAL),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_INNER_FOCUS, ABILITY_ICE_BODY, ABILITY_MOODY },
+    #else
+        .abilities = { ABILITY_INNER_FOCUS, ABILITY_NONE, ABILITY_MOODY },
+    #endif
         .bodyColor = BODY_COLOR_GRAY,
         .speciesName = _("Snorunt"),
         .cryId = CRY_SNORUNT,
@@ -7815,9 +10287,15 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Snorunt,
-        .frontPicSize = MON_COORDS_SIZE(32, 40),
-        .frontPicYOffset = 12,
-        .frontAnimFrames = sAnims_Snorunt,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 48) : MON_COORDS_SIZE(32, 40),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 11 : 12,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SQUISH_AND_BOUNCE_SLOW,
         .frontAnimDelay = 20,
         .backPic = gMonBackPic_Snorunt,
@@ -7828,7 +10306,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_Snorunt,
         .iconSprite = gMonIcon_Snorunt,
         .iconPalIndex = 2,
+        SHADOW(1, 2, SHADOW_SIZE_S)
         FOOTPRINT(Snorunt)
+        OVERWORLD(
+            gObjectEventPic_Snorunt,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Snorunt,
+            gShinyOverworldPalette_Snorunt
+        )
         .levelUpLearnset = sSnoruntLevelUpLearnset,
         .teachableLearnset = sSnoruntTeachableLearnset,
         .eggMoveLearnset = sSnoruntEggMoveLearnset,
@@ -7853,7 +10341,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_FAST,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_FAIRY, EGG_GROUP_MINERAL),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_INNER_FOCUS, ABILITY_ICE_BODY, ABILITY_MOODY },
+    #else
+        .abilities = { ABILITY_INNER_FOCUS, ABILITY_NONE, ABILITY_MOODY },
+    #endif
         .bodyColor = BODY_COLOR_GRAY,
         .speciesName = _("Glalie"),
         .cryId = CRY_GLALIE,
@@ -7871,20 +10363,36 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 344,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Glalie,
-        .frontPicSize = MON_COORDS_SIZE(56, 56),
-        .frontPicYOffset = 8,
-        .frontAnimFrames = sAnims_Glalie,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 48) : MON_COORDS_SIZE(56, 56),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 10 : 8,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_ZIGZAG_FAST,
         .enemyMonElevation = 12,
         .backPic = gMonBackPic_Glalie,
-        .backPicSize = MON_COORDS_SIZE(64, 48),
-        .backPicYOffset = 10,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 40) : MON_COORDS_SIZE(64, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 12 : 10,
         .backAnimId = BACK_ANIM_TRIANGLE_DOWN,
         .palette = gMonPalette_Glalie,
         .shinyPalette = gMonShinyPalette_Glalie,
         .iconSprite = gMonIcon_Glalie,
         .iconPalIndex = 0,
+        SHADOW(1, 15, SHADOW_SIZE_M)
         FOOTPRINT(Glalie)
+        OVERWORLD(
+            gObjectEventPic_Glalie,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Glalie,
+            gShinyOverworldPalette_Glalie
+        )
         .levelUpLearnset = sGlalieLevelUpLearnset,
         .teachableLearnset = sGlalieTeachableLearnset,
         .formSpeciesIdTable = sGlalieFormSpeciesIdTable,
@@ -7928,7 +10436,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_GlalieMega,
         .frontPicSize = MON_COORDS_SIZE(56, 64),
         .frontPicYOffset = 1,
-        .frontAnimFrames = sAnims_GlalieMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .enemyMonElevation = 8,
         .backPic = gMonBackPic_GlalieMega,
@@ -7939,7 +10447,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_GlalieMega,
         .iconSprite = gMonIcon_GlalieMega,
         .iconPalIndex = 0,
+        SHADOW(3, 18, SHADOW_SIZE_L)
         FOOTPRINT(Glalie)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_GlalieMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_GlalieMega,
+            gShinyOverworldPalette_GlalieMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sGlalieLevelUpLearnset,
         .teachableLearnset = sGlalieTeachableLearnset,
@@ -7986,7 +10506,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Froslass,
         .frontPicSize = MON_COORDS_SIZE(48, 48),
         .frontPicYOffset = 8,
-        .frontAnimFrames = sAnims_Froslass,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(1, 50),
+            ANIMCMD_FRAME(1, 30),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_V_SLIDE_WOBBLE,
         .enemyMonElevation = 7,
         .backPic = gMonBackPic_Froslass,
@@ -7997,7 +10521,17 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_Froslass,
         .iconSprite = gMonIcon_Froslass,
         .iconPalIndex = 0,
+        SHADOW(-1, 10, SHADOW_SIZE_S)
         FOOTPRINT(Froslass)
+        OVERWORLD(
+            gObjectEventPic_Froslass,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Froslass,
+            gShinyOverworldPalette_Froslass
+        )
         .levelUpLearnset = sFroslassLevelUpLearnset,
         .teachableLearnset = sFroslassTeachableLearnset,
     },
@@ -8022,7 +10556,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_1, EGG_GROUP_FIELD),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_THICK_FAT, ABILITY_ICE_BODY, ABILITY_OBLIVIOUS },
+    #else
+        .abilities = { ABILITY_THICK_FAT, ABILITY_NONE, ABILITY_OBLIVIOUS },
+    #endif
         .bodyColor = BODY_COLOR_BLUE,
         .speciesName = _("Spheal"),
         .cryId = CRY_SPHEAL,
@@ -8040,20 +10578,39 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Spheal,
-        .frontPicSize = MON_COORDS_SIZE(40, 48),
-        .frontPicYOffset = 11,
-        .frontAnimFrames = sAnims_Spheal,
-        .frontAnimId = ANIM_SPIN_LONG,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 40) : MON_COORDS_SIZE(40, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 16 : 11,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 43),
+            ANIMCMD_FRAME(1, 60),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 15),
+        ),
+        .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_SPIN : ANIM_SPIN_LONG,
         .frontAnimDelay = 15,
         .backPic = gMonBackPic_Spheal,
-        .backPicSize = MON_COORDS_SIZE(48, 40),
-        .backPicYOffset = 15,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 32) : MON_COORDS_SIZE(48, 40),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 18 : 15,
         .backAnimId = BACK_ANIM_DIP_RIGHT_SIDE,
         .palette = gMonPalette_Spheal,
         .shinyPalette = gMonShinyPalette_Spheal,
         .iconSprite = gMonIcon_Spheal,
         .iconPalIndex = 2,
+        SHADOW(0, -1, SHADOW_SIZE_M)
         FOOTPRINT(Spheal)
+        OVERWORLD(
+            gObjectEventPic_Spheal,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Spheal,
+            gShinyOverworldPalette_Spheal
+        )
         .levelUpLearnset = sSphealLevelUpLearnset,
         .teachableLearnset = sSphealTeachableLearnset,
         .eggMoveLearnset = sSphealEggMoveLearnset,
@@ -8077,7 +10634,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_1, EGG_GROUP_FIELD),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_THICK_FAT, ABILITY_ICE_BODY, ABILITY_OBLIVIOUS },
+    #else
+        .abilities = { ABILITY_THICK_FAT, ABILITY_NONE, ABILITY_OBLIVIOUS },
+    #endif
         .bodyColor = BODY_COLOR_BLUE,
         .speciesName = _("Sealeo"),
         .cryId = CRY_SEALEO,
@@ -8095,19 +10656,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Sealeo,
-        .frontPicSize = MON_COORDS_SIZE(56, 48),
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(56, 48),
         .frontPicYOffset = 10,
-        .frontAnimFrames = sAnims_Sealeo,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_STRETCH,
         .backPic = gMonBackPic_Sealeo,
         .backPicSize = MON_COORDS_SIZE(64, 48),
-        .backPicYOffset = 11,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 10 : 11,
         .backAnimId = BACK_ANIM_V_SHAKE,
         .palette = gMonPalette_Sealeo,
         .shinyPalette = gMonShinyPalette_Sealeo,
         .iconSprite = gMonIcon_Sealeo,
         .iconPalIndex = 2,
+        SHADOW(-1, 2, SHADOW_SIZE_L)
         FOOTPRINT(Sealeo)
+        OVERWORLD(
+            gObjectEventPic_Sealeo,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Sealeo,
+            gShinyOverworldPalette_Sealeo
+        )
         .levelUpLearnset = sSealeoLevelUpLearnset,
         .teachableLearnset = sSealeoTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 44, SPECIES_WALREIN}),
@@ -8136,7 +10713,11 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .friendship = STANDARD_FRIENDSHIP,
         .growthRate = GROWTH_MEDIUM_SLOW,
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_WATER_1, EGG_GROUP_FIELD),
+    #if P_UPDATED_ABILITIES >= GEN_4
         .abilities = { ABILITY_THICK_FAT, ABILITY_ICE_BODY, ABILITY_OBLIVIOUS },
+    #else
+        .abilities = { ABILITY_THICK_FAT, ABILITY_NONE, ABILITY_OBLIVIOUS },
+    #endif
         .bodyColor = BODY_COLOR_BLUE,
         .speciesName = _("Walrein"),
         .cryId = CRY_WALREIN,
@@ -8156,17 +10737,33 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Walrein,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 1,
-        .frontAnimFrames = sAnims_Walrein,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 2),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 30),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_H_SHAKE,
         .backPic = gMonBackPic_Walrein,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
-        .backPicYOffset = 0,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 6 : 0,
         .backAnimId = BACK_ANIM_V_SHAKE,
         .palette = gMonPalette_Walrein,
         .shinyPalette = gMonShinyPalette_Walrein,
         .iconSprite = gMonIcon_Walrein,
         .iconPalIndex = 0,
+        SHADOW(0, 8, SHADOW_SIZE_L)
         FOOTPRINT(Walrein)
+        OVERWORLD(
+            gObjectEventPic_Walrein,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Walrein,
+            gShinyOverworldPalette_Walrein
+        )
         .levelUpLearnset = sWalreinLevelUpLearnset,
         .teachableLearnset = sWalreinTeachableLearnset,
     },
@@ -8210,19 +10807,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Clamperl,
-        .frontPicSize = MON_COORDS_SIZE(40, 48),
-        .frontPicYOffset = 11,
-        .frontAnimFrames = sAnims_Clamperl,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 40) : MON_COORDS_SIZE(40, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 14 : 11,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_TWIST,
         .backPic = gMonBackPic_Clamperl,
-        .backPicSize = MON_COORDS_SIZE(56, 40),
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 40) : MON_COORDS_SIZE(56, 40),
         .backPicYOffset = 13,
         .backAnimId = BACK_ANIM_DIP_RIGHT_SIDE,
         .palette = gMonPalette_Clamperl,
         .shinyPalette = gMonShinyPalette_Clamperl,
         .iconSprite = gMonIcon_Clamperl,
         .iconPalIndex = 0,
+        SHADOW(-1, 1, SHADOW_SIZE_M)
         FOOTPRINT(Clamperl)
+        OVERWORLD(
+            gObjectEventPic_Clamperl,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_SPOT,
+            sAnimTable_Following,
+            gOverworldPalette_Clamperl,
+            gShinyOverworldPalette_Clamperl
+        )
         .levelUpLearnset = sClamperlLevelUpLearnset,
         .teachableLearnset = sClamperlTeachableLearnset,
         .eggMoveLearnset = sClamperlEggMoveLearnset,
@@ -8269,19 +10882,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Huntail,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 64) : MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 3,
-        .frontAnimFrames = sAnims_Huntail,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_GROW_VIBRATE,
         .backPic = gMonBackPic_Huntail,
-        .backPicSize = MON_COORDS_SIZE(64, 56),
-        .backPicYOffset = 4,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 64) : MON_COORDS_SIZE(64, 56),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 2 : 4,
         .backAnimId = BACK_ANIM_CONVEX_DOUBLE_ARC,
         .palette = gMonPalette_Huntail,
         .shinyPalette = gMonShinyPalette_Huntail,
         .iconSprite = gMonIcon_Huntail,
         .iconPalIndex = 0,
+        SHADOW(2, 7, SHADOW_SIZE_L)
         FOOTPRINT(Huntail)
+        OVERWORLD(
+            gObjectEventPic_Huntail,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_SLITHER,
+            sAnimTable_Following,
+            gOverworldPalette_Huntail,
+            gShinyOverworldPalette_Huntail
+        )
         .levelUpLearnset = sHuntailLevelUpLearnset,
         .teachableLearnset = sHuntailTeachableLearnset,
     },
@@ -8322,19 +10951,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Gorebyss,
-        .frontPicSize = MON_COORDS_SIZE(64, 56),
-        .frontPicYOffset = 6,
-        .frontAnimFrames = sAnims_Gorebyss,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 56),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 11 : 6,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SLIDE_WOBBLE,
         .backPic = gMonBackPic_Gorebyss,
-        .backPicSize = MON_COORDS_SIZE(64, 56),
-        .backPicYOffset = 6,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(64, 56),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 5 : 6,
         .backAnimId = BACK_ANIM_CONVEX_DOUBLE_ARC,
         .palette = gMonPalette_Gorebyss,
         .shinyPalette = gMonShinyPalette_Gorebyss,
         .iconSprite = gMonIcon_Gorebyss,
         .iconPalIndex = 0,
+        SHADOW(-1, 5, SHADOW_SIZE_M)
         FOOTPRINT(Gorebyss)
+        OVERWORLD(
+            gObjectEventPic_Gorebyss,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_SLITHER,
+            sAnimTable_Following,
+            gOverworldPalette_Gorebyss,
+            gShinyOverworldPalette_Gorebyss
+        )
         .levelUpLearnset = sGorebyssLevelUpLearnset,
         .teachableLearnset = sGorebyssTeachableLearnset,
     },
@@ -8378,23 +11023,48 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Relicanth,
-        .frontPicFemale = gMonFrontPic_RelicanthF,
         .frontPicSize = MON_COORDS_SIZE(56, 56),
-        .frontPicSizeFemale = MON_COORDS_SIZE(56, 56),
-        .frontPicYOffset = 8,
-        .frontAnimFrames = sAnims_Relicanth,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 11 : 8,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_TIP_MOVE_FORWARD,
         .backPic = gMonBackPic_Relicanth,
-        .backPicFemale = gMonBackPic_RelicanthF,
-        .backPicSize = MON_COORDS_SIZE(64, 40),
-        .backPicSizeFemale = MON_COORDS_SIZE(64, 40),
-        .backPicYOffset = 12,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 40),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 10 : 12,
         .backAnimId = BACK_ANIM_H_SLIDE,
         .palette = gMonPalette_Relicanth,
         .shinyPalette = gMonShinyPalette_Relicanth,
         .iconSprite = gMonIcon_Relicanth,
-        .iconPalIndex = 2,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 1 : 2,
+#if P_GENDER_DIFFERENCES
+        .frontPicFemale = gMonFrontPic_RelicanthF,
+        .frontPicSizeFemale = MON_COORDS_SIZE(56, 56),
+        .backPicFemale = gMonBackPic_RelicanthF,
+        .backPicSizeFemale = MON_COORDS_SIZE(64, 40),
+#endif //P_GENDER_DIFFERENCES
+        SHADOW(0, 3, SHADOW_SIZE_M)
         FOOTPRINT(Relicanth)
+        OVERWORLD(
+            gObjectEventPic_Relicanth,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Relicanth,
+            gShinyOverworldPalette_Relicanth
+        )
+        OVERWORLD_FEMALE(
+            gObjectEventPic_RelicanthF,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following
+        )
         .levelUpLearnset = sRelicanthLevelUpLearnset,
         .teachableLearnset = sRelicanthTeachableLearnset,
         .eggMoveLearnset = sRelicanthEggMoveLearnset,
@@ -8438,19 +11108,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Luvdisc,
-        .frontPicSize = MON_COORDS_SIZE(32, 40),
-        .frontPicYOffset = 14,
-        .frontAnimFrames = sAnims_Luvdisc,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(32, 48) : MON_COORDS_SIZE(32, 40),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 24 : 14,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_H_SLIDE_WOBBLE,
         .backPic = gMonBackPic_Luvdisc,
-        .backPicSize = MON_COORDS_SIZE(40, 48),
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(32, 48) : MON_COORDS_SIZE(40, 48),
         .backPicYOffset = 10,
         .backAnimId = BACK_ANIM_H_SPRING_REPEATED,
         .palette = gMonPalette_Luvdisc,
         .shinyPalette = gMonShinyPalette_Luvdisc,
         .iconSprite = gMonIcon_Luvdisc,
         .iconPalIndex = 0,
+        SHADOW(-1, 0, SHADOW_SIZE_S)
         FOOTPRINT(Luvdisc)
+        OVERWORLD(
+            gObjectEventPic_Luvdisc,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_SPOT,
+            sAnimTable_Following,
+            gOverworldPalette_Luvdisc,
+            gShinyOverworldPalette_Luvdisc
+        )
         .levelUpLearnset = sLuvdiscLevelUpLearnset,
         .teachableLearnset = sLuvdiscTeachableLearnset,
         .eggMoveLearnset = sLuvdiscEggMoveLearnset,
@@ -8494,19 +11180,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Bagon,
-        .frontPicSize = MON_COORDS_SIZE(32, 48),
-        .frontPicYOffset = 9,
-        .frontAnimFrames = sAnims_Bagon,
-        .frontAnimId = ANIM_H_SHAKE,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 48) : MON_COORDS_SIZE(32, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 11 : 9,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
+        .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_V_SHAKE_TWICE : ANIM_H_SHAKE,
         .backPic = gMonBackPic_Bagon,
-        .backPicSize = MON_COORDS_SIZE(48, 56),
-        .backPicYOffset = 6,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(48, 56),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 8 : 6,
         .backAnimId = BACK_ANIM_V_SHAKE,
         .palette = gMonPalette_Bagon,
         .shinyPalette = gMonShinyPalette_Bagon,
         .iconSprite = gMonIcon_Bagon,
-        .iconPalIndex = 0,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 2 : 0,
+        SHADOW(4, 3, SHADOW_SIZE_S)
         FOOTPRINT(Bagon)
+        OVERWORLD(
+            gObjectEventPic_Bagon,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Bagon,
+            gShinyOverworldPalette_Bagon
+        )
         .levelUpLearnset = sBagonLevelUpLearnset,
         .teachableLearnset = sBagonTeachableLearnset,
         .eggMoveLearnset = sBagonEggMoveLearnset,
@@ -8551,17 +11253,33 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Shelgon,
         .frontPicSize = MON_COORDS_SIZE(48, 48),
         .frontPicYOffset = 9,
-        .frontAnimFrames = sAnims_Shelgon,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_V_SLIDE,
         .backPic = gMonBackPic_Shelgon,
         .backPicSize = MON_COORDS_SIZE(64, 40),
-        .backPicYOffset = 12,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 13 : 12,
         .backAnimId = BACK_ANIM_V_SHAKE,
         .palette = gMonPalette_Shelgon,
         .shinyPalette = gMonShinyPalette_Shelgon,
         .iconSprite = gMonIcon_Shelgon,
         .iconPalIndex = 2,
+        SHADOW(1, 2, SHADOW_SIZE_M)
         FOOTPRINT(Shelgon)
+        OVERWORLD(
+            gObjectEventPic_Shelgon,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Shelgon,
+            gShinyOverworldPalette_Shelgon
+        )
         .levelUpLearnset = sShelgonLevelUpLearnset,
         .teachableLearnset = sShelgonTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 50, SPECIES_SALAMENCE}),
@@ -8609,20 +11327,36 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Salamence,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 3,
-        .frontAnimFrames = sAnims_Salamence,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 3,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 30),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+        ),
         .frontAnimId = ANIM_H_SHAKE,
         .frontAnimDelay = 70,
         .backPic = gMonBackPic_Salamence,
-        .backPicSize = MON_COORDS_SIZE(56, 64),
-        .backPicYOffset = 4,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 56) : MON_COORDS_SIZE(56, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 6 : 4,
         .backAnimId = BACK_ANIM_H_SHAKE,
         .palette = gMonPalette_Salamence,
         .shinyPalette = gMonShinyPalette_Salamence,
         .iconSprite = gMonIcon_Salamence,
         .iconPalIndex = 0,
+        SHADOW(3, 8, SHADOW_SIZE_L)
         FOOTPRINT(Salamence)
+        OVERWORLD(
+            gObjectEventPic_Salamence,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Salamence,
+            gShinyOverworldPalette_Salamence
+        )
         .levelUpLearnset = sSalamenceLevelUpLearnset,
         .teachableLearnset = sSalamenceTeachableLearnset,
         .formSpeciesIdTable = sSalamenceFormSpeciesIdTable,
@@ -8668,7 +11402,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_SalamenceMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 3,
-        .frontAnimFrames = sAnims_SalamenceMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_SalamenceMega,
         .backPicSize = MON_COORDS_SIZE(56, 64),
@@ -8678,7 +11412,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_SalamenceMega,
         .iconSprite = gMonIcon_SalamenceMega,
         .iconPalIndex = 0,
+        SHADOW(3, 8, SHADOW_SIZE_L)
         FOOTPRINT(Salamence)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_SalamenceMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_SalamenceMega,
+            gShinyOverworldPalette_SalamenceMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sSalamenceLevelUpLearnset,
         .teachableLearnset = sSalamenceTeachableLearnset,
@@ -8725,20 +11471,36 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Beldum,
-        .frontPicSize = MON_COORDS_SIZE(48, 40),
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(40, 40) : MON_COORDS_SIZE(48, 40),
         .frontPicYOffset = 15,
-        .frontAnimFrames = sAnims_Beldum,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_H_SHAKE,
         .enemyMonElevation = 8,
         .backPic = gMonBackPic_Beldum,
-        .backPicSize = MON_COORDS_SIZE(64, 48),
-        .backPicYOffset = 9,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(64, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 10 : 9,
         .backAnimId = BACK_ANIM_TRIANGLE_DOWN,
         .palette = gMonPalette_Beldum,
         .shinyPalette = gMonShinyPalette_Beldum,
         .iconSprite = gMonIcon_Beldum,
         .iconPalIndex = 0,
+        SHADOW(0, 4, SHADOW_SIZE_S)
         FOOTPRINT(Beldum)
+        OVERWORLD(
+            gObjectEventPic_Beldum,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Beldum,
+            gShinyOverworldPalette_Beldum
+        )
         .tmIlliterate = TRUE,
         .levelUpLearnset = sBeldumLevelUpLearnset,
         .teachableLearnset = sBeldumTeachableLearnset,
@@ -8781,19 +11543,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Metang,
-        .frontPicSize = MON_COORDS_SIZE(64, 48),
-        .frontPicYOffset = 9,
-        .frontAnimFrames = sAnims_Metang,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 7 : 9,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 8),
+            ANIMCMD_FRAME(0, 8),
+            ANIMCMD_FRAME(1, 8),
+            ANIMCMD_FRAME(0, 8),
+        ),
         .frontAnimId = ANIM_V_SLIDE,
         .backPic = gMonBackPic_Metang,
-        .backPicSize = MON_COORDS_SIZE(64, 40),
-        .backPicYOffset = 13,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 32) : MON_COORDS_SIZE(64, 40),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 16 : 13,
         .backAnimId = BACK_ANIM_JOLT_RIGHT,
         .palette = gMonPalette_Metang,
         .shinyPalette = gMonShinyPalette_Metang,
         .iconSprite = gMonIcon_Metang,
         .iconPalIndex = 0,
+        SHADOW(1, 2, SHADOW_SIZE_M)
         FOOTPRINT(Metang)
+        OVERWORLD(
+            gObjectEventPic_Metang,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Metang,
+            gShinyOverworldPalette_Metang
+        )
         .levelUpLearnset = sMetangLevelUpLearnset,
         .teachableLearnset = sMetangTeachableLearnset,
         .evolutions = EVOLUTION({EVO_LEVEL, 45, SPECIES_METAGROSS}),
@@ -8841,19 +11619,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 447,
         .trainerOffset = 9,
         .frontPic = gMonFrontPic_Metagross,
-        .frontPicSize = MON_COORDS_SIZE(64, 48),
-        .frontPicYOffset = 9,
-        .frontAnimFrames = sAnims_Metagross,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 6 : 9,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 16),
+            ANIMCMD_FRAME(1, 16),
+            ANIMCMD_FRAME(0, 16),
+            ANIMCMD_FRAME(1, 16),
+            ANIMCMD_FRAME(0, 16),
+        ),
         .frontAnimId = ANIM_V_SHAKE,
         .backPic = gMonBackPic_Metagross,
-        .backPicSize = MON_COORDS_SIZE(64, 56),
-        .backPicYOffset = 6,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 24) : MON_COORDS_SIZE(64, 56),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 20 : 6,
         .backAnimId = BACK_ANIM_V_SHAKE,
         .palette = gMonPalette_Metagross,
         .shinyPalette = gMonShinyPalette_Metagross,
         .iconSprite = gMonIcon_Metagross,
         .iconPalIndex = 0,
+        SHADOW(2, -2, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Metagross)
+        OVERWORLD(
+            gObjectEventPic_Metagross,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Metagross,
+            gShinyOverworldPalette_Metagross
+        )
         .levelUpLearnset = sMetagrossLevelUpLearnset,
         .teachableLearnset = sMetagrossTeachableLearnset,
         .formSpeciesIdTable = sMetagrossFormSpeciesIdTable,
@@ -8898,7 +11692,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_MetagrossMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_MetagrossMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .enemyMonElevation = 4,
         .backPic = gMonBackPic_MetagrossMega,
@@ -8909,7 +11703,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_MetagrossMega,
         .iconSprite = gMonIcon_MetagrossMega,
         .iconPalIndex = 0,
+        SHADOW(1, 15, SHADOW_SIZE_L)
         FOOTPRINT(Metagross)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_MetagrossMega,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_MetagrossMega,
+            gShinyOverworldPalette_MetagrossMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isMegaEvolution = TRUE,
         .levelUpLearnset = sMetagrossLevelUpLearnset,
         .teachableLearnset = sMetagrossTeachableLearnset,
@@ -8962,20 +11768,37 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 309,
         .trainerOffset = 1,
         .frontPic = gMonFrontPic_Regirock,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 3,
-        .frontAnimFrames = sAnims_Regirock,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 64) : MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 3,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_CIRCULAR_STRETCH_TWICE,
         .backPic = gMonBackPic_Regirock,
-        .backPicSize = MON_COORDS_SIZE(64, 56),
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 48) : MON_COORDS_SIZE(64, 56),
         .backPicYOffset = 10,
         .backAnimId = BACK_ANIM_V_SHAKE,
         .palette = gMonPalette_Regirock,
         .shinyPalette = gMonShinyPalette_Regirock,
         .iconSprite = gMonIcon_Regirock,
         .iconPalIndex = 2,
+        SHADOW(1, 10, SHADOW_SIZE_L)
         FOOTPRINT(Regirock)
+        OVERWORLD(
+            gObjectEventPic_Regirock,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Regirock,
+            gShinyOverworldPalette_Regirock
+        )
         .isLegendary = TRUE,
+        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sRegirockLevelUpLearnset,
         .teachableLearnset = sRegirockTeachableLearnset,
     },
@@ -9025,18 +11848,35 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Regice,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 2,
-        .frontAnimFrames = sAnims_Regice,
-        .frontAnimId = ANIM_H_SLIDE_SLOW,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 20),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 18),
+            ANIMCMD_FRAME(0, 10),
+        ),
+        .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_FOUR_PETAL : ANIM_H_SLIDE_SLOW,
         .backPic = gMonBackPic_Regice,
-        .backPicSize = MON_COORDS_SIZE(64, 48),
-        .backPicYOffset = 11,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 40) : MON_COORDS_SIZE(64, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 14 : 11,
         .backAnimId = BACK_ANIM_V_SHAKE,
         .palette = gMonPalette_Regice,
         .shinyPalette = gMonShinyPalette_Regice,
         .iconSprite = gMonIcon_Regice,
-        .iconPalIndex = 0,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 2 : 0,
+        SHADOW(1, 10, SHADOW_SIZE_L)
         FOOTPRINT(Regice)
+        OVERWORLD(
+            gObjectEventPic_Regice,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Regice,
+            gShinyOverworldPalette_Regice
+        )
         .isLegendary = TRUE,
+        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sRegiceLevelUpLearnset,
         .teachableLearnset = sRegiceTeachableLearnset,
     },
@@ -9085,20 +11925,37 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 359,
         .trainerOffset = 6,
         .frontPic = gMonFrontPic_Registeel,
-        .frontPicSize = MON_COORDS_SIZE(64, 56),
-        .frontPicYOffset = 5,
-        .frontAnimFrames = sAnims_Registeel,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 64) : MON_COORDS_SIZE(64, 56),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 3 : 5,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_GROW_VIBRATE,
         .backPic = gMonBackPic_Registeel,
-        .backPicSize = MON_COORDS_SIZE(64, 48),
-        .backPicYOffset = 11,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 40) : MON_COORDS_SIZE(64, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 14 : 11,
         .backAnimId = BACK_ANIM_V_SHAKE,
         .palette = gMonPalette_Registeel,
         .shinyPalette = gMonShinyPalette_Registeel,
         .iconSprite = gMonIcon_Registeel,
         .iconPalIndex = 2,
+        SHADOW(4, 8, SHADOW_SIZE_L)
         FOOTPRINT(Registeel)
+        OVERWORLD(
+            gObjectEventPic_Registeel,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Registeel,
+            gShinyOverworldPalette_Registeel
+        )
         .isLegendary = TRUE,
+        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sRegisteelLevelUpLearnset,
         .teachableLearnset = sRegisteelTeachableLearnset,
     },
@@ -9146,21 +12003,38 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Latias,
-        .frontPicSize = MON_COORDS_SIZE(64, 48),
-        .frontPicYOffset = 8,
-        .frontAnimFrames = sAnims_Latias,
-        .frontAnimId = ANIM_ZIGZAG_SLOW,
-        .enemyMonElevation = 12,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 64) : MON_COORDS_SIZE(64, 48),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 8,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
+        .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_SWING_CONCAVE_FAST_SHORT : ANIM_ZIGZAG_SLOW,
+        .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 6 : 12,
         .backPic = gMonBackPic_Latias,
-        .backPicSize = MON_COORDS_SIZE(56, 64),
-        .backPicYOffset = 0,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 64) : MON_COORDS_SIZE(56, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 2 : 0,
         .backAnimId = BACK_ANIM_H_VIBRATE,
         .palette = gMonPalette_Latias,
         .shinyPalette = gMonShinyPalette_Latias,
         .iconSprite = gMonIcon_Latias,
         .iconPalIndex = 0,
+        SHADOW(3, 15, SHADOW_SIZE_M)
         FOOTPRINT(Latias)
+        OVERWORLD(
+            gObjectEventPic_Latias,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Latias,
+            gShinyOverworldPalette_Latias
+        )
         .isLegendary = TRUE,
+        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sLatiasLevelUpLearnset,
         .teachableLearnset = sLatiasTeachableLearnset,
         .formSpeciesIdTable = sLatiasFormSpeciesIdTable,
@@ -9205,7 +12079,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_LatiasMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_LatiasMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .enemyMonElevation = 8,
         .backPic = gMonBackPic_LatiasMega,
@@ -9216,9 +12090,22 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_LatiasMega,
         .iconSprite = gMonIcon_LatiasMega,
         .iconPalIndex = 2,
+        SHADOW(-1, 19, SHADOW_SIZE_L)
         FOOTPRINT(Latias)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_LatiasMega,
+            SIZE_64x64,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_LatiasMega,
+            gShinyOverworldPalette_LatiasMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isLegendary = TRUE,
         .isMegaEvolution = TRUE,
+        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sLatiasLevelUpLearnset,
         .teachableLearnset = sLatiasTeachableLearnset,
         .formSpeciesIdTable = sLatiasFormSpeciesIdTable,
@@ -9270,20 +12157,37 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 3,
         .frontPic = gMonFrontPic_Latios,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Latios,
-        .frontAnimId = ANIM_CIRCLE_C_CLOCKWISE_SLOW,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 2 : 0,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
+        .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_V_SHAKE : ANIM_CIRCLE_C_CLOCKWISE_SLOW,
         .enemyMonElevation = 6,
         .backPic = gMonBackPic_Latios,
-        .backPicSize = MON_COORDS_SIZE(56, 64),
-        .backPicYOffset = 0,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 64) : MON_COORDS_SIZE(56, 64),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 3 : 0,
         .backAnimId = BACK_ANIM_H_VIBRATE,
         .palette = gMonPalette_Latios,
         .shinyPalette = gMonShinyPalette_Latios,
         .iconSprite = gMonIcon_Latios,
-        .iconPalIndex = 0,
+        .iconPalIndex = P_GBA_STYLE_SPECIES_ICONS ? 2 : 0,
+        SHADOW(1, 17, SHADOW_SIZE_M)
         FOOTPRINT(Latios)
+        OVERWORLD(
+            gObjectEventPic_Latios,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Latios,
+            gShinyOverworldPalette_Latios
+        )
         .isLegendary = TRUE,
+        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sLatiosLevelUpLearnset,
         .teachableLearnset = sLatiosTeachableLearnset,
         .formSpeciesIdTable = sLatiosFormSpeciesIdTable,
@@ -9328,7 +12232,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_LatiosMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_LatiosMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .enemyMonElevation = 8,
         .backPic = gMonBackPic_LatiosMega,
@@ -9339,9 +12243,22 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_LatiosMega,
         .iconSprite = gMonIcon_LatiosMega,
         .iconPalIndex = 2,
+        SHADOW(-1, 19, SHADOW_SIZE_L)
         FOOTPRINT(Latios)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_LatiosMega,
+            SIZE_64x64,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_LatiosMega,
+            gShinyOverworldPalette_LatiosMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isLegendary = TRUE,
         .isMegaEvolution = TRUE,
+        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sLatiosLevelUpLearnset,
         .teachableLearnset = sLatiosTeachableLearnset,
         .formSpeciesIdTable = sLatiosFormSpeciesIdTable,
@@ -9392,22 +12309,39 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 614,
         .trainerOffset = 13,
         .frontPic = gMonFrontPic_Kyogre,
-        .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Kyogre,
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 64),
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 4 : 0,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_SWING_CONCAVE_FAST_SHORT,
         .frontAnimDelay = 60,
         .backPic = gMonBackPic_Kyogre,
         .backPicSize = MON_COORDS_SIZE(64, 32),
-        .backPicYOffset = 18,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 19 : 18,
         .backAnimId = BACK_ANIM_SHAKE_GLOW_BLUE,
         .palette = gMonPalette_Kyogre,
         .shinyPalette = gMonShinyPalette_Kyogre,
         .iconSprite = gMonIcon_Kyogre,
         .iconPalIndex = 2,
+        SHADOW(-1, 11, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Kyogre)
+        OVERWORLD(
+            gObjectEventPic_Kyogre,
+            SIZE_64x64,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Kyogre,
+            gShinyOverworldPalette_Kyogre
+        )
         .isLegendary = TRUE,
         .isFrontierBanned = TRUE,
+        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sKyogreLevelUpLearnset,
         .teachableLearnset = sKyogreTeachableLearnset,
         .formSpeciesIdTable = sKyogreFormSpeciesIdTable,
@@ -9451,7 +12385,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_KyogrePrimal,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_KyogrePrimal,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_KyogrePrimal,
         .backPicSize = MON_COORDS_SIZE(64, 32),
@@ -9461,10 +12395,23 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_KyogrePrimal,
         .iconSprite = gMonIcon_KyogrePrimal,
         .iconPalIndex = 0,
+        SHADOW(-1, 11, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Kyogre)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_KyogrePrimal,
+            SIZE_64x64,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_KyogrePrimal,
+            gShinyOverworldPalette_KyogrePrimal
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isLegendary = TRUE,
         .isPrimalReversion = TRUE,
         .isFrontierBanned = TRUE,
+        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sKyogreLevelUpLearnset,
         .teachableLearnset = sKyogreTeachableLearnset,
         .formSpeciesIdTable = sKyogreFormSpeciesIdTable,
@@ -9516,20 +12463,37 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerOffset = 14,
         .frontPic = gMonFrontPic_Groudon,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
-        .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Groudon,
+        .frontPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 1 : 0,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 11),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 20),
+            ANIMCMD_FRAME(0, 10),
+        ),
         .frontAnimId = ANIM_V_SHAKE,
         .backPic = gMonBackPic_Groudon,
-        .backPicSize = MON_COORDS_SIZE(64, 48),
-        .backPicYOffset = 8,
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(64, 56) : MON_COORDS_SIZE(64, 48),
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 7 : 8,
         .backAnimId = BACK_ANIM_SHAKE_GLOW_RED,
         .palette = gMonPalette_Groudon,
         .shinyPalette = gMonShinyPalette_Groudon,
         .iconSprite = gMonIcon_Groudon,
         .iconPalIndex = 0,
+        SHADOW(2, 11, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Groudon)
+        OVERWORLD(
+            gObjectEventPic_Groudon,
+            SIZE_64x64,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_Groudon,
+            gShinyOverworldPalette_Groudon
+        )
         .isLegendary = TRUE,
         .isFrontierBanned = TRUE,
+        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sGroudonLevelUpLearnset,
         .teachableLearnset = sGroudonTeachableLearnset,
         .formSpeciesIdTable = sGroudonFormSpeciesIdTable,
@@ -9574,7 +12538,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_GroudonPrimal,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_GroudonPrimal,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .backPic = gMonBackPic_GroudonPrimal,
         .backPicSize = MON_COORDS_SIZE(64, 48),
@@ -9584,10 +12548,23 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_GroudonPrimal,
         .iconSprite = gMonIcon_GroudonPrimal,
         .iconPalIndex = 0,
+        SHADOW(2, 11, SHADOW_SIZE_XL_BATTLE_ONLY)
         FOOTPRINT(Groudon)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_GroudonPrimal,
+            SIZE_64x64,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_GroudonPrimal,
+            gShinyOverworldPalette_GroudonPrimal
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isLegendary = TRUE,
         .isPrimalReversion = TRUE,
         .isFrontierBanned = TRUE,
+        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sGroudonLevelUpLearnset,
         .teachableLearnset = sGroudonTeachableLearnset,
         .formSpeciesIdTable = sGroudonFormSpeciesIdTable,
@@ -9641,21 +12618,38 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_Rayquaza,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_Rayquaza,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 1),
+            ANIMCMD_FRAME(1, 8),
+            ANIMCMD_FRAME(0, 22),
+            ANIMCMD_FRAME(1, 6),
+            ANIMCMD_FRAME(0, 6),
+        ),
         .frontAnimId = ANIM_H_SHAKE,
         .frontAnimDelay = 60,
         .enemyMonElevation = 6,
         .backPic = gMonBackPic_Rayquaza,
-        .backPicSize = MON_COORDS_SIZE(64, 64),
+        .backPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(56, 64) : MON_COORDS_SIZE(64, 64),
         .backPicYOffset = 0,
         .backAnimId = BACK_ANIM_GROW_STUTTER,
         .palette = gMonPalette_Rayquaza,
         .shinyPalette = gMonShinyPalette_Rayquaza,
         .iconSprite = gMonIcon_Rayquaza,
         .iconPalIndex = 1,
+        SHADOW(0, 17, SHADOW_SIZE_L)
         FOOTPRINT(Rayquaza)
+        OVERWORLD(
+            gObjectEventPic_Rayquaza,
+            SIZE_64x64,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Rayquaza,
+            gShinyOverworldPalette_Rayquaza
+        )
         .isLegendary = TRUE,
         .isFrontierBanned = TRUE,
+        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sRayquazaLevelUpLearnset,
         .teachableLearnset = sRayquazaTeachableLearnset,
         .formSpeciesIdTable = sRayquazaFormSpeciesIdTable,
@@ -9701,7 +12695,7 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_RayquazaMega,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_RayquazaMega,
+        .frontAnimFrames = sAnims_SingleFramePlaceHolder,
         //.frontAnimId = ANIM_V_SQUISH_AND_BOUNCE,
         .enemyMonElevation = 4,
         .backPic = gMonBackPic_RayquazaMega,
@@ -9712,10 +12706,23 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_RayquazaMega,
         .iconSprite = gMonIcon_RayquazaMega,
         .iconPalIndex = 1,
+        SHADOW(0, 15, SHADOW_SIZE_L)
         FOOTPRINT(Rayquaza)
+    #if OW_BATTLE_ONLY_FORMS
+        OVERWORLD(
+            gObjectEventPic_RayquazaMega,
+            SIZE_64x64,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_RayquazaMega,
+            gShinyOverworldPalette_RayquazaMega
+        )
+    #endif //OW_BATTLE_ONLY_FORMS
         .isLegendary = TRUE,
         .isMegaEvolution = TRUE,
         .isFrontierBanned = TRUE,
+        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sRayquazaLevelUpLearnset,
         .teachableLearnset = sRayquazaTeachableLearnset,
         .formSpeciesIdTable = sRayquazaFormSpeciesIdTable,
@@ -9768,22 +12775,44 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .trainerScale = 256,
         .trainerOffset = 0,
         .frontPic = gMonFrontPic_Jirachi,
-        .frontPicSize = MON_COORDS_SIZE(56, 48),
+        .frontPicSize = P_GBA_STYLE_SPECIES_GFX ? MON_COORDS_SIZE(48, 48) : MON_COORDS_SIZE(56, 48),
         .frontPicYOffset = 13,
-        .frontAnimFrames = sAnims_Jirachi,
-        .frontAnimId = ANIM_RISING_WOBBLE,
-        .enemyMonElevation = 14,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+            ANIMCMD_FRAME(1, 10),
+            ANIMCMD_FRAME(0, 10),
+        ),
+        .frontAnimId = P_GBA_STYLE_SPECIES_GFX ? ANIM_SWING_CONVEX : ANIM_RISING_WOBBLE,
+        .enemyMonElevation = P_GBA_STYLE_SPECIES_GFX ? 12 : 14,
         .backPic = gMonBackPic_Jirachi,
         .backPicSize = MON_COORDS_SIZE(64, 56),
-        .backPicYOffset = 6,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 5 : 6,
         .backAnimId = BACK_ANIM_CONVEX_DOUBLE_ARC,
         .palette = gMonPalette_Jirachi,
         .shinyPalette = gMonShinyPalette_Jirachi,
         .iconSprite = gMonIcon_Jirachi,
         .iconPalIndex = 0,
+        SHADOW(0, 12, SHADOW_SIZE_S)
         FOOTPRINT(Jirachi)
+        OVERWORLD(
+            gObjectEventPic_Jirachi,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_NONE,
+            sAnimTable_Following,
+            gOverworldPalette_Jirachi,
+            gShinyOverworldPalette_Jirachi
+        )
         .isMythical = TRUE,
         .isFrontierBanned = TRUE,
+        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sJirachiLevelUpLearnset,
         .teachableLearnset = sJirachiTeachableLearnset,
     },
@@ -9833,19 +12862,36 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_DeoxysNormal,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_DeoxysNormal,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 16),
+            ANIMCMD_FRAME(1, 16),
+            ANIMCMD_FRAME(0, 26),
+            ANIMCMD_FRAME(1, 16),
+            ANIMCMD_FRAME(0, 16),
+        ),
         .frontAnimId = ANIM_GROW_VIBRATE,
         .backPic = gMonBackPic_DeoxysNormal,
         .backPicSize = MON_COORDS_SIZE(64, 56),
-        .backPicYOffset = 6,
+        .backPicYOffset = P_GBA_STYLE_SPECIES_GFX ? 2 : 6,
         .backAnimId = BACK_ANIM_SHRINK_GROW_VIBRATE,
         .palette = gMonPalette_DeoxysNormal,
         .shinyPalette = gMonShinyPalette_DeoxysNormal,
         .iconSprite = gMonIcon_DeoxysNormal,
         .iconPalIndex = 0,
+        SHADOW(0, 14, SHADOW_SIZE_M)
         FOOTPRINT(Deoxys)
+        OVERWORLD(
+            gObjectEventPic_DeoxysNormal,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_DeoxysNormal,
+            gShinyOverworldPalette_DeoxysNormal
+        )
         .isMythical = TRUE,
         .isFrontierBanned = TRUE,
+        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sDeoxysNormalLevelUpLearnset,
         .teachableLearnset = sDeoxysNormalTeachableLearnset,
         .formSpeciesIdTable = sDeoxysFormSpeciesIdTable,
@@ -9886,7 +12932,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_DeoxysAttack,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_DeoxysAttack,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 16),
+            ANIMCMD_FRAME(1, 16),
+            ANIMCMD_FRAME(0, 26),
+            ANIMCMD_FRAME(1, 16),
+            ANIMCMD_FRAME(0, 16),
+        ),
         .frontAnimId = ANIM_GROW_VIBRATE,
         .backPic = gMonBackPic_DeoxysAttack,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -9896,9 +12948,19 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_DeoxysAttack,
         .iconSprite = gMonIcon_DeoxysAttack,
         .iconPalIndex = 0,
-        FOOTPRINT(Deoxys)
+        SHADOW(0, 14, SHADOW_SIZE_M)
+        OVERWORLD(
+            gObjectEventPic_DeoxysAttack,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_DeoxysAttack,
+            gShinyOverworldPalette_DeoxysAttack
+        )
         .isMythical = TRUE,
         .isFrontierBanned = TRUE,
+        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sDeoxysAttackLevelUpLearnset,
         .teachableLearnset = sDeoxysAttackTeachableLearnset,
         .formSpeciesIdTable = sDeoxysFormSpeciesIdTable,
@@ -9939,7 +13001,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_DeoxysDefense,
         .frontPicSize = MON_COORDS_SIZE(56, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_DeoxysDefense,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 16),
+            ANIMCMD_FRAME(1, 16),
+            ANIMCMD_FRAME(0, 26),
+            ANIMCMD_FRAME(1, 16),
+            ANIMCMD_FRAME(0, 16),
+        ),
         .frontAnimId = ANIM_GROW_VIBRATE,
         .backPic = gMonBackPic_DeoxysDefense,
         .backPicSize = MON_COORDS_SIZE(64, 56),
@@ -9949,9 +13017,20 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_DeoxysDefense,
         .iconSprite = gMonIcon_DeoxysDefense,
         .iconPalIndex = 0,
+        SHADOW(0, 13, SHADOW_SIZE_M)
         FOOTPRINT(Deoxys)
+        OVERWORLD(
+            gObjectEventPic_DeoxysDefense,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_DeoxysDefense,
+            gShinyOverworldPalette_DeoxysDefense
+        )
         .isMythical = TRUE,
         .isFrontierBanned = TRUE,
+        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sDeoxysDefenseLevelUpLearnset,
         .teachableLearnset = sDeoxysDefenseTeachableLearnset,
         .formSpeciesIdTable = sDeoxysFormSpeciesIdTable,
@@ -9992,7 +13071,13 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .frontPic = gMonFrontPic_DeoxysSpeed,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 1,
-        .frontAnimFrames = sAnims_DeoxysSpeed,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 16),
+            ANIMCMD_FRAME(1, 16),
+            ANIMCMD_FRAME(0, 26),
+            ANIMCMD_FRAME(1, 16),
+            ANIMCMD_FRAME(0, 16),
+        ),
         .frontAnimId = ANIM_GROW_VIBRATE,
         .backPic = gMonBackPic_DeoxysSpeed,
         .backPicSize = MON_COORDS_SIZE(64, 64),
@@ -10002,9 +13087,20 @@ const struct SpeciesInfo gSpeciesInfoGen3[] =
         .shinyPalette = gMonShinyPalette_DeoxysSpeed,
         .iconSprite = gMonIcon_DeoxysSpeed,
         .iconPalIndex = 0,
+        SHADOW(3, 13, SHADOW_SIZE_M)
         FOOTPRINT(Deoxys)
+        OVERWORLD(
+            gObjectEventPic_DeoxysSpeed,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_DeoxysSpeed,
+            gShinyOverworldPalette_DeoxysSpeed
+        )
         .isMythical = TRUE,
         .isFrontierBanned = TRUE,
+        .perfectIVCount = LEGENDARY_PERFECT_IV_COUNT,
         .levelUpLearnset = sDeoxysSpeedLevelUpLearnset,
         .teachableLearnset = sDeoxysSpeedTeachableLearnset,
         .formSpeciesIdTable = sDeoxysFormSpeciesIdTable,
