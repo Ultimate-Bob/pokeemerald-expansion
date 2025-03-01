@@ -75,9 +75,9 @@ struct ApprenticeQuestionData
 };
 
 // IWRAM common
-struct ApprenticePartyMovesData *gApprenticePartyMovesData;
-struct ApprenticeQuestionData *gApprenticeQuestionData;
-void (*gApprenticeFunc)(void);
+COMMON_DATA struct ApprenticePartyMovesData *gApprenticePartyMovesData = NULL;
+COMMON_DATA struct ApprenticeQuestionData *gApprenticeQuestionData = NULL;
+COMMON_DATA void (*gApprenticeFunc)(void) = NULL;
 
 // This file's functions.
 static u16 GetRandomAlternateMove(u8 monId);
@@ -339,7 +339,7 @@ static u16 GetRandomAlternateMove(u8 monId)
     numLearnsetMoves = j;
     i = 0;
 
-    // i < 5 here is arbitrary, i isnt used and is only incremented when the selected move isnt in sValidApprenticeMoves
+    // i < 5 here is arbitrary, i isn't used and is only incremented when the selected move isn't valid (determined by the validApprenticeMove value)
     // This while loop contains 3 potential infinite loops, though none of them would occur in the base game
     while (i < 5)
     {
@@ -411,7 +411,7 @@ static u16 GetRandomAlternateMove(u8 monId)
 
         if (TrySetMove(monId, moveId))
         {
-            if (sValidApprenticeMoves[moveId])
+            if (gMovesInfo[moveId].validApprenticeMove)
                 break;
             i++;
         }
@@ -584,8 +584,8 @@ static void CreateApprenticeMenu(u8 menu)
     case APPRENTICE_ASK_MOVES:
         left = 17;
         top = 8;
-        strings[0] = gMoveNames[gApprenticeQuestionData->moveId1];
-        strings[1] = gMoveNames[gApprenticeQuestionData->moveId2];
+        strings[0] = GetMoveName(gApprenticeQuestionData->moveId1);
+        strings[1] = GetMoveName(gApprenticeQuestionData->moveId2);
         break;
     case APPRENTICE_ASK_GIVE:
         left = 18;
@@ -1041,10 +1041,10 @@ static void ApprenticeBufferString(void)
         StringCopy(stringDst, GetSpeciesName(gApprenticeQuestionData->speciesId));
         break;
     case APPRENTICE_BUFF_MOVE1:
-        StringCopy(stringDst, gMoveNames[gApprenticeQuestionData->moveId1]);
+        StringCopy(stringDst, GetMoveName(gApprenticeQuestionData->moveId1));
         break;
     case APPRENTICE_BUFF_MOVE2:
-        StringCopy(stringDst, gMoveNames[gApprenticeQuestionData->moveId2]);
+        StringCopy(stringDst, GetMoveName(gApprenticeQuestionData->moveId2));
         break;
     case APPRENTICE_BUFF_ITEM:
         StringCopy(stringDst, ItemId_GetName(PLAYER_APPRENTICE.questions[CURRENT_QUESTION_NUM].data));
