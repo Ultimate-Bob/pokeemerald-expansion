@@ -175,6 +175,7 @@ static u8 *AddTextPrinterAndCreateWindowOnHealthbox(const u8 *, u32, u32, u32, u
 static u8 *AddTextPrinterAndCreateWindowOnHealthboxToFit(const u8 *, u32, u32, u32, u32 *, u32);
 // Shiny wild special handling
 static u8 *AddTextPrinterAndCreateWindowOnHealthboxToFitWithColours(const u8 *str, u32 x, u32 y, u32 fgColor, u32 shColor, u32 bgColor, u32 *windowId, u32 width);
+static u8 *AddTextPrinterAndCreateWindowOnHealthboxWithOptions(const u8 *str, u32 x, u32 y, u32 fgColor, u32 shColor, u32 bgColor, u32 *windowId, u32 fontId);
 
 static void RemoveWindowOnHealthbox(u32 windowId);
 static void UpdateHpTextInHealthboxInDoubles(u32 healthboxSpriteId, u32 maxOrCurrent, s16 currHp, s16 maxHp);
