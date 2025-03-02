@@ -15723,7 +15723,7 @@ static void Cmd_handleballthrow(void)
         MarkBattlerForControllerExec(gBattlerAttacker);
         gBattlescriptCurrInstr = BattleScript_WallyBallThrow;
     }
-    else if (TRUE) // Custom catch behaviour
+    else if (FlagGet(FLAG_WILD_MON_CATCHES_AND_RETURNS_BALL)) // Custom catch behaviour
     {
         BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, BALL_MON_CATCH_AND_RETURN);
         MarkBattlerForControllerExec(gBattlerAttacker);

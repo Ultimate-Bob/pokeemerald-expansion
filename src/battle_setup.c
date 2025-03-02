@@ -584,6 +584,9 @@ static void CB2_EndWildBattle(void)
         DowngradeBadPoison();
         gFieldCallback = FieldCB_ReturnToFieldNoScriptCheckMusic;
     }
+
+    // Custom catch behaviour
+    FlagClear(FLAG_WILD_MON_CATCHES_AND_RETURNS_BALL);
 }
 
 static void CB2_EndScriptedWildBattle(void)
