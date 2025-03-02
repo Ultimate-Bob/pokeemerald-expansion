@@ -5,7 +5,6 @@
             "includePath": [
                 "${workspaceFolder}",
                 "${workspaceFolder}/include/",
-                "${workspaceFolder}/gflib/",
                 "${workspaceFolder}/include/gba",
                 "${workspaceFolder}/include/constants",
                 "${workspaceFolder}/tools/agbcc/include/**"
