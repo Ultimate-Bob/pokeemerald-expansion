@@ -29114,7 +29114,7 @@ gBattleAnimGeneral_Swamp::
 	end
 
 @ Custom catch behaviour
-gBattleAnimGeneral_BallCaughtAndReturned:
+gBattleAnimGeneral_BallCaughtAndReturned::
 	monbg ANIM_DEF_PARTNER
 	setalpha 12, 8
 		

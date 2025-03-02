@@ -894,8 +894,8 @@ const u8 *const gBattleStringsTable[BATTLESTRINGS_COUNT] =
     [STRINGID_SENDCAUGHTMONPARTYORBOX]              = COMPOUND_STRING("Add {B_DEF_NAME} to your party?"),
     [STRINGID_PKMNSENTTOPCAFTERCATCH]               = gText_PkmnSentToPCAfterCatch,
     // Custom catch behaviour
-    [STRINGID_THEBALLWASCAUGHT - BATTLESTRINGS_TABLE_START] = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} caught the ball!"),
-    [STRINGID_THEBALLWASHANDEDBACK - BATTLESTRINGS_TABLE_START] = COMPOUND_STRING("The {B_LAST_ITEM} was\nhanded back to you..."),
+    [STRINGID_THEBALLWASCAUGHT] = COMPOUND_STRING("{B_DEF_NAME_WITH_PREFIX} caught the ball!"),
+    [STRINGID_THEBALLWASHANDEDBACK] = COMPOUND_STRING("The {B_LAST_ITEM} was\nhanded back to you..."),
 };
 
 const u16 gTrainerUsedItemStringIds[] =

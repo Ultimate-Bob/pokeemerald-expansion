@@ -15723,11 +15723,14 @@ static void Cmd_handleballthrow(void)
         MarkBattlerForControllerExec(gBattlerAttacker);
         gBattlescriptCurrInstr = BattleScript_WallyBallThrow;
     }
-    else if (TRUE)
+    else if (TRUE) // Custom catch behaviour
     {
         BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, BALL_MON_CATCH_AND_RETURN);
         MarkBattlerForControllerExec(gBattlerAttacker);
         gBattlescriptCurrInstr = BattleScript_MonCatchAndReturnBall;
+
+        gLastThrownBall = gLastUsedItem;
+        AddBagItem(gLastThrownBall, 1);
     }
     else
     {
