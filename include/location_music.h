@@ -10,7 +10,7 @@ u16 GetRegionMusicWildBattle(u8 region);
 u16 GetRegionMusicTrainerVictory(u8 region);
 u16 GetRegionMusicWildVictory(u8 region);
 u16 GetRegionMusicSurf(u8 region);
-u16 GetRegionFanfareItemPickup(u8 mapSec);
+u16 GetRegionFanfareItemPickup(u8 region);
 
 u16 GetLocationMusicTrainerBattle(u8 mapSec);
 u16 GetLocationMusicWildBattle(u8 mapSec);
