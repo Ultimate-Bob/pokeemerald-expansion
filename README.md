@@ -1,5 +1,11 @@
 # merge/overworld-pokemon
 
+>
+> ### *This branch is no longer necessary since overworld mons are included in the expansion as part of followers.*
+>
+
+## Original Readme:
+
 Adds object graphics events for all Pokemon up to generation 7.
 https://github.com/ghoulslash/pokeemerald/tree/overworld-expansion
 
