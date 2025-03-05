@@ -5,9 +5,11 @@
 #include "m4a.h"
 #include "main.h"
 #include "pokemon.h"
+#include "constants/cries.h"
 #include "constants/songs.h"
 #include "task.h"
 #include "location_music.h"
+#include "test_runner.h"
 
 struct Fanfare
 {
@@ -24,14 +26,13 @@ static u8 sMapMusicState;
 static u8 sMapMusicFadeInSpeed;
 static u16 sFanfareCounter;
 
-bool8 gDisableMusic;
+COMMON_DATA bool8 gDisableMusic = 0;
 
 extern struct ToneData gCryTable[];
 extern struct ToneData gCryTable_Reverse[];
 
 static void Task_Fanfare(u8 taskId);
 static void CreateFanfareTask(void);
-static void Task_DuckBGMForPokemonCry(u8 taskId);
 static void RestoreBGMVolumeAfterPokemonCry(void);
 
 static const struct Fanfare sFanfares[] = {
@@ -240,6 +241,13 @@ bool8 IsFanfareTaskInactive(void)
 
 static void Task_Fanfare(u8 taskId)
 {
+    if (gTestRunnerHeadless)
+    {
+        DestroyTask(taskId);
+        sFanfareCounter = 0;
+        return;
+    }
+
     if (sFanfareCounter)
     {
         sFanfareCounter--;
@@ -463,7 +471,7 @@ void PlayCryInternal(u16 species, s8 pan, s8 volume, u8 priority, u8 mode)
     SetPokemonCryPriority(priority);
 
     species = GetCryIdBySpecies(species);
-    if (species != 0)
+    if (species != CRY_NONE)
     {
         species--;
         gMPlay_PokemonCry = SetPokemonCryTone(reverse ? &gCryTable_Reverse[species] : &gCryTable[species]);
@@ -515,7 +523,7 @@ bool8 IsCryPlaying(void)
         return FALSE;
 }
 
-static void Task_DuckBGMForPokemonCry(u8 taskId)
+void Task_DuckBGMForPokemonCry(u8 taskId)
 {
     if (gPokemonCryBGMDuckingCounter)
     {

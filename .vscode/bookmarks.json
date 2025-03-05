@@ -39,12 +39,12 @@
 			"path": "src/main_menu.c",
 			"bookmarks": [
 				{
-					"line": 1058,
+					"line": 1007,
 					"column": 26,
 					"label": "Skip Birch Intro"
 				},
 				{
-					"line": 1774,
+					"line": 1723,
 					"column": 15,
 					"label": "Set Default Name"
 				}
@@ -57,16 +57,6 @@
 					"line": 9,
 					"column": 3,
 					"label": "Flags"
-				}
-			]
-		},
-		{
-			"path": "src/pokemon.c",
-			"bookmarks": [
-				{
-					"line": 7433,
-					"column": 7,
-					"label": "Get Battle BGM"
 				}
 			]
 		},
@@ -97,21 +87,6 @@
 					"line": 1874,
 					"column": 10,
 					"label": "Create Trainer Party"
-				}
-			]
-		},
-		{
-			"path": "src/data/trainers.h",
-			"bookmarks": [
-				{
-					"line": 0,
-					"column": 1,
-					"label": "Trainers"
-				},
-				{
-					"line": 4023,
-					"column": 20,
-					"label": "Wallace trainer"
 				}
 			]
 		},
@@ -154,7 +129,7 @@
 			"path": "src/start_menu.c",
 			"bookmarks": [
 				{
-					"line": 1058,
+					"line": 1049,
 					"column": 13,
 					"label": "Hide save confirmation"
 				}
@@ -189,7 +164,7 @@
 			"path": "src/data/trainer_parties.h",
 			"bookmarks": [
 				{
-					"line": 4416,
+					"line": 4413,
 					"column": 13,
 					"label": "Wallace party"
 				}
@@ -222,16 +197,6 @@
 					"line": 0,
 					"column": 16,
 					"label": "Custom trainer graphics tables"
-				}
-			]
-		},
-		{
-			"path": "include/graphics.h",
-			"bookmarks": [
-				{
-					"line": 7184,
-					"column": 14,
-					"label": "Custom trainer sprites and palettes"
 				}
 			]
 		},

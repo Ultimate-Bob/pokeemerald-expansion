@@ -1,4 +1,33 @@
 #include "regions.h"
+#include "strings.h"
+
+const u8 gText_RegionKanto[] = _("Kanto");
+const u8 gText_RegionSevii[] = _("Sevii Islands");
+const u8 gText_RegionJohto[] = _("Johto");
+const u8 gText_RegionHoenn[] = _("Hoenn");
+const u8 gText_RegionSinnoh[] = _("Sinnoh");
+const u8 gText_RegionUnova[] = _("Unova");
+const u8 gText_RegionKalos[] = _("Kalos");
+const u8 gText_RegionAlola[] = _("Alola");
+const u8 gText_RegionGalar[] = _("Galar");
+const u8 gText_RegionHisui[] = _("Hisui");
+const u8 gText_RegionPaldea[] = _("Paldea");
+
+
+const u8 *const gRegionNames[] = {
+    [REGION_NONE] = gText_FiveMarks,
+    [REGION_KANTO] = gText_RegionKanto,
+    [REGION_SEVII] = gText_RegionSevii,
+    [REGION_JOHTO] = gText_RegionJohto,
+    [REGION_HOENN] = gText_RegionHoenn,
+    [REGION_SINNOH] = gText_RegionSinnoh,
+    [REGION_UNOVA] = gText_RegionUnova,
+    [REGION_KALOS] = gText_RegionKalos,
+    [REGION_ALOLA] = gText_RegionAlola,
+    [REGION_GALAR] = gText_RegionGalar,
+    [REGION_HISUI] = gText_RegionHisui,
+    [REGION_PALDEA] = gText_RegionPaldea,
+};
 
 const u8 gMapsecToRegion[] = {
     [MAPSEC_LITTLEROOT_TOWN]            = REGION_HOENN,
