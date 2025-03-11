@@ -2352,6 +2352,9 @@ $(POKEMONGFXDIR)/bidoof/overworld.4bpp: %.4bpp: %.png
 $(POKEMONGFXDIR)/bidoof/overworldf.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 4 -mheight 4
 
+$(POKEMONGFXDIR)/bidoof/perfect/overworld.4bpp: %.4bpp: %.png
+	$(GFX) $< $@ -mwidth 4 -mheight 4
+
 $(POKEMONGFXDIR)/bibarel/overworld.4bpp: %.4bpp: %.png
 	$(GFX) $< $@ -mwidth 4 -mheight 4
 

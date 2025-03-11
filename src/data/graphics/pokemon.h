@@ -14242,8 +14242,8 @@ const u32 gObjectEventPic_Substitute[] = INCBIN_COMP("graphics/pokemon/question_
 #endif //OW_POKEMON_OBJECT_EVENTS
 #endif //P_GENDER_DIFFERENCES
 
-
-const u32 gMonFrontPic_BidoofPerfect[] = INCBIN_U32("graphics/pokemon/bidoof/perfect/anim_front.4bpp.lz");
+    // Bidoof Perfect Form
+    const u32 gMonFrontPic_BidoofPerfect[] = INCBIN_U32("graphics/pokemon/bidoof/perfect/anim_front.4bpp.lz");
     const u32 gMonPalette_BidoofPerfect[] = INCBIN_U32("graphics/pokemon/bidoof/perfect/normal.gbapal.lz");
     const u32 gMonBackPic_BidoofPerfect[] = INCBIN_U32("graphics/pokemon/bidoof/perfect/back.4bpp.lz");
     const u32 gMonShinyPalette_BidoofPerfect[] = INCBIN_U32("graphics/pokemon/bidoof/perfect/shiny.gbapal.lz");
@@ -14251,6 +14251,13 @@ const u32 gMonFrontPic_BidoofPerfect[] = INCBIN_U32("graphics/pokemon/bidoof/per
 #if P_FOOTPRINTS
     const u8 gMonFootprint_BidoofPerfect[] = INCBIN_U8("graphics/pokemon/bidoof/perfect/footprint.1bpp");
 #endif //P_FOOTPRINTS
+#if OW_POKEMON_OBJECT_EVENTS
+    const u32 gObjectEventPic_BidoofPerfect[] = INCBIN_COMP("graphics/pokemon/bidoof/perfect/overworld.4bpp");
+#if OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
+    const u32 gOverworldPalette_BidoofPerfect[] = INCBIN_U32("graphics/pokemon/bidoof/perfect/overworld_normal.gbapal.lz");
+    const u32 gShinyOverworldPalette_BidoofPerfect[] = INCBIN_U32("graphics/pokemon/bidoof/perfect/overworld_shiny.gbapal.lz");
+#endif //OW_PKMN_OBJECTS_SHARE_PALETTES
+#endif //OW_POKEMON_OBJECT_EVENTS
 
 
     const u32 gMonFrontPic_Bibarel[] = INCBIN_U32("graphics/pokemon/bibarel/anim_front.4bpp.lz");

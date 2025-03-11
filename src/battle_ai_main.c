@@ -3536,10 +3536,11 @@ static u32 AI_CalcMoveEffectScore(u32 battlerAtk, u32 battlerDef, u32 move)
         ADJUST_SCORE(IncreaseStatUpScore(battlerAtk, battlerDef, STAT_CHANGE_ATK));
         ADJUST_SCORE(IncreaseStatUpScore(battlerAtk, battlerDef, STAT_CHANGE_SPATK));
         break;
+    // Bidoof Perfect Form
     case EFFECT_ATTACK_DEFENSE_SPEED_UP:
-        IncreaseStatUpScore(battlerAtk, battlerDef, STAT_CHANGE_ATK, &score);
-        IncreaseStatUpScore(battlerAtk, battlerDef, STAT_CHANGE_DEF, &score);
-        IncreaseStatUpScore(battlerAtk, battlerDef, STAT_CHANGE_SPEED, &score);
+        ADJUST_SCORE(IncreaseStatUpScore(battlerAtk, battlerDef, STAT_CHANGE_ATK));
+        ADJUST_SCORE(IncreaseStatUpScore(battlerAtk, battlerDef, STAT_CHANGE_DEF));
+        ADJUST_SCORE(IncreaseStatUpScore(battlerAtk, battlerDef, STAT_CHANGE_SPEED));
         break;
     case EFFECT_HAZE:
         if (AnyStatIsRaised(BATTLE_PARTNER(battlerAtk))

@@ -1018,7 +1018,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_MOXIE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_YELLOW,
-        .speciesName = _("P. Bidoof"),
+        .speciesName = _("Perf. Bidoof"),
         .cryId = CRY_BIDOOF,
         .natDexNum = NATIONAL_DEX_BIDOOF,
         .categoryName = _("Perfect"),
@@ -1036,7 +1036,15 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .frontPic = gMonFrontPic_BidoofPerfect,
         .frontPicSize = MON_COORDS_SIZE(64, 64),
         .frontPicYOffset = 0,
-        .frontAnimFrames = sAnims_BidoofPerfect,
+        .frontAnimFrames = ANIM_FRAMES(
+            ANIMCMD_FRAME(0, 5),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 15),
+            ANIMCMD_FRAME(1, 15),
+            ANIMCMD_FRAME(0, 5),
+        ),
         .frontAnimId = ANIM_SHAKE_GLOW_WHITE_SLOW,
         .backPic = gMonBackPic_BidoofPerfect,
         .backPicSize = MON_COORDS_SIZE(62, 47),
@@ -1046,7 +1054,17 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .shinyPalette = gMonShinyPalette_BidoofPerfect,
         .iconSprite = gMonIcon_BidoofPerfect,
         .iconPalIndex = 1,
+        SHADOW(1, 1, SHADOW_SIZE_M)
         FOOTPRINT(BidoofPerfect)
+        OVERWORLD(
+            gObjectEventPic_BidoofPerfect,
+            SIZE_32x32,
+            SHADOW_SIZE_M,
+            TRACKS_FOOT,
+            sAnimTable_Following,
+            gOverworldPalette_BidoofPerfect,
+            gShinyOverworldPalette_BidoofPerfect
+        )
         .levelUpLearnset = sBidoofPerfectLevelUpLearnset,
         .teachableLearnset = sBidoofPerfectTeachableLearnset,
         .formSpeciesIdTable = sBidoofFormSpeciesIdTable, 
