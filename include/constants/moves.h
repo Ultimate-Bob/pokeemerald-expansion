@@ -910,6 +910,7 @@
 
 #define MOVES_COUNT_GEN9 848
 
+// Bidoof Perfect Form
 #define MOVE_THIRST_FOR_VENGEANCE   (MOVES_COUNT_GEN9 + 0)
 #define MOVE_COMPASSION             (MOVES_COUNT_GEN9 + 1)
 

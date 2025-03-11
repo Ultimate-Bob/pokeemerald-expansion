@@ -35018,8 +35018,8 @@ gBattleAnimGeneral_DynamaxGrowth:: @ PORTED FROM CFRU
 	waitforvisualfinish
 	end
 
-
-Move_THIRST_FOR_VENGEANCE:
+@ Bidoof Perfect Form
+gBattleAnimMove_ThirstForVengeance::
 	loadspritegfx ANIM_TAG_EXPLOSION
 	loadspritegfx ANIM_TAG_CIRCLE_OF_LIGHT
 	loadspritegfx ANIM_TAG_PINK_PETAL
@@ -35123,7 +35123,7 @@ Move_THIRST_FOR_VENGEANCE:
 	end
 
 
-Move_COMPASSION:
+gBattleAnimMove_Compassion::
 	loadspritegfx ANIM_TAG_RAINBOW_RINGS
 	loadspritegfx ANIM_TAG_PINK_HEART
 	loadspritegfx ANIM_TAG_POISON_BUBBLE

@@ -937,6 +937,9 @@ extern const u8 gBattleAnimMove_GMaxSteelsurge[];
 extern const u8 gBattleAnimMove_GMaxDepletion[];
 extern const u8 gBattleAnimMove_GMaxOneBlow[];
 extern const u8 gBattleAnimMove_GMaxRapidFlow[];
+// Bidoof Perfect Form
+extern const u8 gBattleAnimMove_ThirstForVengeance[];
+extern const u8 gBattleAnimMove_Compassion[];
 
 // status animations
 extern const u8 gBattleAnimStatus_Poison[];

@@ -22565,10 +22565,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .priority = -5,
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .makesContact = TRUE,
-        .contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
-        .contestCategory = CONTEST_CATEGORY_COOL,
-        .contestComboStarterId = 0,
-        .contestComboMoves = {0}
+        .battleAnimScript = gBattleAnimMove_ThirstForVengeance,
     },
 
     [MOVE_COMPASSION] =
@@ -22586,9 +22583,6 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_DYNAMAX] =
         .priority = 5,
         .category = DAMAGE_CATEGORY_STATUS,
         .makesContact = FALSE,
-        .contestEffect = CONTEST_EFFECT_BADLY_STARTLE_FRONT_MON,
-        .contestCategory = CONTEST_CATEGORY_CUTE,
-        .contestComboStarterId = 0,
-        .contestComboMoves = {0}
+        .battleAnimScript = gBattleAnimMove_Compassion,
     },
 };
