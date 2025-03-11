@@ -66,6 +66,14 @@ static const u8 sCondMsg40[] = _("{STR_VAR_1} is gnawing at the ice.");
 static const u8 sCondMsg41[] = _("{STR_VAR_1} is touching the ice.");
 static const u8* const sIceTexts[] = {sCondMsg26, sCondMsg40, sCondMsg41, NULL};
 static const u8 sCondMsg42[] = _("{STR_VAR_1}'s burn looks painful!");
+// Bidoof Perfect Form
+static const u8 sCondMsgBidoofPerfectContemplate0[] = _("Perfect Bidoof stares into the\nfabric of the universe.");
+static const u8 sCondMsgBidoofPerfectContemplate1[] = _("Perfect Bidoof looks around with\npity for lesser beings.");
+static const u8* const sBidoofPerfectContemplateTexts[] = {sCondMsgBidoofPerfectContemplate0, sCondMsgBidoofPerfectContemplate1, NULL};
+static const u8 sCondMsgBidoofPerfectDirect0[] = _("Perfect Bidoof looks down on you\nwith compassion and sympathy.");
+static const u8 sCondMsgBidoofPerfectDirect1[] = _("Let us become the very best,\nlike no one ever was...");
+static const u8* const sBidoofPerfectDirectTexts[] = {sCondMsgBidoofPerfectDirect0, sCondMsgBidoofPerfectDirect1, NULL};
+
 
 // See the struct definition in follower_helper.h for more info
 const struct FollowerMsgInfoExtended gFollowerConditionalMessages[COND_MSG_COUNT] =
@@ -348,6 +356,28 @@ const struct FollowerMsgInfoExtended gFollowerConditionalMessages[COND_MSG_COUNT
         .conditions =
         {
             MATCH_STATUS(STATUS1_BURN),
+        },
+    },
+    // Bidoof Perfect Form
+    [COND_MSG_BIDOOF_PERFECT_CONTEMPLATE] =
+    {
+        .text = (u8*)sBidoofPerfectContemplateTexts,
+        .textSpread = 1,
+        .script = EventScript_FollowerLookAway,
+        .emotion = FOLLOWER_EMOTION_PENSIVE,
+        .conditions =
+        {
+            MATCH_SPECIES(SPECIES_BIDOOF_PERFECT),
+        },
+    },
+    [COND_MSG_BIDOOF_PERFECT_DIRECT] =
+    {
+        .text = (u8*)sBidoofPerfectDirectTexts,
+        .textSpread = 1,
+        .emotion = FOLLOWER_EMOTION_PENSIVE,
+        .conditions =
+        {
+            MATCH_SPECIES(SPECIES_BIDOOF_PERFECT),
         },
     },
 };

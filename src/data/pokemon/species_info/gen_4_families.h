@@ -1054,7 +1054,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .shinyPalette = gMonShinyPalette_BidoofPerfect,
         .iconSprite = gMonIcon_BidoofPerfect,
         .iconPalIndex = 1,
-        SHADOW(-5, 16, SHADOW_SIZE_M)
+        SHADOW(-2, 16, SHADOW_SIZE_M)
         FOOTPRINT(BidoofPerfect)
         OVERWORLD(
             gObjectEventPic_BidoofPerfect,

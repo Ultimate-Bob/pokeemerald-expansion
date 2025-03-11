@@ -2528,6 +2528,14 @@ void GetFollowerAction(struct ScriptContext *ctx) // Essentially a big switch fo
             pickedCondition = TRUE;
         }
     }
+
+    // Bidoof Perfect Form
+    if (species == SPECIES_BIDOOF_PERFECT)
+    {
+        multi = (Random() & 1) ? COND_MSG_BIDOOF_PERFECT_CONTEMPLATE : COND_MSG_BIDOOF_PERFECT_DIRECT;
+        pickedCondition = TRUE;
+    }
+
     // condition message was chosen
     if (pickedCondition)
     {
