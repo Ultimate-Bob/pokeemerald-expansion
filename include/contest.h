@@ -90,7 +90,7 @@ struct ContestPokemon
     u16 species;
     u8 nickname[POKEMON_NAME_LENGTH + 1];
     u8 trainerName[PLAYER_NAME_LENGTH + 1];
-    u16 trainerGfxId;
+    u8 trainerGfxId;
     u32 aiFlags;
     u8 whichRank:2;
     u8 aiPool_Cool:1;
@@ -109,9 +109,9 @@ struct ContestPokemon
     bool8 gameCleared;
     u8 isShiny:1;
     u8 unused1:7;
-    u8 unused2[9];
     u32 personality;
     u32 otId;
+    u8 filter;
 };
 
 struct ContestTempSave
