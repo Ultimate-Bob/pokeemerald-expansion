@@ -5835,6 +5835,7 @@ u16 GetBattleBGMForMon(u32 species)
     switch (species)
     {    
 
+    // Bidoof Perfect Form
     case SPECIES_BIDOOF_PERFECT:
         return MUS_RG_VS_MEWTWO;
 

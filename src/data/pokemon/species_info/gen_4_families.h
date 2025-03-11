@@ -1018,7 +1018,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .eggGroups = MON_EGG_GROUPS(EGG_GROUP_NO_EGGS_DISCOVERED),
         .abilities = { ABILITY_MOXIE, ABILITY_NONE },
         .bodyColor = BODY_COLOR_YELLOW,
-        .speciesName = _("Perf. Bidoof"),
+        .speciesName = _("PrfectBidoof"),
         .cryId = CRY_BIDOOF,
         .natDexNum = NATIONAL_DEX_BIDOOF,
         .categoryName = _("Perfect"),
@@ -1054,7 +1054,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         .shinyPalette = gMonShinyPalette_BidoofPerfect,
         .iconSprite = gMonIcon_BidoofPerfect,
         .iconPalIndex = 1,
-        SHADOW(1, 1, SHADOW_SIZE_M)
+        SHADOW(-5, 16, SHADOW_SIZE_M)
         FOOTPRINT(BidoofPerfect)
         OVERWORLD(
             gObjectEventPic_BidoofPerfect,
