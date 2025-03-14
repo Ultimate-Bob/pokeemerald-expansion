@@ -1102,6 +1102,7 @@ gCryTable::
 .endif @ P_FAMILY_STARLY
 .if P_FAMILY_BIDOOF == TRUE
 	cry Cry_Bidoof
+	cry Cry_BidoofPerfect
 	cry Cry_Bibarel
 .endif @ P_FAMILY_BIDOOF
 .if P_FAMILY_KRICKETOT == TRUE
@@ -3530,6 +3531,7 @@ gCryTable_Reverse::
 .endif @ P_FAMILY_STARLY
 .if P_FAMILY_BIDOOF == TRUE
 	cry_reverse Cry_Bidoof
+	cry_reverse Cry_BidoofPerfect
 	cry_reverse Cry_Bibarel
 .endif @ P_FAMILY_BIDOOF
 .if P_FAMILY_KRICKETOT == TRUE

@@ -1144,6 +1144,9 @@ static u16 RenderText(struct TextPrinter *textPrinter)
                 textPrinter->printerTemplate.currentChar++;
                 currChar |= *textPrinter->printerTemplate.currentChar << 8;
                 textPrinter->printerTemplate.currentChar++;
+                // Bidoof Perfect Form
+                if (currChar == MUS_CAUGHT && GetMonData(&gEnemyParty[0], MON_DATA_SPECIES) == SPECIES_BIDOOF_PERFECT)
+                    currChar = MUS_B_PYRAMID_TOP; // MUS_HALL_OF_FAME_ROOM MUS_B_PYRAMID_TOP MUS_RG_SS_ANNE
                 PlayBGM(currChar);
                 return RENDER_REPEAT;
             case EXT_CTRL_CODE_ESCAPE:

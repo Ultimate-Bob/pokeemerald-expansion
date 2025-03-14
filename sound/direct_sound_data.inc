@@ -2955,6 +2955,11 @@ Cry_Staraptor::
 Cry_Bidoof::
 	.incbin "sound/direct_sound_samples/cries/bidoof.bin"
 
+@ Bidoof Perfect Form
+	.align 2
+Cry_BidoofPerfect::
+	.incbin "sound/direct_sound_samples/cries/bidoof_perfect.bin"
+
 	.align 2
 Cry_Bibarel::
 	.incbin "sound/direct_sound_samples/cries/bibarel.bin"
