@@ -1,0 +1,59 @@
+{
+    "CompileFlags": {
+        "Compiler": "/usr/bin/arm-none-eabi-gcc",
+        "BuiltinHeaders": "QueryDriver",
+        "Add": [
+            "-ferror-limit=0",
+            
+            "-mthumb",
+            "-O2",
+            "-mabi=apcs-gnu",
+            "-mtune=arm7tdmi",
+            "-march=armv4t",
+            "-Wno-pointer-to-int-cast",
+            "-std=gnu17",
+            "-Werror",
+            "-Wall",
+            "-Wno-strict-aliasing",
+            "-Wno-attribute-alias",
+            "-Woverride-init",
+            "-D__CLANGD__",
+
+            "-DDEBUG",
+            "-DUNICODE",
+            "-D_UNICODE",
+            "-DDINFO",
+            "-D_MSC_VER",
+            "-DMODERN",
+            "-Iinclude",
+            "-Iinclude/gba",
+            "-Iinclude/constants",
+            "-Itools/agbcc/include/**",
+            "-include./include/global.h",
+            "-include./include/strings.h",
+            "-include./include/constants/pokedex.h",
+            "-include./include/constants/opponents.h",
+            "-include./include/constants/trainers.h",
+            "-include./include/constants/battle_ai.h",
+            "-include./include/constants/items.h",
+            "-include./include/gba/defines.h",
+            "-include./include/gba/types.h",
+            "-include./include/data.h",
+            "-include./include/battle_transition.h",
+            "-include./src/data/trainer_parties.h"
+        ]
+    },
+    "Diagnostics": {
+        "Suppress": [
+            "-Wgnu-alignof-expression", 
+            "fatal_too_many_errors", 
+            "not_integral_type_bitfield", 
+            "func_returning_array_function",
+            "field_declared_as_function"
+        ],
+        "UnusedIncludes": "None"
+    },
+    "InlayHints": {
+        "Enabled": false
+    }
+}

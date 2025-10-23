@@ -60,3 +60,7 @@ tools/compresSmol/compresSmolTilemap
 *.fastSmol
 *.smolTM
 __pycache__
+
+# Clangd generated files.
+.cache
+compile_commands.json

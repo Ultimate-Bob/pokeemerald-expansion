@@ -229,6 +229,12 @@ AUTO_GEN_TARGETS += $(DATA_SRC_SUBDIR)/wild_encounters.h
 $(DATA_SRC_SUBDIR)/wild_encounters.h: $(DATA_SRC_SUBDIR)/wild_encounters.json $(WILD_ENCOUNTERS_TOOL_DIR)/wild_encounters_to_header.py $(INCLUDE_DIRS)/config/overworld.h $(INCLUDE_DIRS)/config/dexnav.h
 	python3 $(WILD_ENCOUNTERS_TOOL_DIR)/wild_encounters_to_header.py > $@
 
+# ==== Generate compile_commands.json for clangd support.
+AUTO_GEN_TARGETS += compile_commands.json
+compile_commands.json: $(TOOLS_DIR)/gen_compile_commands/gen_compile_commands.py
+	python3 $(TOOLS_DIR)/gen_compile_commands/gen_compile_commands.py
+# ==== End clangd support
+
 $(C_BUILDDIR)/wild_encounter.o: c_dep += $(DATA_SRC_SUBDIR)/wild_encounters.h
 
 PERL := perl
