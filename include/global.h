@@ -21,6 +21,11 @@
 #include "constants/items.h"
 #include "config/save.h"
 
+// bare-minimum: Ensure TESTING is defined for `if (TESTING)` calls.
+#ifndef TESTING
+#define TESTING FALSE
+#endif
+
 // Prevent cross-jump optimization.
 #define BLOCK_CROSS_JUMP asm("");
 
@@ -33,7 +38,7 @@
 #endif
 
 /// IDE support
-#if defined(__APPLE__) || defined(__CYGWIN__) || defined(__INTELLISENSE__) || defined (__CLANGD__)
+#if defined(__APPLE__) || defined(__CYGWIN__) || defined(__INTELLISENSE__) || defined(__CLANGD__)
 // We define these when using certain IDEs to fool preproc
 #define _(x)        {x}
 #define __(x)       {x}

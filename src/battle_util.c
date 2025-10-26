@@ -6257,11 +6257,10 @@ u8 GetAttackerObedienceForAction()
     s32 calc;
     u8 obedienceLevel = 0;
     u8 levelReferenced;
-
-    #if B_OBEDIENCE_MECHANICS == FALSE
-        return 0;
-    #endif
-
+    
+    // bare-minimum: Allow disabling obedience checks.
+    if (B_OBEDIENCE_MECHANICS == FALSE)
+        return OBEYS;
     if (gBattleTypeFlags & (BATTLE_TYPE_LINK | BATTLE_TYPE_RECORDED_LINK))
         return OBEYS;
     if (BattlerHasAi(gBattlerAttacker))

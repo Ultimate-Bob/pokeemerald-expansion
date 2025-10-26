@@ -46,6 +46,8 @@
     "Diagnostics": {
         "Suppress": [
             "-Wgnu-alignof-expression", 
+            "-Wunknown-escape-sequence",
+            "-Warray-bounds",
             "fatal_too_many_errors", 
             "not_integral_type_bitfield", 
             "func_returning_array_function",
