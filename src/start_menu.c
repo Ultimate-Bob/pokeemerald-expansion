@@ -1064,19 +1064,19 @@ static u8 SaveConfirmInputCallback(void)
     case 0: // Yes
         switch (gSaveFileStatus)
         {
-            case SAVE_STATUS_EMPTY:
-            case SAVE_STATUS_CORRUPT:
-                if (gDifferentSaveFile == FALSE)
-                {
-                    sSaveDialogCallback = SaveFileExistsCallback;
-                    return SAVE_IN_PROGRESS;
-                }
-
-                sSaveDialogCallback = SaveSavingMessageCallback;
-                return SAVE_IN_PROGRESS;
-            default:
+        case SAVE_STATUS_EMPTY:
+        case SAVE_STATUS_CORRUPT:
+            if (gDifferentSaveFile == FALSE)
+            {
                 sSaveDialogCallback = SaveFileExistsCallback;
                 return SAVE_IN_PROGRESS;
+            }
+
+            sSaveDialogCallback = SaveSavingMessageCallback;
+            return SAVE_IN_PROGRESS;
+        default:
+            sSaveDialogCallback = SaveFileExistsCallback;
+            return SAVE_IN_PROGRESS;
         }
     case MENU_B_PRESSED:
     case 1: // No
@@ -1270,7 +1270,7 @@ static bool32 InitSaveWindowAfterLinkBattle(u8 *state)
         SetVBlankCallback(NULL);
         ScanlineEffect_Stop();
         DmaClear16(3, PLTT, PLTT_SIZE);
-        DmaFillLarge16(3, 0, (void*)VRAM, VRAM_SIZE, 0x1000);
+        DmaFillLarge16(3, 0, (void *)VRAM, VRAM_SIZE, 0x1000);
         break;
     case 1:
         ResetSpriteData();
