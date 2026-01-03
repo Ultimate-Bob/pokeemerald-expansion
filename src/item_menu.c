@@ -1672,7 +1672,7 @@ static void OpenContextMenu(u8 taskId)
         }
         break;
     case ITEMMENULOCATION_SCRIPT_NONKEYITEM:
-        if (GetPocketByItemId(gSpecialVar_ItemId) != POCKET_KEY_ITEMS && !ItemId_GetImportance(gSpecialVar_ItemId) && gSpecialVar_ItemId != ITEM_ENIGMA_BERRY_E_READER)
+        if (GetItemPocket(gSpecialVar_ItemId) != POCKET_KEY_ITEMS && !GetItemImportance(gSpecialVar_ItemId) && gSpecialVar_ItemId != ITEM_ENIGMA_BERRY_E_READER)
         {
             gBagMenu->contextMenuItemsPtr = sContextMenuItems_Script;
             gBagMenu->contextMenuNumItems = ARRAY_COUNT(sContextMenuItems_Script);

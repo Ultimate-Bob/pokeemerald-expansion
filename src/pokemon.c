@@ -2235,11 +2235,7 @@ ARM_FUNC NOINLINE static u32 ConstantMod24(u32 a) { return a % 24; }
 
 static union PokemonSubstruct *GetSubstruct(struct BoxPokemon *boxMon, u32 personality, enum SubstructType substructType)
 {
-#if P_BOX_MON_ENCRYPTION
     return &boxMon->secure.substructs[sSubstructOffsets[substructType][ConstantMod24(personality)]];
-#else
-    return &boxMon->secure.substructs[substructType];
-#endif
 }
 
 /* GameFreak called GetMonData with either 2 or 3 arguments, for type
