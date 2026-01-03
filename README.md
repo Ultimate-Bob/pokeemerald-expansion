@@ -7,11 +7,12 @@ Contains:
 - Porymap and Poryscript support
 - Helper scripts for running Porymap and mGBA.
 - VSCode files for
-    - C/C++ configuration
+    - C/C++ configuration with Clangd.
     - Launch and Task files for debugging with mGBA
     - Bookmarks for useful code locations.
     - Extensions that are very useful for pokeemerald development.
     - Standard settings
+- Linker script fix to emit DWARF 5 debug sections so that GDB can work correctly with VSCode.
 
 # pokeemerald-expansion
 
