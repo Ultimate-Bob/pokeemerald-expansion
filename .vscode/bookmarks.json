@@ -4,12 +4,12 @@
 			"path": "src/overworld.c",
 			"bookmarks": [
 				{
-					"line": 1110,
+					"line": 1108,
 					"column": 8,
 					"label": "Get location music"
 				},
 				{
-					"line": 1540,
+					"line": 1522,
 					"column": 10,
 					"label": "New Game"
 				}
@@ -161,20 +161,10 @@
 			]
 		},
 		{
-			"path": "src/data/trainer_parties.h",
-			"bookmarks": [
-				{
-					"line": 4413,
-					"column": 13,
-					"label": "Wallace party"
-				}
-			]
-		},
-		{
 			"path": "include/constants/trainers.h",
 			"bookmarks": [
 				{
-					"line": 120,
+					"line": 112,
 					"column": 3,
 					"label": "Custom trainer class"
 				}
@@ -184,7 +174,7 @@
 			"path": "src/data/trainer_graphics/front_pic_anims.h",
 			"bookmarks": [
 				{
-					"line": 376,
+					"line": 372,
 					"column": 3,
 					"label": "Custom trainer animations"
 				}
@@ -204,7 +194,7 @@
 			"path": "src/data/graphics/trainers.h",
 			"bookmarks": [
 				{
-					"line": 282,
+					"line": 279,
 					"column": 32,
 					"label": "Custom trainer graphics paths"
 				}

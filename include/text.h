@@ -151,7 +151,7 @@ typedef struct {
     bool8 useAlternateDownArrow:1;
     bool8 autoScroll:1;
     bool8 useForceTextSpeed:1;
-    u8 forceTextSpeed:2;
+    u8 forceTextSpeed:3;
 } TextFlags;
 
 struct TextGlyph
