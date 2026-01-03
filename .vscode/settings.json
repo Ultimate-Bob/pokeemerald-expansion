@@ -196,5 +196,22 @@
     "makefile.configureAfterCommand": false,
     "makefile.configureOnEdit": false,
     "makefile.configureOnOpen": false,
-    "makefile.buildBeforeLaunch": false
+    "makefile.buildBeforeLaunch": false,
+    "json.schemas": [
+        {
+            "fileMatch": [
+                ".clangd"
+            ],
+            "url": "https://json.schemastore.org/clangd.json"
+        },
+        {
+            "fileMatch": [
+                ".clang-format"
+            ],
+            "url": "https://json.schemastore.org/clang-format.json"
+        }
+    ],
+    "clangd.arguments": [
+        "--query-driver=/usr/bin/arm-none-eabi-gcc"
+    ]
 }

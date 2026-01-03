@@ -2,7 +2,10 @@
 #define GUARD_MOVES_H
 
 #include "contest_effect.h"
+#include "constants/battle.h"
+#include "constants/battle_factory.h"
 #include "constants/battle_move_effects.h"
+#include "constants/battle_string_ids.h"
 #include "constants/moves.h"
 
 // For defining EFFECT_HIT etc. with battle TV scores and flags etc.
@@ -10,41 +13,69 @@ struct __attribute__((packed, aligned(2))) BattleMoveEffect
 {
     const u8 *battleScript;
     u16 battleTvScore:3;
+    enum FactoryStyle battleFactoryStyle:4;
     u16 encourageEncore:1;
     u16 twoTurnEffect:1;
     u16 semiInvulnerableEffect:1;
     u16 usesProtectCounter:1;
-    u16 padding:9;
+    u16 padding:5;
 };
 
 #define EFFECTS_ARR(...) (const struct AdditionalEffect[]) {__VA_ARGS__}
 #define ADDITIONAL_EFFECTS(...) EFFECTS_ARR( __VA_ARGS__ ), .numAdditionalEffects = ARRAY_COUNT(EFFECTS_ARR( __VA_ARGS__ ))
 
-enum SheerForceBoost
-{
-    SHEER_FORCE_AUTO_BOOST, // This is the default state when a move has a move effect with a chance
-    SHEER_FORCE_BOOST,      // If a move effect doesn't have an effect with a chance this can force a boost
-    SHEER_FORCE_NO_BOOST,   // Prevents a Sheer Force boost
-};
-
 struct AdditionalEffect
 {
-    u16 moveEffect;
+    enum MoveEffect moveEffect;
     u8 self:1;
     u8 onlyIfTargetRaisedStats:1;
     u8 onChargeTurnOnly:1;
-    u8 sheerForceBoost:2; // Handles edge cases for Sheer Force
-    u8 padding:3;
+    u8 sheerForceOverride:1; // Handles edge cases for Sheer Force - if TRUE, boosts when it shouldn't, or doesn't boost when it should
+    u8 padding:4;
+    union PACKED {
+        enum WrappedStringID wrapped;
+    } multistring;
     u8 chance; // 0% = effect certain, primary effect
+};
+
+enum ProtectType
+{
+    PROTECT_TYPE_NONE,
+    PROTECT_TYPE_SIDE,
+    PROTECT_TYPE_SINGLE,
+};
+
+enum ProtectMethod
+{
+    PROTECT_NONE,
+    PROTECT_NORMAL,
+    PROTECT_SPIKY_SHIELD,
+    PROTECT_KINGS_SHIELD,
+    PROTECT_BANEFUL_BUNKER,
+    PROTECT_BURNING_BULWARK,
+    PROTECT_OBSTRUCT,
+    PROTECT_SILK_TRAP,
+    PROTECT_MAX_GUARD,
+    PROTECT_WIDE_GUARD,
+    PROTECT_QUICK_GUARD,
+    PROTECT_CRAFTY_SHIELD,
+    PROTECT_MAT_BLOCK,
+};
+
+enum TerrainGroundCheck
+{
+    GROUND_CHECK_NONE,
+    GROUND_CHECK_USER,
+    GROUND_CHECK_TARGET,
 };
 
 struct MoveInfo
 {
     const u8 *name;
     const u8 *description;
-    u16 effect;
-    u16 type:5;     // Up to 32
-    u16 category:2;
+    enum BattleMoveEffects effect;
+    enum Type type:5;     // Up to 32
+    enum DamageCategory category:2;
     u16 power:9;    // up to 511
     // end of word
     u16 accuracy:7;
@@ -56,11 +87,12 @@ struct MoveInfo
     } zMove;
     // end of word
     s32 priority:4;
-    u32 recoil:7;
     u32 strikeCount:4; // Max 15 hits. Defaults to 1 if not set. May apply its effect on each hit.
+    u32 multiHit:1; // Takes presendance over strikeCount
+    u32 explosion:1;
     u32 criticalHitStage:2;
     bool32 alwaysCriticalHit:1;
-    u32 numAdditionalEffects:2; // limited to 3 - don't want to get too crazy
+    u32 numAdditionalEffects:3; // limited to 7
     // Flags
     bool32 makesContact:1;
     bool32 ignoresProtect:1;
@@ -74,11 +106,11 @@ struct MoveInfo
     bool32 ballisticMove:1;
     bool32 powderMove:1;
     bool32 danceMove:1;
-    // end of word
     bool32 windMove:1;
     bool32 slicingMove:1;
     bool32 healingMove:1;
     bool32 minimizeDoubleDamage:1;
+    // end of word
     bool32 ignoresTargetAbility:1;
     bool32 ignoresTargetDefenseEvasionStages:1;
     bool32 damagesUnderground:1;
@@ -90,6 +122,9 @@ struct MoveInfo
     bool32 ignoresSubstitute:1;
     bool32 forcePressure:1;
     bool32 cantUseTwice:1;
+    bool32 alwaysHitsInRain:1;
+    bool32 accuracy50InSun:1;
+    bool32 alwaysHitsInHailSnow:1;
     // Ban flags
     bool32 gravityBanned:1;
     bool32 mirrorMoveBanned:1;
@@ -104,26 +139,46 @@ struct MoveInfo
     bool32 parentalBondBanned:1;
     bool32 skyBattleBanned:1;
     bool32 sketchBanned:1;
+    bool32 dampBanned:1;
     //Other
     bool32 validApprenticeMove:1;
-    u32 padding:18;
+    u32 padding:3;
     // end of word
 
     union {
         struct {
             u16 stringId;
-            u16 status;
+            union {
+                u16 status;
+                u16 weather;
+            };
         } twoTurnAttack;
         struct {
-            u16 side;
-            u16 property; // can be used to remove the hardcoded values
-        } protect;
+            u16 species;
+            u16 power:9;
+            u16 numOfHits:7;
+        } speciesPowerOverride;
+        struct {
+            u16 damagePercent:12;
+            u16 damageCategories:4; // bit field
+        } reflectDamage;
+        struct {
+            u16 terrain;
+            u16 percent:14;
+            enum TerrainGroundCheck groundCheck:2;
+            u16 hitsBothFoes:1;
+        } terrainBoost;
+        u32 protectMethod;
         u32 status;
-        u16 moveProperty;
-        u16 holdEffect;
-        u16 type;
-        u16 fixedDamage;
-        u16 absorbPercentage;
+        u32 moveProperty;
+        u32 holdEffect;
+        u32 type;
+        u32 fixedDamage;
+        u32 damagePercentage;
+        u32 absorbPercentage;
+        u32 recoilPercentage;
+        u32 nonVolatileStatus;
+        u32 overwriteAbility;
     } argument;
 
     // primary/secondary effects
@@ -137,16 +192,18 @@ struct MoveInfo
     const u8 *battleAnimScript;
 };
 
-extern const struct MoveInfo gMovesInfo[];
+extern const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL];
 extern const u8 gNotDoneYetDescription[];
 extern const struct BattleMoveEffect gBattleMoveEffects[];
 
 static inline u32 SanitizeMoveId(u32 moveId)
 {
-    if (moveId >= MOVES_COUNT_ALL)
+    assertf(moveId < MOVES_COUNT_ALL, "invalid move: %d", moveId)
+    {
         return MOVE_NONE;
-    else
-        return moveId;
+    }
+
+    return moveId;
 }
 
 static inline const u8 *GetMoveName(u32 moveId)
@@ -154,25 +211,25 @@ static inline const u8 *GetMoveName(u32 moveId)
     return gMovesInfo[SanitizeMoveId(moveId)].name;
 }
 
-static inline const u8 *GetMoveDescription(u32 moveId)
-{
-    moveId = SanitizeMoveId(moveId);
-    if (gMovesInfo[moveId].effect == EFFECT_PLACEHOLDER)
-        return gNotDoneYetDescription;
-    return gMovesInfo[moveId].description;
-}
-
-static inline u32 GetMoveEffect(u32 moveId)
+static inline enum BattleMoveEffects GetMoveEffect(u32 moveId)
 {
     return gMovesInfo[SanitizeMoveId(moveId)].effect;
 }
 
-static inline u32 GetMoveType(u32 moveId)
+static inline const u8 *GetMoveDescription(u32 moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    if (GetMoveEffect(moveId) == EFFECT_PLACEHOLDER)
+        return gNotDoneYetDescription;
+    return gMovesInfo[moveId].description;
+}
+
+static inline enum Type GetMoveType(u32 moveId)
 {
     return gMovesInfo[SanitizeMoveId(moveId)].type;
 }
 
-static inline u32 GetMoveCategory(u32 moveId)
+static inline enum DamageCategory GetMoveCategory(u32 moveId)
 {
     return gMovesInfo[SanitizeMoveId(moveId)].category;
 }
@@ -189,7 +246,10 @@ static inline u32 GetMoveAccuracy(u32 moveId)
 
 static inline u32 GetMoveTarget(u32 moveId)
 {
-    return gMovesInfo[SanitizeMoveId(moveId)].target;
+    moveId = SanitizeMoveId(moveId);
+    u32 target = gMovesInfo[moveId].target;
+    assertf(target != TARGET_SMART || gMovesInfo[moveId].strikeCount > 1, "Smart target requires strikeCount > 1: %S", gMovesInfo[moveId].name);
+    return target;
 }
 
 static inline u32 GetMovePP(u32 moveId)
@@ -199,12 +259,16 @@ static inline u32 GetMovePP(u32 moveId)
 
 static inline u32 GetMoveZEffect(u32 moveId)
 {
-    return gMovesInfo[SanitizeMoveId(moveId)].zMove.effect;
+    moveId = SanitizeMoveId(moveId);
+    assertf(GetMoveCategory(moveId) == DAMAGE_CATEGORY_STATUS, "not a status move: %S", gMovesInfo[moveId].name);
+    return gMovesInfo[moveId].zMove.effect;
 }
 
 static inline u32 GetMoveZPowerOverride(u32 moveId)
 {
-    return gMovesInfo[SanitizeMoveId(moveId)].zMove.powerOverride;
+    moveId = SanitizeMoveId(moveId);
+    assertf(GetMoveCategory(moveId) != DAMAGE_CATEGORY_STATUS, "not a damaging move: %S", gMovesInfo[moveId].name);
+    return gMovesInfo[moveId].zMove.powerOverride;
 }
 
 static inline s32 GetMovePriority(u32 moveId)
@@ -212,14 +276,19 @@ static inline s32 GetMovePriority(u32 moveId)
     return gMovesInfo[SanitizeMoveId(moveId)].priority;
 }
 
-static inline u32 GetMoveRecoil(u32 moveId)
-{
-    return gMovesInfo[SanitizeMoveId(moveId)].recoil;
-}
-
 static inline u32 GetMoveStrikeCount(u32 moveId)
 {
     return gMovesInfo[SanitizeMoveId(moveId)].strikeCount;
+}
+
+static inline u32 IsMultiHitMove(u32 moveId)
+{
+    return gMovesInfo[SanitizeMoveId(moveId)].multiHit;
+}
+
+static inline u32 IsExplosionMove(u32 move)
+{
+    return gMovesInfo[SanitizeMoveId(move)].explosion;
 }
 
 static inline u32 GetMoveCriticalHitStage(u32 moveId)
@@ -372,6 +441,21 @@ static inline bool32 MoveCantBeUsedTwice(u32 moveId)
     return gMovesInfo[SanitizeMoveId(moveId)].cantUseTwice;
 }
 
+static inline bool32 MoveAlwaysHitsInRain(u32 moveId)
+{
+    return gMovesInfo[SanitizeMoveId(moveId)].alwaysHitsInRain;
+}
+
+static inline bool32 MoveHas50AccuracyInSun(u32 moveId)
+{
+    return gMovesInfo[SanitizeMoveId(moveId)].accuracy50InSun;
+}
+
+static inline bool32 MoveAlwaysHitsInHailSnow(u32 moveId)
+{
+    return gMovesInfo[SanitizeMoveId(moveId)].alwaysHitsInHailSnow;
+}
+
 static inline bool32 IsMoveGravityBanned(u32 moveId)
 {
     return gMovesInfo[SanitizeMoveId(moveId)].gravityBanned;
@@ -437,57 +521,197 @@ static inline bool32 IsMoveSketchBanned(u32 moveId)
     return gMovesInfo[SanitizeMoveId(moveId)].sketchBanned;
 }
 
+static inline bool32 IsMoveDampBanned(u32 moveId)
+{
+    return gMovesInfo[SanitizeMoveId(moveId)].dampBanned;
+}
+
+static inline bool32 IsValidApprenticeMove(u32 moveId)
+{
+    return gMovesInfo[SanitizeMoveId(moveId)].validApprenticeMove;
+}
+
 static inline u32 GetMoveTwoTurnAttackStringId(u32 moveId)
 {
-    return gMovesInfo[SanitizeMoveId(moveId)].argument.twoTurnAttack.stringId;
+    moveId = SanitizeMoveId(moveId);
+    enum BattleMoveEffects effect = gMovesInfo[moveId].effect;
+    assertf(gBattleMoveEffects[effect].twoTurnEffect, "not a two-turn move: %S", gMovesInfo[moveId].name);
+    return gMovesInfo[moveId].argument.twoTurnAttack.stringId;
 }
 
 static inline u32 GetMoveTwoTurnAttackStatus(u32 moveId)
 {
-    return UNCOMPRESS_BITS(gMovesInfo[SanitizeMoveId(moveId)].argument.twoTurnAttack.status);
+    moveId = SanitizeMoveId(moveId);
+    enum BattleMoveEffects effect = gMovesInfo[moveId].effect;
+    assertf(effect == EFFECT_SEMI_INVULNERABLE || effect == EFFECT_SKY_DROP, "not a two-turn move with status: %S", gMovesInfo[moveId].name);
+    return gMovesInfo[moveId].argument.twoTurnAttack.status;
 }
 
 static inline u32 GetMoveTwoTurnAttackWeather(u32 moveId)
 {
-    return gMovesInfo[SanitizeMoveId(moveId)].argument.twoTurnAttack.status;
+    moveId = SanitizeMoveId(moveId);
+    enum BattleMoveEffects effect = gMovesInfo[moveId].effect;
+    assertf(effect == EFFECT_TWO_TURNS_ATTACK || effect == EFFECT_SOLAR_BEAM, "not a two-turn move with weather: %S", gMovesInfo[moveId].name);
+    return gMovesInfo[moveId].argument.twoTurnAttack.weather;
 }
 
-static inline u32 GetMoveProtectSide(u32 moveId)
+static inline u32 GetMoveSpeciesPowerOverride_Species(u32 moveId)
 {
-    return gMovesInfo[SanitizeMoveId(moveId)].argument.protect.side;
+    moveId = SanitizeMoveId(moveId);
+    assertf(gMovesInfo[moveId].effect == EFFECT_SPECIES_POWER_OVERRIDE, "not a species power override move: %S", GetMoveName(moveId));
+    return gMovesInfo[SanitizeMoveId(moveId)].argument.speciesPowerOverride.species;
+}
+
+static inline u32 GetMoveSpeciesPowerOverride_Power(u32 moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    assertf(gMovesInfo[moveId].effect == EFFECT_SPECIES_POWER_OVERRIDE, "not a species power override move: %S", GetMoveName(moveId));
+    return gMovesInfo[SanitizeMoveId(moveId)].argument.speciesPowerOverride.power;
+}
+
+static inline u32 GetMoveSpeciesPowerOverride_NumOfHits(u32 moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    assertf(gMovesInfo[moveId].effect == EFFECT_SPECIES_POWER_OVERRIDE, "not a species power override move: %S", GetMoveName(moveId));
+    return gMovesInfo[SanitizeMoveId(moveId)].argument.speciesPowerOverride.numOfHits;
+}
+
+static inline u32 GetMoveReflectDamage_DamagePercent(u32 moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    assertf(gMovesInfo[moveId].effect == EFFECT_REFLECT_DAMAGE, "not a damage reflection move: %S", GetMoveName(moveId));
+    return gMovesInfo[SanitizeMoveId(moveId)].argument.reflectDamage.damagePercent;
+}
+
+static inline u32 GetMoveReflectDamage_DamageCategories(u32 moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    assertf(gMovesInfo[moveId].effect == EFFECT_REFLECT_DAMAGE, "not a damage reflection move: %S", GetMoveName(moveId));
+    return gMovesInfo[SanitizeMoveId(moveId)].argument.reflectDamage.damageCategories;
+}
+
+static inline u32 GetMoveTerrainBoost_Terrain(u32 moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    assertf(gMovesInfo[moveId].effect == EFFECT_TERRAIN_BOOST, "not a terrain boosted move: %S", GetMoveName(moveId));
+    return gMovesInfo[moveId].argument.terrainBoost.terrain;
+}
+
+static inline u32 GetMoveTerrainBoost_Percent(u32 moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    assertf(gMovesInfo[moveId].effect == EFFECT_TERRAIN_BOOST, "not a terrain boosted move: %S", GetMoveName(moveId));
+    return gMovesInfo[moveId].argument.terrainBoost.percent;
+}
+
+static inline u32 GetMoveTerrainBoost_GroundCheck(u32 moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    assertf(gMovesInfo[moveId].effect == EFFECT_TERRAIN_BOOST, "not a terrain boosted move: %S", GetMoveName(moveId));
+    return gMovesInfo[moveId].argument.terrainBoost.groundCheck;
+}
+
+static inline u32 GetMoveTerrainBoost_HitsBothFoes(u32 moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    assertf(gMovesInfo[moveId].effect == EFFECT_TERRAIN_BOOST, "not a terrain boosted move: %S", GetMoveName(moveId));
+    return gMovesInfo[moveId].argument.terrainBoost.hitsBothFoes;
+}
+
+static inline enum ProtectMethod GetMoveProtectMethod(u32 moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    enum BattleMoveEffects effect = gMovesInfo[moveId].effect;
+    assertf(effect == EFFECT_PROTECT || effect == EFFECT_ENDURE || effect == EFFECT_MAT_BLOCK, "not a protect move: %S", GetMoveName(moveId));
+    return gMovesInfo[moveId].argument.protectMethod;
 }
 
 static inline u32 GetMoveEffectArg_Status(u32 moveId)
 {
-    return gMovesInfo[SanitizeMoveId(moveId)].argument.status;
+    // Forward-declared here because 'include/battle_util.h' includes
+    // this file.
+    extern bool32 MoveHasAdditionalEffect(u32 move, u32 moveEffect);
+
+    moveId = SanitizeMoveId(moveId);
+    enum BattleMoveEffects effect = gMovesInfo[moveId].effect;
+    assertf(effect == EFFECT_FOCUS_ENERGY || effect == EFFECT_DOUBLE_POWER_ON_ARG_STATUS || MoveHasAdditionalEffect(moveId, MOVE_EFFECT_REMOVE_STATUS), "not a move with status: %S", gMovesInfo[moveId].name);
+    return gMovesInfo[moveId].argument.status;
 }
 
 static inline u32 GetMoveEffectArg_MoveProperty(u32 moveId)
 {
+    moveId = SanitizeMoveId(moveId);
+    enum BattleMoveEffects effect = gMovesInfo[moveId].effect;
+    assertf(effect == EFFECT_FIRST_TURN_ONLY || effect == EFFECT_HEAL_PULSE, "not a move with moveProperty: %S", gMovesInfo[moveId].name);
     return gMovesInfo[SanitizeMoveId(moveId)].argument.moveProperty;
 }
 
 static inline u32 GetMoveEffectArg_HoldEffect(u32 moveId)
 {
-    return gMovesInfo[SanitizeMoveId(moveId)].argument.holdEffect;
+    moveId = SanitizeMoveId(moveId);
+    enum BattleMoveEffects effect = gMovesInfo[moveId].effect;
+    assertf(effect == EFFECT_CHANGE_TYPE_ON_ITEM, "not a move with a hold effect: %S", gMovesInfo[moveId].name);
+    return gMovesInfo[moveId].argument.holdEffect;
 }
 
 static inline u32 GetMoveArgType(u32 moveId)
 {
-    return gMovesInfo[SanitizeMoveId(moveId)].argument.type;
+    moveId = SanitizeMoveId(moveId);
+    enum BattleMoveEffects effect = gMovesInfo[moveId].effect;
+    assertf(effect == EFFECT_SOAK || effect == EFFECT_TWO_TYPED_MOVE || effect == EFFECT_THIRD_TYPE || effect == EFFECT_SUPER_EFFECTIVE_ON_ARG || effect == EFFECT_FAIL_IF_NOT_ARG_TYPE, "not a move with a type: %S", gMovesInfo[moveId].name);
+    return gMovesInfo[moveId].argument.type;
 }
 
-static inline u32 GetMoveFixedDamage(u32 moveId)
+static inline u32 GetMoveFixedHPDamage(u32 moveId)
 {
-    return gMovesInfo[SanitizeMoveId(moveId)].argument.fixedDamage;
+    moveId = SanitizeMoveId(moveId);
+    assertf(gMovesInfo[moveId].effect == EFFECT_FIXED_HP_DAMAGE, "not a fixed-damage move: %S", gMovesInfo[moveId].name);
+    return gMovesInfo[moveId].argument.fixedDamage;
 }
 
 static inline u32 GetMoveAbsorbPercentage(u32 moveId)
 {
     moveId = SanitizeMoveId(moveId);
+    enum BattleMoveEffects effect = gMovesInfo[moveId].effect;
+    assertf(effect == EFFECT_ABSORB || effect == EFFECT_DREAM_EATER, "not an absorbing move: %S", gMovesInfo[moveId].name);
     if (gMovesInfo[moveId].argument.absorbPercentage == 0)
         return 50;
     return gMovesInfo[moveId].argument.absorbPercentage;
+}
+
+static inline u32 GetMoveRecoil(u32 moveId)
+{
+    moveId = SanitizeMoveId(moveId);
+    assertf(gMovesInfo[moveId].effect == EFFECT_RECOIL, "not a recoil move: %S", gMovesInfo[moveId].name);
+    return gMovesInfo[moveId].argument.recoilPercentage;
+}
+
+static inline u32 GetMoveNonVolatileStatus(u32 move)
+{
+    move = SanitizeMoveId(move);
+    switch (GetMoveEffect(move))
+    {
+    case EFFECT_NON_VOLATILE_STATUS:
+    case EFFECT_YAWN:
+    case EFFECT_DARK_VOID:
+        return gMovesInfo[move].argument.nonVolatileStatus;
+    default:
+        return MOVE_EFFECT_NONE;
+    }
+}
+
+static inline u32 GetMoveDamagePercentage(u32 move)
+{
+    move = SanitizeMoveId(move);
+    assertf(gMovesInfo[move].effect == EFFECT_FIXED_PERCENT_DAMAGE, "not a percentage-damage move: %S", gMovesInfo[move].name);
+    return gMovesInfo[move].argument.damagePercentage;
+}
+
+static inline u32 GetMoveOverwriteAbility(u32 move)
+{
+    move = SanitizeMoveId(move);
+    assertf(gMovesInfo[move].effect == EFFECT_OVERWRITE_ABILITY, "not a move that overwrites abilities: %S", gMovesInfo[move].name);
+    return gMovesInfo[move].argument.overwriteAbility;
 }
 
 static inline const struct AdditionalEffect *GetMoveAdditionalEffectById(u32 moveId, u32 effect)
@@ -518,9 +742,8 @@ static inline u32 GetMoveContestComboMoves(u32 moveId, u32 comboMove)
 static inline const u8 *GetMoveAnimationScript(u32 moveId)
 {
     moveId = SanitizeMoveId(moveId);
-    if (gMovesInfo[moveId].battleAnimScript == NULL)
+    assertf(gMovesInfo[moveId].battleAnimScript, "No animation for %S", gMovesInfo[moveId].name)
     {
-        DebugPrintfLevel(MGBA_LOG_WARN, "No animation for moveId=%u", moveId);
         return gMovesInfo[MOVE_NONE].battleAnimScript;
     }
     return gMovesInfo[moveId].battleAnimScript;
@@ -529,12 +752,11 @@ static inline const u8 *GetMoveAnimationScript(u32 moveId)
 static inline const u8 *GetMoveBattleScript(u32 moveId)
 {
     moveId = SanitizeMoveId(moveId);
-    if (gBattleMoveEffects[gMovesInfo[moveId].effect].battleScript == NULL)
+    assertf(gBattleMoveEffects[GetMoveEffect(moveId)].battleScript, "No battle script for %S", gMovesInfo[moveId].name)
     {
-        DebugPrintfLevel(MGBA_LOG_WARN, "No effect for moveId=%u", moveId);
         return gBattleMoveEffects[EFFECT_PLACEHOLDER].battleScript;
     }
-    return gBattleMoveEffects[gMovesInfo[moveId].effect].battleScript;
+    return gBattleMoveEffects[GetMoveEffect(moveId)].battleScript;
 }
 
 #endif // GUARD_MOVES_H
