@@ -15,6 +15,7 @@
 #include "battle_setup.h"
 #include "random.h"
 #include "field_player_avatar.h"
+#include "fieldmap.h"
 #include "vs_seeker.h"
 #include "menu.h"
 #include "string_util.h"
@@ -28,8 +29,11 @@
 #include "constants/items.h"
 #include "constants/maps.h"
 #include "constants/songs.h"
+#include "constants/script_commands.h"
 #include "constants/trainer_types.h"
 #include "constants/field_effects.h"
+
+// Documentation for the Vs. Seeker can be found in docs/tutorials/vs_seeker.md.
 
 enum
 {
@@ -230,6 +234,9 @@ bool8 UpdateVsSeekerStepCounter(void)
 
     if (!I_VS_SEEKER_CHARGING) return FALSE;
 
+    // This condition helps in case your save file is switching between vs seeker and matchcall
+    if (gSaveBlock1Ptr->trainerRematchStepCounter > VSSEEKER_RECHARGE_STEPS && gSaveBlock1Ptr->trainerRematchStepCounter <= 0xFF)
+        gSaveBlock1Ptr->trainerRematchStepCounter = 0;
     if (CheckBagHasItem(ITEM_VS_SEEKER, 1))
     {
         if ((gSaveBlock1Ptr->trainerRematchStepCounter & 0xFF) < VSSEEKER_RECHARGE_STEPS)
@@ -376,13 +383,16 @@ static void GatherNearbyTrainerInfo(void)
         if (templates[objectEventIdx].trainerType != TRAINER_TYPE_NORMAL && templates[objectEventIdx].trainerType != TRAINER_TYPE_BURIED)
             continue;
 
+        u16 trainerIdx = GetTrainerFlagFromScript(templates[objectEventIdx].script);
+        if (trainerIdx == TRAINER_NONE)
+            continue;
         sVsSeeker->trainerInfo[vsSeekerObjectIdx].script = templates[objectEventIdx].script;
-        sVsSeeker->trainerInfo[vsSeekerObjectIdx].trainerIdx = GetTrainerFlagFromScript(templates[objectEventIdx].script);
+        sVsSeeker->trainerInfo[vsSeekerObjectIdx].trainerIdx = trainerIdx;
         sVsSeeker->trainerInfo[vsSeekerObjectIdx].localId = templates[objectEventIdx].localId;
         TryGetObjectEventIdByLocalIdAndMap(templates[objectEventIdx].localId, gSaveBlock1Ptr->location.mapNum, gSaveBlock1Ptr->location.mapGroup, &objectEventId);
         sVsSeeker->trainerInfo[vsSeekerObjectIdx].objectEventId = objectEventId;
-        sVsSeeker->trainerInfo[vsSeekerObjectIdx].xCoord = gObjectEvents[objectEventId].currentCoords.x - 7;
-        sVsSeeker->trainerInfo[vsSeekerObjectIdx].yCoord = gObjectEvents[objectEventId].currentCoords.y - 7;
+        sVsSeeker->trainerInfo[vsSeekerObjectIdx].xCoord = gObjectEvents[objectEventId].currentCoords.x - MAP_OFFSET;
+        sVsSeeker->trainerInfo[vsSeekerObjectIdx].yCoord = gObjectEvents[objectEventId].currentCoords.y - MAP_OFFSET;
         sVsSeeker->trainerInfo[vsSeekerObjectIdx].graphicsId = templates[objectEventIdx].graphicsId;
         vsSeekerObjectIdx++;
     }
@@ -707,9 +717,19 @@ static u16 GetTrainerFlagFromScript(const u8 *script)
 {
     // The trainer flag is located 3 bytes (command + flags + localIdA) from the script pointer, assuming the trainerbattle command is first in the script.
     // Because scripts are unaligned, and because the ARM processor requires shorts to be 16-bit aligned, this function needs to perform explicit bitwise operations to get the correct flag.
-    script += 3;
-    u16 trainerFlag = script[0];
-    trainerFlag |= script[1] << 8;
+    u16 trainerFlag = TRAINER_NONE;
+    struct ScriptContext *ctx = AllocZeroed(sizeof(struct ScriptContext));
+    if (script[0] == SCR_OP_TRAINERBATTLE)
+    {
+        ctx->scriptPtr = script + 3;
+        trainerFlag = ScriptPeekHalfword(ctx);
+    }
+    else if (Script_MatchesCallNative(script, NativeVsSeekerRematchId, TRUE))
+    {
+        ctx->scriptPtr = script + 5;
+        trainerFlag = ScriptPeekHalfword(ctx);
+    }
+    Free(ctx);
     return trainerFlag;
 }
 
@@ -733,8 +753,8 @@ static bool8 IsTrainerVisibleOnScreen(struct VsSeekerTrainerInfo * trainerInfo)
     s16 y;
 
     PlayerGetDestCoords(&x, &y);
-    x -= 7;
-    y -= 7;
+    x -= MAP_OFFSET;
+    y -= MAP_OFFSET;
 
     if (   x - 7 <= trainerInfo->xCoord
         && x + 7 >= trainerInfo->xCoord
@@ -787,6 +807,14 @@ static u8 GetCurVsSeekerResponse(s32 vsSeekerIdx, u16 trainerIdx)
     return VSSEEKER_SINGLE_RESP_RAND;
 }
 #endif //FREE_MATCH_CALL
+
+void NativeVsSeekerRematchId(struct ScriptContext *ctx)
+{
+    u16 trainerId = ScriptReadHalfword(ctx);
+    if (ctx->breakOnTrainerBattle && HasTrainerBeenFought(trainerId) && !ShouldTryRematchBattleForTrainerId(trainerId))
+        StopScript(ctx);
+}
+
 
 static void StartAllRespondantIdleMovements(void)
 {

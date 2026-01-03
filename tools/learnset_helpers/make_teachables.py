@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 
 """
-Usage: python3 make_teachable.py SOURCE_LEARNSETS_JSON
+Usage: python3 make_teachable.py SOURCE_DIR
 
 Build a C-header defining the set of teachable moves for each configured-on
-species-family based on the learnable moves defined in SOURCE_LEARNSETS_JSON.
+species-family based on the learnable moves defined in SOURCE_DIR/all_learnables.json.
 
 A move is "teachable" if it is:
     1. Can be taught by some Move Tutor in the overworld, which is identified by
@@ -12,13 +12,13 @@ A move is "teachable" if it is:
        to the offered MOVE constant. (e.g., MOVE_SWAGGER)
     2. Assigned to some TM or HM in include/constants/tms_hms.h using the
        FOREACH_TM macro.
-    3. Not a universal move, as defined by sUniversalMoves in src/pokemon.c.
+    3. A universal move, as defined by universalMoves in
+       src/data/pokemon/special_movesets.json
 
 For a given species, a move is considered teachable to that species if:
-    1. The species is not NONE -- which learns nothing -- nor MEW -- which
-       learns everything.
-    2. The species can learn the move via *any* method within any Expansion-
+    1. The species can learn the move via *any* method within any Expansion-
        supported game.
+    2. The species rule defined by their teachingType in the species_info folder
 """
 
 from itertools import chain
@@ -36,11 +36,8 @@ CONFIG_ENABLED_PAT = re.compile(r"#define P_LEARNSET_HELPER_TEACHABLE\s+(?P<cfg_
 ALPHABETICAL_ORDER_ENABLED_PAT = re.compile(r"#define HGSS_SORT_TMS_BY_NUM\s+(?P<cfg_val>[^ ]*)")
 TM_LITTERACY_PAT = re.compile(r"#define P_TM_LITERACY\s+GEN_(?P<cfg_val>[^ ]*)")
 TMHM_MACRO_PAT = re.compile(r"F\((\w+)\)")
-TEACHABLE_ARRAY_DECL_PAT = re.compile(r"(?P<decl>static const u16 s(?P<name>\w+)TeachableLearnset\[\]) = {[\s\S]*?};")
-MOVE_TUTOR_ARRAY_DECL_PAT = re.compile(r"(?P<decl>const u16 gTutorMoves\[\] = {)[\s\S]*?    MOVE_UNAVAILABLE,")
 SNAKIFY_PAT = re.compile(r"(?!^)([A-Z]+)")
 TUTOR_ARRAY_ENABLED_PAT = re.compile(r"#define\s+POKEDEX_PLUS_HGSS\s+(?P<cfg_val>[^ ]*)")
-POKEMON_TEACHING_TYPE_PAT = re.compile(r"\{[\s\S]*?(.teachingType\s*=\s*(?P<teaching_type>[A-Z_]+),[\s\S]*?)?\.teachableLearnset\s*=\s*s(?P<name>\w+?)TeachableLearnset[\s\S]*?\}")
 
 def enabled() -> bool:
     """
@@ -64,18 +61,6 @@ def extract_repo_tms() -> typing.Generator[str, None, None]:
         for match in match_it:
             yield f"MOVE_{match.group(1)}"
 
-def extract_repo_teaching_types() -> dict[str, str]:
-    species_teaching_types = {}
-    for families_fname in sorted(glob.glob("src/data/pokemon/species_info/gen_*_families.h")):
-        with open(families_fname, "r") as family_fp:
-            family_file = family_fp.read()
-            for pokemon in POKEMON_TEACHING_TYPE_PAT.finditer(family_file):
-                if pokemon.group("teaching_type"):
-                    species_teaching_types[pokemon.group("name")] = pokemon.group("teaching_type")
-                else:
-                    species_teaching_types[pokemon.group("name")] = "DEFAULT_LEARNING"
-    return species_teaching_types
-
 def extract_tm_litteracy_config() -> bool:
     config = False
     with open("./include/config/pokemon.h", "r") as cfg_pokemon_fp:
@@ -87,16 +72,12 @@ def extract_tm_litteracy_config() -> bool:
                 config = True
     return config
 
-def prepare_output(all_learnables: dict[str, set[str]], tms: list[str], tutors: list[str], special_movesets, header: str) -> str:
+def prepare_output(all_learnables: dict[str, set[str]], tms: list[str], tutors: list[str], special_movesets, repo_teaching_types, header: str) -> str:
     """
     Build the file content for teachable_learnsets.h.
     """
 
-    repo_teaching_types = extract_repo_teaching_types()
     tm_litteracy_config = extract_tm_litteracy_config()
-
-    with open("./src/data/pokemon/teachable_learnsets.h", "r") as teachables_fp:
-        old = teachables_fp.read()
 
     cursor = 0
     new = header + dedent("""
@@ -106,51 +87,41 @@ def prepare_output(all_learnables: dict[str, set[str]], tms: list[str], tutors: 
     """)
 
     joinpat = ",\n    "
-    for species in TEACHABLE_ARRAY_DECL_PAT.finditer(old):
-        match_b, match_e = species.span()
-        species_upper = SNAKIFY_PAT.sub(r"_\1", species.group("name")).upper()
-        if species_upper == "NONE":
-            # NONE is hard-coded to be at the start of the file to keep this code simple.
-            cursor = match_e + 1
+    for species_data in repo_teaching_types:
+        if isinstance(species_data, str):
+            new += (species_data)
             continue
-
-        if repo_teaching_types[species.group("name")] == "ALL_TEACHABLES":
-            learnables = filter(lambda m: m not in special_movesets["signatureTeachables"], tms + tutors)
-        elif repo_teaching_types[species.group("name")] == "TM_ILLITERATE":
-            learnables = all_learnables[species_upper]
-            if not tm_litteracy_config:
-                learnables = filter(lambda m: m not in special_movesets["universalMoves"], learnables)
+        species = species_data["name"]
+        teaching_type = species_data["teaching_type"]
+        new += f"static const u16 s{species}TeachableLearnset[] = "
+        new += "{\n"
+        species_upper =  SNAKIFY_PAT.sub(r"_\1", species).upper()
+        if teaching_type == "ALL_TEACHABLES":
+            part1 = list(filter(lambda m: m not in special_movesets["signatureTeachables"], tms))
+            part2 = list(filter(lambda m: m not in special_movesets["signatureTeachables"], tutors))
         else:
-            learnables = all_learnables[species_upper] + special_movesets["universalMoves"]
+            if teaching_type == "TM_ILLITERATE":
+                learnables = all_learnables[species_upper]
+                if not tm_litteracy_config:
+                    learnables = filter(lambda m: m not in special_movesets["universalMoves"], learnables)
+            else:
+                learnables = all_learnables[species_upper] + special_movesets["universalMoves"]
+            part1 = list(filter(lambda m: m in learnables, tms))
+            part2 = list(filter(lambda m: m in learnables, tutors))
 
-        part1 = list(filter(lambda m: m in learnables, tms))
-        part2 = list(filter(lambda m: m in learnables, tutors))
+
         repo_species_teachables = part1 + part2
         if species_upper == "TERAPAGOS":
              repo_species_teachables = filter(lambda m: m != "MOVE_TERA_BLAST", repo_species_teachables)
 
         repo_species_teachables = list(dict.fromkeys(repo_species_teachables))
-        new += old[cursor:match_b]
         new += "\n".join([
-            f"{species.group('decl')} = {{",
             f"    {joinpat.join(chain(repo_species_teachables, ('MOVE_UNAVAILABLE',)))},",
             "};\n",
         ])
-        cursor = match_e + 1
-
-    tutors_array = MOVE_TUTOR_ARRAY_DECL_PAT.search(old)
-    match_b, match_e = tutors_array.span()
-    new += old[cursor:match_b]
-    new += "\n".join([
-        f"{tutors_array.group('decl')}",
-        f"    {joinpat.join(chain(sorted(tutors)))},"
-        f"\n    MOVE_UNAVAILABLE,\n"
-    ])
-    cursor = match_e + 1
-
-    new += old[cursor:]
 
     return new
+
 
 
 def prepare_header(h_align: int, tmshms: list[str], tutors: list[str], universals: list[str]) -> str:
@@ -185,6 +156,23 @@ def prepare_header(h_align: int, tmshms: list[str], tutors: list[str], universal
 
     return "\n".join(lines)
 
+def create_tutor_moves_array(tutors):
+    """
+    Generate gTutorMoves[] if P_TUTOR_MOVES_ARRAY is enabled.
+    """
+    # If enabled, generate the tutor moves array
+    header = dedent("""\
+        // DO NOT MODIFY THIS FILE! It is auto-generated by tools/learnset_helpers/make_teachables.py
+        // Set the config P_TUTOR_MOVES_ARRAY in include/config/pokemon.h to TRUE to enable this array!
+        // Also need by tutor moves relearner!
+
+        const u16 gTutorMoves[] = {
+    """)
+
+    lines = [f"    {move}," for move in tutors]
+    lines.append("    MOVE_UNAVAILABLE\n};\n")
+    with open("./src/data/tutor_moves.h", "w") as f:
+        f.write(header + "\n".join(lines))
 
 def main():
     if not enabled():
@@ -195,14 +183,19 @@ def main():
         print(__doc__, file=sys.stderr)
         quit(1)
 
-    SOURCE_LEARNSETS_JSON = pathlib.Path(sys.argv[1])
-    SOURCE_TUTORS_JSON = pathlib.Path(sys.argv[2])
+    SOURCE_DIR = pathlib.Path(sys.argv[1])
+    SOURCE_LEARNSETS_JSON = pathlib.Path("./src/data/pokemon/all_learnables.json")
+    SOURCE_TUTORS_JSON = SOURCE_DIR / "all_tutors.json"
+    SOURCE_TEACHING_TYPES_JSON = SOURCE_DIR / "all_teaching_types.json"
 
     assert SOURCE_LEARNSETS_JSON.exists(), f"{SOURCE_LEARNSETS_JSON=} does not exist"
     assert SOURCE_LEARNSETS_JSON.is_file(), f"{SOURCE_LEARNSETS_JSON=} is not a file"
 
     assert SOURCE_TUTORS_JSON.exists(), f"{SOURCE_TUTORS_JSON=} does not exist"
     assert SOURCE_TUTORS_JSON.is_file(), f"{SOURCE_TUTORS_JSON=} is not a file"
+
+    assert SOURCE_TEACHING_TYPES_JSON.exists(), f"{SOURCE_TEACHING_TYPES_JSON=} does not exist"
+    assert SOURCE_TEACHING_TYPES_JSON.is_file(), f"{SOURCE_TEACHING_TYPES_JSON=} is not a file"
 
     repo_tms = list(extract_repo_tms())
     order_alphabetically = False
@@ -219,13 +212,18 @@ def main():
     with open("src/data/pokemon/special_movesets.json", "r") as file:
         special_movesets = json.load(file)
 
+    repo_tutors = sorted(repo_tutors + special_movesets["extraTutors"])
+    create_tutor_moves_array(repo_tutors)
     h_align = max(map(lambda move: len(move), chain(special_movesets["universalMoves"], repo_tms, repo_tutors))) + 2
     header = prepare_header(h_align, repo_tms, repo_tutors, special_movesets["universalMoves"])
 
     with open(SOURCE_LEARNSETS_JSON, "r") as source_fp:
         all_learnables = json.load(source_fp)
 
-    content = prepare_output(all_learnables, repo_tms, repo_tutors, special_movesets, header)
+    with open(SOURCE_TEACHING_TYPES_JSON, "r") as source_fp:
+        repo_teaching_types = json.load(source_fp)
+
+    content = prepare_output(all_learnables, repo_tms, repo_tutors, special_movesets, repo_teaching_types, header)
     with open("./src/data/pokemon/teachable_learnsets.h", "w") as teachables_fp:
         teachables_fp.write(content)
 

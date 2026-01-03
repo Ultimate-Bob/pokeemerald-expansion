@@ -1,4 +1,5 @@
 from itertools import chain
+from textwrap import dedent
 
 import glob
 import json
@@ -9,7 +10,7 @@ import typing
 
 CONFIG_ENABLED_PAT = re.compile(r"#define P_LEARNSET_HELPER_TEACHABLE\s+(?P<cfg_val>[^ ]*)")
 INCFILE_HAS_TUTOR_PAT = re.compile(r"special ChooseMonForMoveTutor")
-INCFILE_MOVE_PAT = re.compile(r"setvar VAR_0x8005, (MOVE_.*)")
+INCFILE_MOVE_PAT = re.compile(r"setvar VAR_ITEM_ID, (MOVE_.*)")
 
 def enabled() -> bool:
     """
@@ -52,7 +53,8 @@ def main():
 
     assert OUTPUT_FILE.parent.exists(), f"parent of {OUTPUT_FILE=} does not exist"
 
-    new_tutors = json.dumps(sorted(list(extract_repo_tutors())), indent=2)
+    tutors_list = sorted(list(extract_repo_tutors()))
+    new_tutors = json.dumps(tutors_list, indent=2)
     if OUTPUT_FILE.exists() and OUTPUT_FILE.is_file():
         with open(OUTPUT_FILE, "r") as fp:
             old_tutors = fp.read()
@@ -61,8 +63,7 @@ def main():
         return
 
     if new_tutors != old_tutors:
-         dump_output(OUTPUT_FILE, new_tutors)
-
+        dump_output(OUTPUT_FILE, new_tutors)
 
 if __name__ == "__main__":
     main()
