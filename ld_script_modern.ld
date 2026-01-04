@@ -26,7 +26,7 @@ SECTIONS {
     .ewram.sbss (NOLOAD) :
     ALIGN(4)
     {
-        src/*.o(.sbss);
+        *.o(.sbss);
     } > EWRAM
 
     .iwram ORIGIN(IWRAM) : AT (__iwram_lma)
@@ -41,14 +41,8 @@ SECTIONS {
     .iwram.bss (NOLOAD) :
     ALIGN(4)
     {
-        src/*.o(.bss);
-        data/*.o(.bss);
-        *libc.a:*.o(.bss*);
-        *libnosys.a:*.o(.bss*);
-
-        src/m4a.o(.bss.code);
-
-        src/*.o(common_data);
+        *.o(.bss*);
+        *.o(common_data);
         src/*.o(COMMON);
         *libc.a:*.o(COMMON);
         *libnosys.a:*.o(COMMON);
@@ -60,12 +54,17 @@ SECTIONS {
     ALIGN(4)
     {
         src/rom_header.o(.text*);
-        src/rom_header_gf.o(.text.*);
-        src/rom_header_rhh.o(.text.*);
+        KEEP(*.o(.text.header_gf));
+        KEEP(*.o(.text.header_rhh));
         src/crt0.o(.text);
-        src/main.o(.text);
-        src/*.o(.text*);
+        *libagbsyscall.a:*.o(.text*);
+        *libgcc.a:*.o(.text*);
+        *libc.a:*.o(.text*);
+        *libnosys.a:*.o(.text*);
         asm/*.o(.text*);
+        KEEP(*.o(.text.consts));
+        *.o(.text*);
+        *.o(.eh_frame);
     } > ROM =0
 
     script_data :
@@ -74,69 +73,14 @@ SECTIONS {
 		data/*.o(script_data);
     } > ROM =0
 
-    lib_text :
-    ALIGN(4)
-    {
-        src/libgcnmultiboot.o(.text);
-        src/m4a_1.o(.text);
-        src/m4a.o(.text);
-        src/agb_flash.o(.text);
-        src/agb_flash_1m.o(.text);
-        src/agb_flash_mx.o(.text);
-        src/siirtc.o(.text);
-        src/librfu_stwi.o(.text);
-        src/librfu_intr.o(.text);
-        src/librfu_rfu.o(.text);
-        src/librfu_sio32id.o(.text);
-        *libagbsyscall.a:*.o(.text*);
-        *libgcc.a:*.o(.text*);
-        *libc.a:*.o(.text*);
-        *libnosys.a:*.o(.text*);
-        src/libisagbprn.o(.text);
-    } > ROM =0
-
     .rodata :
     ALIGN(4)
     {
-        src/*.o(.rodata*);
-        data/*.o(.rodata*);
-    } > ROM =0
-
-    song_data :
-    ALIGN(4)
-    {
-        sound/songs/*.o(.rodata);
-    } > ROM =0
-
-    lib_rodata :
-    SUBALIGN(4)
-    {
-        src/m4a.o(.rodata);
-        src/agb_flash.o(.rodata);
-        src/agb_flash_1m.o(.rodata);
-        src/agb_flash_mx.o(.rodata);
-        src/agb_flash_le.o(.rodata);
-        src/siirtc.o(.rodata);
-        src/librfu_rfu.o(.rodata);
-        src/librfu_sio32id.o(.rodata);
+        *.o(.rodata*);
         *libgcc.a:*.o(.rodata*);
         *libc.a:*.o(.rodata*);
         *libc.a:*.o(.data*);
-        src/libisagbprn.o(.rodata);
-    } > ROM =0
-
-    multiboot_data :
-    ALIGN(4)
-    {
-        data/multiboot_ereader.o(.rodata);
-        data/multiboot_berry_glitch_fix.o(.rodata);
-        data/multiboot_pokemon_colosseum.o(.rodata);
-    } > ROM =0
-
-    gfx_data :
-    ALIGN(4)
-    {
-        src/graphics.o(.rodata);
+        sound/songs/*.o(.rodata);
     } > ROM =0
 
     .data.iwram :
@@ -179,6 +123,25 @@ SECTIONS {
     .debug_str      0 : { *(.debug_str) }
     .debug_loc      0 : { *(.debug_loc) }
     .debug_macinfo  0 : { *(.debug_macinfo) }
+
+    /*
+     * base/bare-minimum: WOAH DWARF 5!!! THIS IS SOOOO COOOL IT MAKES GDB WORK PROPERLY!
+     *
+     * Debugging was failing. Inspecting GDB manually using `mgba-qt -g pokeemerald.elf` and `gdb pokeemerald.elf --ex "target remote :2345"`
+     * Then attempting to get line info was failing with a DWARF error:
+     *   (gdb) info line src/trainer_card.c:1814
+     *   ❌️ DWARF Error: DW_FORM_line_strp used without required section
+     * Apparently these DWARF 5 sections are required for DWARF 5 support.
+     * In any case, placing breakpoints in VSCode now works...
+     */
+    .debug_line_str     0 : { *(.debug_line_str) } 
+    .debug_str_offsets  0 : { *(.debug_str_offsets) } 
+    .debug_types        0 : { *(.debug_types) }
+    .debug_macro        0 : { *(.debug_macro) }
+    .debug_rnglists     0 : { *(.debug_rnglists) }
+    .debug_pubtypes     0 : { *(.debug_pubtypes) }
+    .debug_loclists     0 : { *(.debug_loclists) }
+    .gdb_index          0 : { *(.gdb_index) }
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :

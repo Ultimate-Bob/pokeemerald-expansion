@@ -6,17 +6,28 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "${workspaceRoot}/pokeemerald.elf",
-            "args": [
-                "target remote ${env:TODAYSIP}:2345"
-            ],
-            "stopAtEntry": true,
             "cwd": "${workspaceRoot}",
             "environment": [],
+            // "sourceFileMap": {
+            //     "/": {
+            //         "editorPath": "src/",
+            //         "useForBreakpoints": true
+            //     }
+            // },
+            "sourceFileMap": {
+                "src": "${workspaceFolder}/src"
+            },
             "externalConsole": false,
-            "miDebuggerServerAddress": "${env:TODAYSIP}:2345",
-            "debugServerArgs": "\"${workspaceRoot}/pokeemerald.elf\" -g",
+            // "stopAtConnect": true,
+            // "stopAtEntry": true,
+            "miDebuggerServerAddress": "localhost:2345",
+            "MIMode": "gdb",
+            "miDebuggerPath": "arm-none-eabi-gdb",
+            "debugServerPath": "${workspaceRoot}/start-mgba.sh",
+            "debugServerArgs": "${workspaceRoot}/pokeemerald.elf",
             "serverStarted": "started",
             "preLaunchTask": "${defaultBuildTask}",
+            "targetArchitecture": "arm",
             "logging": {
                 "moduleLoad": true,
                 "trace": true,
@@ -24,11 +35,20 @@
                 "programOutput": true,
                 "exceptions": true
             },
-            "linux": {
-                "MIMode": "gdb",
-                "miDebuggerPath": "/opt/devkitpro/devkitARM/bin/arm-none-eabi-gdb",
-                "debugServerPath": "${workspaceRoot}/start-mgba.sh"
-            },
+            "setupCommands": [
+                // {
+                //     "text": "set target-async off"
+                // },
+                // {
+                //     "description": "Enable pretty printing",
+                //     "text": "-enable-pretty-printing",
+                // },
+                // {
+                //     "description": "Map ELF sections to GBA memory",
+                // add-symbol-file pokeemerald.elf 0x08000000 -s .iwram 0x03000000 -s .ewram 0x02000000
+                //     "text": "add-symbol-file ${workspaceRoot}/pokeemerald.elf 0x08000000 -s .iwram 0x03000000 -s .ewram 0x02000000"
+                // }
+            ]
         },
     ]
 }
