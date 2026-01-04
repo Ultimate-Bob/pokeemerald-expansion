@@ -1,10 +1,12 @@
 #include "global.h"
 #include "data.h"
+#include "item.h"
 #include "malloc.h"
 #include "pokemon.h"
 #include "random.h"
 #include "trainer_pools.h"
 #include "constants/battle.h"
+#include "constants/battle_ai.h"
 #include "constants/items.h"
 
 #include "data/battle_pool_rules.h"
@@ -166,10 +168,14 @@ static u32 PickMonFromPool(const struct Trainer *trainer, u8 *poolIndexArray, u3
     //  If no mon has been found yet continue looking
     if (monIndex == POOL_SLOT_DISABLED)
         monIndex = pickFunctions.OtherFunction(trainer, poolIndexArray, partyIndex, monsCount, battleTypeFlags, rules);
+    //  If a mon still hasn't been found, return POOL_SLOT_DISABLED which makes party generation default to regular party generation
+    if (monIndex == POOL_SLOT_DISABLED)
+        return monIndex;
+
     u32 chosenTags = trainer->party[monIndex].tags;
     u16 chosenSpecies = trainer->party[monIndex].species;
     u16 chosenItem = trainer->party[monIndex].heldItem;
-    u16 chosenNatDex = gSpeciesInfo[chosenSpecies].natDexNum;
+    enum NationalDexOrder chosenNatDex = gSpeciesInfo[chosenSpecies].natDexNum;
     //  If tag was required, change pool rule to account for the required tag already being picked
     u32 tagsToEliminate = 0;
     for (u32 currTag = 0; currTag < POOL_NUM_TAGS; currTag++)
@@ -197,7 +203,7 @@ static u32 PickMonFromPool(const struct Trainer *trainer, u8 *poolIndexArray, u3
             u32 currentTags = trainer->party[poolIndexArray[currIndex]].tags;
             u16 currentSpecies = trainer->party[poolIndexArray[currIndex]].species;
             u16 currentItem = trainer->party[poolIndexArray[currIndex]].heldItem;
-            u16 currentNatDex = gSpeciesInfo[currentSpecies].natDexNum;
+            enum NationalDexOrder currentNatDex = gSpeciesInfo[currentSpecies].natDexNum;
             if (currentTags & tagsToEliminate)
             {
                 poolIndexArray[currIndex] = POOL_SLOT_DISABLED;
@@ -227,6 +233,10 @@ static u32 PickMonFromPool(const struct Trainer *trainer, u8 *poolIndexArray, u3
                     poolIndexArray[currIndex] = POOL_SLOT_DISABLED;
                 }
             }
+            if (rules->megaStoneClause && gItemsInfo[currentItem].sortType == ITEM_TYPE_MEGA_STONE && gItemsInfo[chosenItem].sortType == ITEM_TYPE_MEGA_STONE)
+                poolIndexArray[currIndex] = POOL_SLOT_DISABLED;
+            if (rules->zCrystalClause && gItemsInfo[currentItem].sortType == ITEM_TYPE_Z_CRYSTAL && gItemsInfo[chosenItem].sortType == ITEM_TYPE_Z_CRYSTAL)
+                poolIndexArray[currIndex] = POOL_SLOT_DISABLED;
         }
     }
     return monIndex;
@@ -361,6 +371,14 @@ void DoTrainerPartyPool(const struct Trainer *trainer, u32 *monIndices, u8 monsC
 {
         bool32 usingPool = FALSE;
         struct PoolRules rules = defaultPoolRules;
+        struct Trainer tempTrainer;
+        if (trainer->poolSize == 0 && (trainer->aiFlags & AI_FLAG_RANDOMIZE_PARTY_INDICES))
+        {
+            tempTrainer = *trainer;
+            tempTrainer.poolSize = tempTrainer.partySize;
+            trainer = &tempTrainer;
+        }
+
         if (trainer->poolSize != 0)
         {
             usingPool = TRUE;

@@ -12,9 +12,10 @@
             "options": {
                 "cwd": "${workspaceRoot}",
                 "env": {
-                    "DEVKITPRO": "/opt/devkitpro",
-                    "DEVKITARM": "/opt/devkitpro/devkitARM",
-                    "DEVKITPPC": "/opt/devkitpro/devkitPPC"
+                    // Dont use these anymore - instead use system arm-none-eabi-gcc
+                    // "DEVKITPRO": "/opt/devkitpro",
+                    // "DEVKITARM": "/opt/devkitpro/devkitARM",
+                    // "DEVKITPPC": "/opt/devkitpro/devkitPPC"
                 }
             },
             "group": {
@@ -37,9 +38,9 @@
             "options": {
                 "cwd": "${workspaceRoot}",
                 "env": {
-                    "DEVKITPRO": "/opt/devkitpro",
-                    "DEVKITARM": "/opt/devkitpro/devkitARM",
-                    "DEVKITPPC": "/opt/devkitpro/devkitPPC",
+                    // "DEVKITPRO": "/opt/devkitpro",
+                    // "DEVKITARM": "/opt/devkitpro/devkitARM",
+                    // "DEVKITPPC": "/opt/devkitpro/devkitPPC",
                     // Dont specify TESTS env to test everything
                     // Single test:
                     "TESTS": "Transform fails lol"
@@ -84,5 +85,56 @@
                 "cwd": "${workspaceRoot}",
             }
         },
-    ]
+        // =========== Kept around for posterity ===========
+        // {
+        //     "label": "mGBA - Launch",
+        //     "type": "shell",
+        //     "command": "./start-mgba.sh",
+        //     "isBackground": true,
+        //     "args": [
+        //         "${workspaceRoot}/pokeemerald.elf",
+        //     ],
+        //     "options": {
+        //         "cwd": "${workspaceRoot}"
+        //     },
+        //     "problemMatcher": {
+        //         "background": {
+        //             "activeOnStart": true,
+        //             "beginsPattern": { "regexp": "." },
+        //             "endsPattern": { "regexp": ".*started.*" }
+        //         },
+        //         "pattern": [
+        //             {
+        //                 "regexp": ".",
+        //                 "file": 1,
+        //                 "location": 2,
+        //                 "message": 3,
+        //             }
+        //         ]
+        //     }
+        // },
+        // {
+        //     "label": "mGBA - Build and Launch",
+        //     "type": "shell",
+        //     "dependsOn": [
+        //         "Build Debug",
+        //         "mGBA - Launch"
+        //     ],
+        //     "dependsOrder": "sequence",
+        // },
+        // {
+        //     "label": "mGBA - Terminate",
+        //     "command": "echo ${input:terminate-mgba}",
+        //     "type": "shell",
+        //     "problemMatcher": []
+        // },
+    ],
+    // "inputs": [
+    //     {
+    //     "id": "terminate-mgba",
+    //     "type": "command",
+    //     "command": "workbench.action.tasks.terminate",
+    //     "args": "mGBA - Launch"
+    //     }
+    // ]
 }
