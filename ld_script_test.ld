@@ -176,6 +176,25 @@ SECTIONS {
     .debug_loc      0 : { *(.debug_loc) }
     .debug_macinfo  0 : { *(.debug_macinfo) }
 
+    /*
+     * base/bare-minimum: WOAH DWARF 5!!! THIS IS SOOOO COOOL IT MAKES GDB WORK PROPERLY!
+     *
+     * Debugging was failing. Inspecting GDB manually using `mgba-qt -g pokeemerald.elf` and `gdb pokeemerald.elf --ex "target remote :2345"`
+     * Then attempting to get line info was failing with a DWARF error:
+     *   (gdb) info line src/trainer_card.c:1814
+     *   ❌️ DWARF Error: DW_FORM_line_strp used without required section
+     * Apparently these DWARF 5 sections are required for DWARF 5 support.
+     * In any case, placing breakpoints in VSCode now works...
+     */
+    .debug_line_str     0 : { *(.debug_line_str) } 
+    .debug_str_offsets  0 : { *(.debug_str_offsets) } 
+    .debug_types        0 : { *(.debug_types) }
+    .debug_macro        0 : { *(.debug_macro) }
+    .debug_rnglists     0 : { *(.debug_rnglists) }
+    .debug_pubtypes     0 : { *(.debug_pubtypes) }
+    .debug_loclists     0 : { *(.debug_loclists) }
+    .gdb_index          0 : { *(.gdb_index) }
+
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :
     {

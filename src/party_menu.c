@@ -2730,8 +2730,6 @@ static void PartyMenuRemoveWindow(u8 *ptr)
 void DisplayPartyMenuStdMessage(u32 stringId)
 {
     u8 *windowPtr = &sPartyMenuInternal->windowId[1];
-    u8 enemyNextMonID;
-    u16 species;
 
     if (*windowPtr != WINDOW_NONE)
         PartyMenuRemoveWindow(windowPtr);
@@ -2766,26 +2764,31 @@ void DisplayPartyMenuStdMessage(u32 stringId)
 
         if (stringId == PARTY_MSG_CHOOSE_MON)
         {
-            enemyNextMonID = *(gBattleStruct->monToSwitchIntoId + B_SIDE_OPPONENT);
-            species = GetMonData(&gEnemyParty[enemyNextMonID], MON_DATA_SPECIES);
             if (sPartyMenuInternal->chooseHalf)
                 stringId = PARTY_MSG_CHOOSE_MON_AND_CONFIRM;
             else if (!ShouldUseChooseMonText())
                 stringId = PARTY_MSG_CHOOSE_MON_OR_CANCEL;
-            else if (gMain.inBattle && gPlayerPartyCount > 0) // General improvements - show name of mon being switched in.
+            else if (gMain.inBattle && gPlayerPartyCount > 0 && IsBattlerAlive(B_SIDE_PLAYER)) // General improvements
             {
-               // Checks if the opponent is sending out a new pokemon.
-               if (species >= NUM_SPECIES || species == SPECIES_NONE)
-               {
-                   species = gBattleMons[B_SIDE_OPPONENT].species;
-                   // Now tries to check if there's any opposing pokemon on the field
-                   if (species >= NUM_SPECIES || species == SPECIES_NONE || gBattleTypeFlags & BATTLE_TYPE_DOUBLE)
-                       stringId = PARTY_MSG_CHOOSE_MON_2;  // No species on the other side, show the default text.
-               }
-               if (stringId == PARTY_MSG_CHOOSE_MON)
-                   StringCopy(gStringVar2, GetSpeciesName(species));
+                // When switch mode is enabled, the name of the incoming mon is only shown once before opening the switch menu. 
+                // This will also show the incoming opposing mon's name in the party menu.
+                // The above check for IsBattlerAlive is to prevent this when:
+                // - the player's mon has fainted (the opponent is not switching in)
+                // - the player's mon and opponent's mon have fainted simultaneously (which does not reveal the incoming mon)
+
+                u8 switchinPartyId = gBattleStruct->monToSwitchIntoId[B_SIDE_OPPONENT];
+                if (switchinPartyId > 0 && switchinPartyId < PARTY_SIZE && switchinPartyId < gEnemyPartyCount)
+                {
+                    // This is an incoming mon.
+                    IllusionNickHack(B_SIDE_OPPONENT, switchinPartyId, gStringVar2);
+                }
+                else
+                {
+                    // This is not a valid switch in, show the regular text.
+                    stringId = PARTY_MSG_CHOOSE_MON_2;
+                }
             }
-            else if (gPlayerPartyCount > 0)
+            else
                 stringId = PARTY_MSG_CHOOSE_MON_2;
 
             if (gPlayerPartyCount == 0)

@@ -2753,7 +2753,7 @@ static void PrintTMHMMoveData(u16 itemId)
 
 // start feature/general-improvements
 // This should be a copy of GoToBagMenu with additional options
-void GoToBagMenu_WithOptions(u8 location, u8 pocket, bool8 restrictPocket, void ( *exitCallback)())
+void GoToBagMenu_WithOptions(u8 location, u8 pocket, bool8 restrictPocket, MainCallback exitCallback)
 {
     gBagMenu = AllocZeroed(sizeof(*gBagMenu));
     if (gBagMenu == NULL)

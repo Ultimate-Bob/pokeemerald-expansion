@@ -1,3 +1,4 @@
+#include "gba/defines.h"
 #include "global.h"
 #include "sprite.h"
 #include "main.h"
@@ -297,7 +298,13 @@ void AnimateSprites(void)
 
         if (sprite->inUse)
         {
-            sprite->callback(sprite);
+            // feature/general-improvements (show crash message for invalid sprite callback)
+#ifdef DEBUG
+            if (!((u32)sprite->callback > ROM_START && (u32)sprite->callback < ROM_END))
+                MgbaPrintf(MGBA_LOG_FATAL, "Bad sprite callback");
+            else
+#endif
+                sprite->callback(sprite);
 
             if (sprite->inUse)
                 AnimateSprite(sprite);

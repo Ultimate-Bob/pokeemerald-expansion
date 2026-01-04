@@ -126,6 +126,6 @@ void SortItemsInBag(struct BagPocket *pocket, enum BagSortOptions type);
 
 // feature/general-improvements:
 void CB2_ChooseBagItem(void);
-void GoToBagMenu_WithOptions(u8 location, u8 pocket, bool8 restrictPocket, void ( *exitCallback)());
+void GoToBagMenu_WithOptions(u8 location, u8 pocket, bool8 restrictPocket, MainCallback exitCallback);
 
 #endif //GUARD_ITEM_MENU_H

@@ -27,6 +27,31 @@
             ]
         },
         {
+            "label": "Build Release",
+            "type": "shell",
+            "command": "make",
+            "args": [
+                "release",
+                "-j$(nproc)"
+            ],
+            "options": {
+                "cwd": "${workspaceRoot}",
+                "env": {
+                    // Dont use these anymore - instead use system arm-none-eabi-gcc
+                    // "DEVKITPRO": "/opt/devkitpro",
+                    // "DEVKITARM": "/opt/devkitpro/devkitARM",
+                    // "DEVKITPPC": "/opt/devkitpro/devkitPPC"
+                }
+            },
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "problemMatcher": [
+                "$gcc"
+            ]
+        },
+        {
             "label": "Test",
             "type": "shell",
             //"dependsOn": "Build Test Binary",

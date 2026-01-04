@@ -3,6 +3,7 @@
 #OPTIMIZE := -O2
 # USE_ANALYSER := -fanalyzer
 #USE_ANALYSER :=
+# NOOPT := 1
 ## THEIRS
 
 GAME_VERSION ?= EMERALD

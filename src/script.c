@@ -103,7 +103,7 @@ bool8 RunScriptCommand(struct ScriptContext *ctx)
         while (1)
         {
             u8 cmdCode;
-            ScrCmdFunc* func;
+            ScrCmdFunc *func;
 
             if (!ctx->scriptPtr)
             {
@@ -456,7 +456,7 @@ bool8 InitRamScript(const u8 *script, u16 scriptSize, u8 mapGroup, u8 mapNum, u8
 const u8 *GetRamScript(u8 localId, const u8 *script)
 {
 #if FREE_MYSTERY_EVENT_BUFFERS == FALSE
-    struct RamScriptData* scriptData = &gSaveBlock1Ptr->ramScript.data;
+    struct RamScriptData *scriptData = &gSaveBlock1Ptr->ramScript.data;
     gRamScriptRetAddr = NULL;
     if (scriptData->magic != RAM_SCRIPT_MAGIC)
         return script;

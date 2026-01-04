@@ -3356,7 +3356,7 @@ u32 BattleStringExpandPlaceholders(const u8 *src, u8 *dst, u32 dstSize)
     return dstID;
 }
 
-static void IllusionNickHack(u32 battler, u32 partyId, u8 *dst)
+void IllusionNickHack(u32 battler, u32 partyId, u8 *dst)
 {
     u32 id = PARTY_SIZE;
     // we know it's gEnemyParty
