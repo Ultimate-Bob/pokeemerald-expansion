@@ -15,21 +15,19 @@
 
 #define RAM_SCRIPT_MAGIC 51
 
-enum
-{
+enum {
     SCRIPT_MODE_STOPPED,
     SCRIPT_MODE_BYTECODE,
     SCRIPT_MODE_NATIVE,
 };
 
-enum
-{
+enum {
     CONTEXT_RUNNING,
     CONTEXT_WAITING,
     CONTEXT_SHUTDOWN,
 };
 
-extern const u8* gRamScriptRetAddr;
+extern const u8 *gRamScriptRetAddr;
 
 static u8 sGlobalScriptContextStatus;
 static struct ScriptContext sGlobalScriptContext;
@@ -42,7 +40,7 @@ extern ScrCmdFunc gScriptCmdTable[];
 extern ScrCmdFunc gScriptCmdTableEnd[];
 extern void *const gNullScriptPtr;
 
-void InitScriptContext(struct ScriptContext* ctx, void* cmdTable, void* cmdTableEnd)
+void InitScriptContext(struct ScriptContext *ctx, void *cmdTable, void *cmdTableEnd)
 {
     s32 i;
 
@@ -62,82 +60,82 @@ void InitScriptContext(struct ScriptContext* ctx, void* cmdTable, void* cmdTable
     ctx->breakOnTrainerBattle = FALSE;
 }
 
-u8 SetupBytecodeScript(struct ScriptContext* ctx, const u8* ptr)
+u8 SetupBytecodeScript(struct ScriptContext *ctx, const u8 *ptr)
 {
     ctx->scriptPtr = ptr;
     ctx->mode = SCRIPT_MODE_BYTECODE;
     return 1;
 }
 
-void SetupNativeScript(struct ScriptContext* ctx, bool8(*ptr)(void))
+void SetupNativeScript(struct ScriptContext *ctx, bool8 (*ptr)(void))
 {
     ctx->mode = SCRIPT_MODE_NATIVE;
     ctx->nativePtr = ptr;
 }
 
-void StopScript(struct ScriptContext* ctx)
+void StopScript(struct ScriptContext *ctx)
 {
     ctx->mode = SCRIPT_MODE_STOPPED;
     ctx->scriptPtr = NULL;
 }
 
-bool8 RunScriptCommand(struct ScriptContext* ctx)
+bool8 RunScriptCommand(struct ScriptContext *ctx)
 {
     if (ctx->mode == SCRIPT_MODE_STOPPED)
         return FALSE;
 
     switch (ctx->mode)
     {
-        case SCRIPT_MODE_STOPPED:
-            return FALSE;
-        case SCRIPT_MODE_NATIVE:
-            // Try to call a function in C
-            // Continue to bytecode if no function or it returns TRUE
-            if (ctx->nativePtr)
+    case SCRIPT_MODE_STOPPED:
+        return FALSE;
+    case SCRIPT_MODE_NATIVE:
+        // Try to call a function in C
+        // Continue to bytecode if no function or it returns TRUE
+        if (ctx->nativePtr)
+        {
+            if (ctx->nativePtr() == TRUE)
+                ctx->mode = SCRIPT_MODE_BYTECODE;
+            return TRUE;
+        }
+        ctx->mode = SCRIPT_MODE_BYTECODE;
+        // fallthrough
+    case SCRIPT_MODE_BYTECODE:
+        while (1)
+        {
+            u8 cmdCode;
+            ScrCmdFunc* func;
+
+            if (!ctx->scriptPtr)
             {
-                if (ctx->nativePtr() == TRUE)
-                    ctx->mode = SCRIPT_MODE_BYTECODE;
+                ctx->mode = SCRIPT_MODE_STOPPED;
+                return FALSE;
+            }
+
+            if (ctx->scriptPtr == gNullScriptPtr)
+            {
+                while (1)
+                    asm("svc 2"); // HALT
+            }
+
+            cmdCode = *(ctx->scriptPtr);
+            ctx->scriptPtr++;
+            func = &ctx->cmdTable[cmdCode];
+
+            if (func >= ctx->cmdTableEnd)
+            {
+                ctx->mode = SCRIPT_MODE_STOPPED;
+                return FALSE;
+            }
+
+            if ((*func)(ctx) == TRUE)
                 return TRUE;
-            }
-            ctx->mode = SCRIPT_MODE_BYTECODE;
-            // fallthrough
-        case SCRIPT_MODE_BYTECODE:
-            while (1)
-            {
-                u8 cmdCode;
-                ScrCmdFunc* func;
-
-                if (!ctx->scriptPtr)
-                {
-                    ctx->mode = SCRIPT_MODE_STOPPED;
-                    return FALSE;
-                }
-
-                if (ctx->scriptPtr == gNullScriptPtr)
-                {
-                    while (1)
-                        asm("svc 2"); // HALT
-                }
-
-                cmdCode = *(ctx->scriptPtr);
-                ctx->scriptPtr++;
-                func = &ctx->cmdTable[cmdCode];
-
-                if (func >= ctx->cmdTableEnd)
-                {
-                    ctx->mode = SCRIPT_MODE_STOPPED;
-                    return FALSE;
-                }
-
-                if ((*func)(ctx) == TRUE)
-                    return TRUE;
-            }
+        }
     }
 
     return TRUE;
 }
 
-static bool8 ScriptPush(struct ScriptContext* ctx, const u8* ptr)
+static bool8 ScriptPush(struct ScriptContext *ctx, const u8 *ptr)
 {
     if (ctx->stackDepth + 1 >= (int)ARRAY_COUNT(ctx->stack))
     {
@@ -151,7 +149,7 @@ static bool8 ScriptPush(struct ScriptContext* ctx, const u8* ptr)
     }
 }
 
-static const u8* ScriptPop(struct ScriptContext* ctx)
+static const u8 *ScriptPop(struct ScriptContext *ctx)
 {
     if (ctx->stackDepth == 0)
         return NULL;
@@ -160,12 +158,12 @@ static const u8* ScriptPop(struct ScriptContext* ctx)
     return ctx->stack[ctx->stackDepth];
 }
 
-void ScriptJump(struct ScriptContext* ctx, const u8* ptr)
+void ScriptJump(struct ScriptContext *ctx, const u8 *ptr)
 {
     ctx->scriptPtr = ptr;
 }
 
-void ScriptCall(struct ScriptContext* ctx, const u8* ptr)
+void ScriptCall(struct ScriptContext *ctx, const u8 *ptr)
 {
     bool32 failed = ScriptPush(ctx, ctx->scriptPtr);
     assertf(!failed, "could not push %p", ptr)
@@ -175,12 +173,12 @@ void ScriptCall(struct ScriptContext* ctx, const u8* ptr)
     ctx->scriptPtr = ptr;
 }
 
-void ScriptReturn(struct ScriptContext* ctx)
+void ScriptReturn(struct ScriptContext *ctx)
 {
     ctx->scriptPtr = ScriptPop(ctx);
 }
 
-u16 ScriptReadHalfword(struct ScriptContext* ctx)
+u16 ScriptReadHalfword(struct ScriptContext *ctx)
 {
     u16 value = *(ctx->scriptPtr++);
     value |= *(ctx->scriptPtr++) << 8;
@@ -203,7 +201,7 @@ u32 ScriptReadWord(struct ScriptContext *ctx)
     return (((((value3 << 8) + value2) << 8) + value1) << 8) + value0;
 }
 
-u32 ScriptPeekWord(struct ScriptContext* ctx)
+u32 ScriptPeekWord(struct ScriptContext *ctx)
 {
     u32 value0 = *(ctx->scriptPtr);
     u32 value1 = *(ctx->scriptPtr + 1);
@@ -272,7 +270,7 @@ bool8 ScriptContext_RunScript(void)
 }
 
 // Sets up a new script in the global context and enables the context
-void ScriptContext_SetupScript(const u8* ptr)
+void ScriptContext_SetupScript(const u8 *ptr)
 {
     InitScriptContext(&sGlobalScriptContext, gScriptCmdTable, gScriptCmdTableEnd);
     SetupBytecodeScript(&sGlobalScriptContext, ptr);
@@ -306,7 +304,7 @@ void ScriptContext_Enable(void)
 // Sets up and runs a script in its own context immediately. The script will be
 // finished when this function returns. Used mainly by all of the map header
 // scripts (except the frame table scripts).
-void RunScriptImmediately(const u8* ptr)
+void RunScriptImmediately(const u8 *ptr)
 {
     InitScriptContext(&sImmediateScriptContext, gScriptCmdTable, gScriptCmdTableEnd);
     SetupBytecodeScript(&sImmediateScriptContext, ptr);
@@ -315,7 +313,7 @@ void RunScriptImmediately(const u8* ptr)
 
 const u8 *MapHeaderGetScriptTable(u8 tag)
 {
-    const u8* mapScripts = gMapHeader.mapScripts;
+    const u8 *mapScripts = gMapHeader.mapScripts;
 
     if (!mapScripts)
         return NULL;
@@ -420,7 +418,7 @@ void TryRunOnWarpIntoMapScript(void)
 u32 CalculateRamScriptChecksum(void)
 {
 #if FREE_MYSTERY_EVENT_BUFFERS == FALSE
-    return CalcCRC16WithTable((u8*)(&gSaveBlock1Ptr->ramScript.data), sizeof(gSaveBlock1Ptr->ramScript.data));
+    return CalcCRC16WithTable((u8 *)(&gSaveBlock1Ptr->ramScript.data), sizeof(gSaveBlock1Ptr->ramScript.data));
 #else
     return 0;
 #endif //FREE_MYSTERY_EVENT_BUFFERS
@@ -436,7 +434,7 @@ void ClearRamScript(void)
 bool8 InitRamScript(const u8 *script, u16 scriptSize, u8 mapGroup, u8 mapNum, u8 localId)
 {
 #if FREE_MYSTERY_EVENT_BUFFERS == FALSE
-    struct RamScriptData* scriptData = &gSaveBlock1Ptr->ramScript.data;
+    struct RamScriptData *scriptData = &gSaveBlock1Ptr->ramScript.data;
 
     ClearRamScript();
 
@@ -488,7 +486,7 @@ const u8 *GetRamScript(u8 localId, const u8 *script)
 bool32 ValidateSavedRamScript(void)
 {
 #if FREE_MYSTERY_EVENT_BUFFERS == FALSE
-    struct RamScriptData* scriptData = &gSaveBlock1Ptr->ramScript.data;
+    struct RamScriptData *scriptData = &gSaveBlock1Ptr->ramScript.data;
     if (scriptData->magic != RAM_SCRIPT_MAGIC)
         return FALSE;
     if (scriptData->mapGroup != MAP_GROUP(MAP_UNDEFINED))
@@ -505,10 +503,10 @@ bool32 ValidateSavedRamScript(void)
 #endif //FREE_MYSTERY_EVENT_BUFFERS
 }
 
-u8* GetSavedRamScriptIfValid(void)
+u8 *GetSavedRamScriptIfValid(void)
 {
 #if FREE_MYSTERY_EVENT_BUFFERS == FALSE
-    struct RamScriptData* scriptData = &gSaveBlock1Ptr->ramScript.data;
+    struct RamScriptData *scriptData = &gSaveBlock1Ptr->ramScript.data;
     if (!ValidateSavedWonderCard())
         return NULL;
     if (scriptData->magic != RAM_SCRIPT_MAGIC)
@@ -533,7 +531,7 @@ u8* GetSavedRamScriptIfValid(void)
 #endif //FREE_MYSTERY_EVENT_BUFFERS
 }
 
-void InitRamScript_NoObjectEvent(u8* script, u16 scriptSize)
+void InitRamScript_NoObjectEvent(u8 *script, u16 scriptSize)
 {
 #if FREE_MYSTERY_EVENT_BUFFERS == FALSE
     if (scriptSize > sizeof(gSaveBlock1Ptr->ramScript.data.script))
