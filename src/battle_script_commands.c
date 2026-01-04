@@ -11126,7 +11126,7 @@ static void Cmd_handleballthrow(void)
     }
     else if (FlagGet(FLAG_WILD_MON_CATCHES_AND_RETURNS_BALL)) // Custom catch behaviour
     {
-        BtlController_EmitBallThrowAnim(gBattlerAttacker, BUFFER_A, BALL_MON_CATCH_AND_RETURN);
+        BtlController_EmitBallThrowAnim(gBattlerAttacker, B_COMM_TO_CONTROLLER, BALL_MON_CATCH_AND_RETURN);
         MarkBattlerForControllerExec(gBattlerAttacker);
         gBattlescriptCurrInstr = BattleScript_MonCatchAndReturnBall;
 
