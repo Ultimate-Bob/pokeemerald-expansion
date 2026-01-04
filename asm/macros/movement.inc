@@ -164,6 +164,11 @@
 	create_movement_action fly_down, MOVEMENT_ACTION_FLY_DOWN
 	create_movement_action emote_double_exclamation_mark, MOVEMENT_ACTION_EMOTE_DOUBLE_EXCL_MARK
 	create_movement_action emote_x, MOVEMENT_ACTION_EMOTE_X
+	create_movement_action walk_slow_stairs_down, MOVEMENT_ACTION_WALK_SLOW_STAIRS_DOWN
+	create_movement_action walk_slow_stairs_up, MOVEMENT_ACTION_WALK_SLOW_STAIRS_UP
+	create_movement_action walk_slow_stairs_left, MOVEMENT_ACTION_WALK_SLOW_STAIRS_LEFT
+	create_movement_action walk_slow_stairs_right, MOVEMENT_ACTION_WALK_SLOW_STAIRS_RIGHT
+	@ start feature/enhanced-movement
 	create_movement_action force_face_down, MOVEMENT_ACTION_FORCE_FACE_DOWN
 	create_movement_action force_face_up, MOVEMENT_ACTION_FORCE_FACE_UP
 	create_movement_action force_face_left, MOVEMENT_ACTION_FORCE_FACE_LEFT
@@ -177,6 +182,7 @@
 	create_movement_action walk_in_place, MOVEMENT_ACTION_WALK_IN_PLACE
 	create_movement_action walk_forward, MOVEMENT_ACTION_WALK_FORWARD
 	create_movement_action walk_backward, MOVEMENT_ACTION_WALK_BACKWARD
+	@ end feature/enhanced movement
 
 	create_movement_action exit_pokeball, MOVEMENT_ACTION_EXIT_POKEBALL
 	create_movement_action enter_pokeball, MOVEMENT_ACTION_ENTER_POKEBALL

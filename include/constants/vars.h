@@ -341,5 +341,16 @@ while (var(VAR_TEMP_ITERATOR) < 10)
  */
 #define VAR_TEMP_ITERATOR       VAR_TEMP_E 
 
+#if TESTING
+#define TESTING_VARS_START                  0x9000
+#define TESTING_VAR_DIFFICULTY              (TESTING_VARS_START + 0x0)
+#define TESTING_VAR_TRAINER_SLIDES          (TESTING_VARS_START + 0x1)
+#define TESTING_VAR_UNUSED_2                (TESTING_VARS_START + 0x2)
+#define TESTING_VAR_UNUSED_3                (TESTING_VARS_START + 0x3)
+#define TESTING_VAR_UNUSED_4                (TESTING_VARS_START + 0x4)
+#define TESTING_VAR_UNUSED_5                (TESTING_VARS_START + 0x5)
+#define TESTING_VAR_UNUSED_6                (TESTING_VARS_START + 0x6)
+#define TESTING_VAR_UNUSED_7                (TESTING_VARS_START + 0x7)
+#endif // TESTING
 
 #endif // GUARD_CONSTANTS_VARS_H

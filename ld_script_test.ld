@@ -6,9 +6,10 @@ gInitialMainCB2 = CB2_TestRunner;
 
 MEMORY
 {
-    EWRAM (rwx) : ORIGIN = 0x2000000, LENGTH = 256K
-    IWRAM (rwx) : ORIGIN = 0x3000000, LENGTH = 32K
-    ROM    (rx) : ORIGIN = 0x8000000, LENGTH = 32M
+    EWRAM            (rwx) : ORIGIN = 0x2000000, LENGTH = 256K
+    IWRAM            (rwx) : ORIGIN = 0x3000000, LENGTH = 0x7F00
+    IWRAM_PERSISTENT (rwx) : ORIGIN = 0x3007F00, LENGTH = 0x100
+    ROM               (rx) : ORIGIN = 0x8000000, LENGTH = 32M
 }
 
 SECTIONS {
@@ -18,6 +19,7 @@ SECTIONS {
     {
         __ewram_start = .;
         *(.ewram*)
+        . = ALIGN(4);
         __ewram_end = .;
     } > EWRAM
 
@@ -60,13 +62,11 @@ SECTIONS {
     /* .persistent starts at 0x3007F00 */
     /* WARNING: This is the end of the IRQ stack, if there's too
      * much data it WILL be overwritten. */
-
-    . = 0x03007F00;
     .iwram.persistent (NOLOAD) :
     ALIGN(4)
     {
         test/*.o(.persistent);
-    } > IWRAM
+    } > IWRAM_PERSISTENT
 
     /* BEGIN ROM DATA */
     . = 0x8000000;
@@ -75,8 +75,9 @@ SECTIONS {
     ALIGN(4)
     {
         src/rom_header.o(.text);
-        src/rom_header_gf.o(.text.*);
-        src/rom_header_rhh.o(.text.*);
+        KEEP(*.o(.text.header_gf));
+        KEEP(*.o(.text.header_rhh));
+        KEEP(*.o(.text.consts));
         src/*.o(.text);
     } > ROM =0
 
@@ -135,6 +136,7 @@ SECTIONS {
     ALIGN(4)
     {
         __start_tests = .;
+        test/test_test_runner.o(.tests); /* Sanity checks first. */
         test/*.o(.tests);
         __stop_tests = .;
         test/*.o(.text);
@@ -173,6 +175,25 @@ SECTIONS {
     .debug_str      0 : { *(.debug_str) }
     .debug_loc      0 : { *(.debug_loc) }
     .debug_macinfo  0 : { *(.debug_macinfo) }
+
+    /*
+     * base/bare-minimum: WOAH DWARF 5!!! THIS IS SOOOO COOOL IT MAKES GDB WORK PROPERLY!
+     *
+     * Debugging was failing. Inspecting GDB manually using `mgba-qt -g pokeemerald.elf` and `gdb pokeemerald.elf --ex "target remote :2345"`
+     * Then attempting to get line info was failing with a DWARF error:
+     *   (gdb) info line src/trainer_card.c:1814
+     *   ❌️ DWARF Error: DW_FORM_line_strp used without required section
+     * Apparently these DWARF 5 sections are required for DWARF 5 support.
+     * In any case, placing breakpoints in VSCode now works...
+     */
+    .debug_line_str     0 : { *(.debug_line_str) } 
+    .debug_str_offsets  0 : { *(.debug_str_offsets) } 
+    .debug_types        0 : { *(.debug_types) }
+    .debug_macro        0 : { *(.debug_macro) }
+    .debug_rnglists     0 : { *(.debug_rnglists) }
+    .debug_pubtypes     0 : { *(.debug_pubtypes) }
+    .debug_loclists     0 : { *(.debug_loclists) }
+    .gdb_index          0 : { *(.gdb_index) }
 
     /* Discard everything not specifically mentioned above. */
     /DISCARD/ :

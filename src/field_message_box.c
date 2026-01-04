@@ -7,6 +7,7 @@
 #include "field_message_box.h"
 #include "text_window.h"
 #include "script.h"
+#include "field_name_box.h"
 
 static EWRAM_DATA u8 sFieldMessageBoxMode = 0;
 EWRAM_DATA u8 gWalkAwayFromSignpostTimer = 0;
@@ -39,12 +40,15 @@ static void Task_DrawFieldMessage(u8 taskId)
                 LoadMessageBoxAndBorderGfx();
             task->tState++;
             break;
-           task->tState++;
-           break;
         case 1:
-           DrawDialogueFrame(0, TRUE);
-           task->tState++;
-           break;
+        {
+            u32 nameboxWinId = GetNameboxWindowId();
+            DrawDialogueFrame(0, TRUE);
+            if (nameboxWinId != WINDOW_NONE)
+                DrawNamebox(nameboxWinId, NAME_BOX_BASE_TILE_NUM - NAME_BOX_BASE_TILES_TOTAL, TRUE);
+            task->tState++;
+            break;
+        }
         case 2:
             if (RunTextPrintersAndIsPrinter0Active() != TRUE)
             {
@@ -131,6 +135,7 @@ bool8 ShowFieldMessageFromBuffer(void)
 
 static void ExpandStringAndStartDrawFieldMessage(const u8 *str, bool32 allowSkippingDelayWithButtonPress)
 {
+    TrySpawnNamebox(NAME_BOX_BASE_TILE_NUM);
     StringExpandPlaceholders(gStringVar4, str);
     AddTextPrinterForMessage(allowSkippingDelayWithButtonPress);
     CreateTask_DrawFieldMessage();
@@ -146,6 +151,7 @@ void HideFieldMessageBox(void)
 {
     DestroyTask_DrawFieldMessage();
     ClearDialogWindowAndFrame(0, TRUE);
+    DestroyNamebox();
     sFieldMessageBoxMode = FIELD_MESSAGE_BOX_HIDDEN;
 }
 
