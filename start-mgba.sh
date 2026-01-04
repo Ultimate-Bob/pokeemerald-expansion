@@ -21,6 +21,9 @@
 		echo $winPath
 		"/mnt/c/Program Files/mGBA/mGBA.exe" "$winPath" -g
 	else
-		mgba-qt "$1" -g
+		# mgba-qt "$1" -g
+		# MGBA_PATH="/home/bob/Code/ROMHacking/mGBA/mgba/build/qt/mgba-qt"
+		MGBA_PATH="mgba-qt"
+		$MGBA_PATH "$1" -g
 	fi
 )
