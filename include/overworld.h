@@ -47,7 +47,7 @@ struct LinkPlayerObjectEvent
     u8 movementMode;
 };
 
-// Enhanced movement
+// start feature/enhanced-movement
 struct WarpOverride
 {
     // The flags present here will override whatever is calculated on map load.
@@ -62,6 +62,7 @@ struct WarpOverride
 };
 
 extern struct WarpOverride gWarpOverride;
+// end feature/enhanced-movement
 
 
 // Exported RAM declarations

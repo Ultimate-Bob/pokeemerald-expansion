@@ -34,9 +34,11 @@ Additionally adds 2 movement types that use these forced facing movements:
 
 These are useful for example when making dance animations such as when spinning while simultainously moving around.
 
-## Fast Diagonal Walk
+## ~~Fast Diagonal Walk~~
 
-Adds fast variants for each of the diagonal movement types.
+> This has been added to the upstream expansion.
+
+~~Adds fast variants for each of the diagonal movement types.~~
 
 ## Movement based on player facing direction
 Adds a script macro to apply a given movement to an event object based on the facing direction of the player.
@@ -70,7 +72,7 @@ and corresponding
 These perform the same as `face_player` and `face_away_player` but instead of facing towards the player object, the 
 moving object will face in the direction of the object stored in `VAR_TARGET_OBJECT_EVENT`.
 
-This var is reset to OBJ_EVENT_ID_NONE (0xFE) upon loading a map just the same as the temp vars, so it should be set before using these movements.
+This var is reset to LOCALID_NONE (0) upon loading a map just the same as the temp vars, so it should be set before using these movements.
 
 Script macros have also been added to perform the `varset`, `movement` and `waitmovement` calls in one go:
 

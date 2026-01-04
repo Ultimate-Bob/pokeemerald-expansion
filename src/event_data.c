@@ -65,7 +65,7 @@ void ClearTempFieldEventData(void)
     FlagClear(FLAG_SYS_USE_STRENGTH);
     FlagClear(FLAG_SYS_CTRL_OBJ_DELETE);
     FlagClear(FLAG_NURSE_UNION_ROOM_REMINDER);
-    VarSet(VAR_TARGET_OBJECT_EVENT, OBJ_EVENT_ID_NONE);
+    VarSet(VAR_TARGET_OBJECT_EVENT, LOCALID_NONE);
 }
 
 void ClearDailyFlags(void)
