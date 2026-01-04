@@ -22980,7 +22980,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .battleAnimScript = gBattleAnimMove_GMaxRapidFlow,
     },
 
-    // Bidoof Perfect Form
+    // start feature/bidoof-perfect-form
     [MOVE_THIRST_FOR_VENGEANCE] =
     {
         .name = COMPOUND_STRING("God's Vengeance"),
@@ -22992,7 +22992,7 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .type = TYPE_MYSTERY,
         .accuracy = 100,
         .pp = 5,
-        .target = MOVE_TARGET_SELECTED,
+        .target = TARGET_SELECTED,
         .priority = -5,
         .category = DAMAGE_CATEGORY_PHYSICAL,
         .makesContact = TRUE,
@@ -23010,10 +23010,11 @@ const struct MoveInfo gMovesInfo[MOVES_COUNT_ALL] =
         .type = TYPE_MYSTERY,
         .accuracy = 100,
         .pp = 5,
-        .target = MOVE_TARGET_USER,
+        .target = TARGET_USER,
         .priority = 5,
         .category = DAMAGE_CATEGORY_STATUS,
         .makesContact = FALSE,
         .battleAnimScript = gBattleAnimMove_Compassion,
     },
+    // end feature/bidoof-perfect-form
 };

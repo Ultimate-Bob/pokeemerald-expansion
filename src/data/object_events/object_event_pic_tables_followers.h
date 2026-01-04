@@ -3145,6 +3145,9 @@ static const struct SpriteFrameImage sPicTable_BidoofF[] = {
     overworld_ascending_frames(gObjectEventPic_BidoofF, 4, 4),
 };
 #endif //P_GENDER_DIFFERENCES
+static const struct SpriteFrameImage sPicTable_BidoofPerfect[] = {
+    overworld_ascending_frames(gObjectEventPic_BidoofPerfect, 4, 4),
+};
 static const struct SpriteFrameImage sPicTable_Bibarel[] = {
     overworld_ascending_frames(gObjectEventPic_Bibarel, 4, 4),
 };

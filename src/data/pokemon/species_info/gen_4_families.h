@@ -1084,7 +1084,7 @@ const struct SpeciesInfo gSpeciesInfoGen4[] =
         SHADOW(-2, 16, SHADOW_SIZE_M)
         FOOTPRINT(BidoofPerfect)
         OVERWORLD(
-            gObjectEventPic_BidoofPerfect,
+            sPicTable_BidoofPerfect,
             SIZE_32x32,
             SHADOW_SIZE_M,
             TRACKS_FOOT,
