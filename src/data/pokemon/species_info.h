@@ -1,10 +1,12 @@
 #include "constants/abilities.h"
+#include "constants/teaching_types.h"
 #include "species_info/shared_dex_text.h"
 #include "species_info/shared_front_pic_anims.h"
 
 // Macros for ease of use.
 
 #define EVOLUTION(...) (const struct Evolution[]) { __VA_ARGS__, { EVOLUTIONS_END }, }
+#define CONDITIONS(...) ((const struct EvolutionParam[]) { __VA_ARGS__, {CONDITIONS_END} })
 
 #define ANIM_FRAMES(...) (const union AnimCmd *const[]) { sAnim_GeneralFrame0, (const union AnimCmd[]) { __VA_ARGS__ ANIMCMD_END, }, }
 
@@ -45,7 +47,7 @@
 #define OVERWORLD_PAL_FEMALE(...)
 #endif //OW_PKMN_OBJECTS_SHARE_PALETTES == FALSE
 
-#define OVERWORLD_DATA(objEventPic, _size, shadow, _tracks, _anims)                                                                     \
+#define OVERWORLD_DATA(picTable, _size, shadow, _tracks, _anims)                                                                     \
 {                                                                                                                                       \
     .tileTag = TAG_NONE,                                                                                                                \
     .paletteTag = OBJ_EVENT_PAL_TAG_DYNAMIC,                                                                                            \
@@ -61,8 +63,7 @@
     .oam = (_size == SIZE_32x32 ? &gObjectEventBaseOam_32x32 : &gObjectEventBaseOam_64x64),                                             \
     .subspriteTables = (_size == SIZE_32x32 ? sOamTables_32x32 : sOamTables_64x64),                                                     \
     .anims = _anims,                                                                                                                    \
-    .images = (const struct SpriteFrameImage[]) { overworld_ascending_frames(objEventPic, SIZE_32x32 ? 4 : 8, SIZE_32x32 ? 4 : 8), },   \
-    .affineAnims = gDummySpriteAffineAnimTable,                                                                                         \
+    .images = picTable,                                                                                                                 \
 }
 
 #define OVERWORLD(objEventPic, _size, shadow, _tracks, _anims, ...)                                 \
@@ -99,7 +100,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
     [SPECIES_NONE] =
     {
         .speciesName = _("??????????"),
-        .cryId = CRY_NONE,
+        .cryId = CRY_PORYGON,
         .natDexNum = NATIONAL_DEX_NONE,
         .categoryName = _("Unknown"),
         .height = 0,
@@ -122,7 +123,9 @@ const struct SpeciesInfo gSpeciesInfo[] =
         .shinyPalette = gMonShinyPalette_CircledQuestionMark,
         .iconSprite = gMonIcon_QuestionMark,
         .iconPalIndex = 0,
+        .pokemonJumpType = PKMN_JUMP_TYPE_NONE,
         FOOTPRINT(QuestionMark)
+        SHADOW(-1, 0, SHADOW_SIZE_M)
     #if OW_POKEMON_OBJECT_EVENTS
         .overworldData = {
             .tileTag = TAG_NONE,
@@ -139,8 +142,7 @@ const struct SpeciesInfo gSpeciesInfo[] =
             .oam = &gObjectEventBaseOam_32x32,
             .subspriteTables = sOamTables_32x32,
             .anims = sAnimTable_Following,
-            .images = (const struct SpriteFrameImage[]) { overworld_ascending_frames(gObjectEventPic_Substitute, 4, 4), },
-            .affineAnims = gDummySpriteAffineAnimTable,
+            .images = sPicTable_Substitute,
         },
     #endif
         .levelUpLearnset = sNoneLevelUpLearnset,
@@ -244,4 +246,9 @@ const struct SpeciesInfo gSpeciesInfo[] =
         //.perfectIVCount = NUM_STATS,
     },
     */
+};
+
+const struct EggData gEggDatas[EGG_ID_COUNT] =
+{
+#include "egg_data.h"
 };
