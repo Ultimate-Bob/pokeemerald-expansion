@@ -4,6 +4,7 @@
 #include "global.h"
 #include "constants/regions.h"
 
+extern const u8 gText_RegionNone[];
 extern const u8 gText_RegionKanto[];
 extern const u8 gText_RegionSevii[];
 extern const u8 gText_RegionJohto[];

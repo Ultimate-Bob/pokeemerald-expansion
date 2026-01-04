@@ -1,6 +1,7 @@
 #include "regions.h"
 #include "strings.h"
 
+const u8 gText_RegionNone[] = _("Somewhere");
 const u8 gText_RegionKanto[] = _("Kanto");
 const u8 gText_RegionSevii[] = _("Sevii Islands");
 const u8 gText_RegionJohto[] = _("Johto");
@@ -15,7 +16,7 @@ const u8 gText_RegionPaldea[] = _("Paldea");
 
 
 const u8 *const gRegionNames[] = {
-    [REGION_NONE] = gText_FiveMarks,
+    [REGION_NONE] = gText_RegionNone,
     [REGION_KANTO] = gText_RegionKanto,
     [REGION_SEVII] = gText_RegionSevii,
     [REGION_JOHTO] = gText_RegionJohto,
