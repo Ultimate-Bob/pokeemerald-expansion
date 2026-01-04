@@ -66,6 +66,7 @@
 #include "constants/moves.h"
 #include "constants/regions.h"
 #include "constants/songs.h"
+#include "constants/species.h"
 #include "constants/trainers.h"
 #include "constants/union_room.h"
 #include "constants/weather.h"
@@ -6207,6 +6208,7 @@ u16 GetBattleBGMForMon(u32 species)
     case SPECIES_SUICUNE:
         return MUS_HG_VS_SUICUNE;
     case SPECIES_LUGIA:
+    case SPECIES_LUGIA_SHADOW:
         return MUS_HG_VS_LUGIA;
     case SPECIES_HO_OH:
         return MUS_HG_VS_HO_OH;
