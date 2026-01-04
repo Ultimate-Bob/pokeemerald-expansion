@@ -4,6 +4,7 @@ A branch that adds Perfect Bidoof. Heavily based on the character of the same na
 
 - ~~merge/overworld-pokemon: Basis for adding his overworld sprite.~~ No longer needed since overworld followers added by expansion.
 - feature/default-legendary-music: Adds itself to the legendary music list.
+- feature/move-improvements: For adding move effects.
 
 ## Moves
 

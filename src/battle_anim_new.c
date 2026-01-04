@@ -8401,6 +8401,8 @@ void AnimTask_GetCommanderType(u8 taskId)
     DestroyAnimVisualTask(taskId);
 }
 
+// start feature/move-improvements
+
 // Named Sprite data fields storing linear translation info.
 #define SpriteAnimLinearTranslateDuration       data[0]
 #define SpriteAnimLinearTranslateInitialXOffset data[1]
@@ -8434,3 +8436,6 @@ static void SpriteCB_AnimLinearTranslateBasic(struct Sprite *sprite)
     sprite->callback = AnimTranslateLinear_WithFollowup;
     sprite->callback(sprite);
     StoreSpriteCallbackInData6(sprite, DestroyAnimSprite);
+}
+
+// end feature/move-improvements
