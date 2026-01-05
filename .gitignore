@@ -25,6 +25,7 @@ sound/songs/midi/*.s
 tools/agbcc
 tools/poryscript/poryscript*
 tools/porymap
+tools/porytiles
 tools/pory
 *.map
 *.bat
