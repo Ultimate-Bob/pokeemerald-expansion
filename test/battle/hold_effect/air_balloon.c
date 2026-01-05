@@ -3,10 +3,10 @@
 
 ASSUMPTIONS
 {
-    ASSUME(gItems[ITEM_AIR_BALLOON].holdEffect == HOLD_EFFECT_AIR_BALLOON);
-    ASSUME(gBattleMoves[MOVE_EARTHQUAKE].type == TYPE_GROUND);
-    ASSUME(gBattleMoves[MOVE_TACKLE].type != TYPE_GROUND);
-    ASSUME(gBattleMoves[MOVE_RECYCLE].effect == EFFECT_RECYCLE);
+    ASSUME(gItemsInfo[ITEM_AIR_BALLOON].holdEffect == HOLD_EFFECT_AIR_BALLOON);
+    ASSUME(GetMoveType(MOVE_EARTHQUAKE) == TYPE_GROUND);
+    ASSUME(GetMoveType(MOVE_SCRATCH) != TYPE_GROUND);
+    ASSUME(GetMoveEffect(MOVE_RECYCLE) == EFFECT_RECYCLE);
 }
 
 SINGLE_BATTLE_TEST("Air Balloon prevents the holder from taking damage from ground type moves")
@@ -18,9 +18,23 @@ SINGLE_BATTLE_TEST("Air Balloon prevents the holder from taking damage from grou
         TURN { MOVE(opponent, MOVE_EARTHQUAKE); }
     } SCENE {
         MESSAGE("Wobbuffet floats in the air with its Air Balloon!");
-        MESSAGE("Foe Wobbuffet used Earthquake!");
+        MESSAGE("The opposing Wobbuffet used Earthquake!");
         NOT ANIMATION(ANIM_TYPE_MOVE, MOVE_EARTHQUAKE, opponent);
         MESSAGE("It doesn't affect Wobbuffet…");
+    }
+}
+
+SINGLE_BATTLE_TEST("Air Balloon only displays entry message when user switches in")
+{
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET) { Item(ITEM_AIR_BALLOON); };
+        OPPONENT(SPECIES_WOBBUFFET);
+        OPPONENT(SPECIES_WYNAUT);
+    } WHEN {
+        TURN { SWITCH(opponent, 1); }
+    } SCENE {
+        MESSAGE("Wobbuffet floats in the air with its Air Balloon!");
+        NOT MESSAGE("Wobbuffet floats in the air with its Air Balloon!");
     }
 }
 
@@ -30,10 +44,10 @@ SINGLE_BATTLE_TEST("Air Balloon pops when the holder is hit by a move that is no
         PLAYER(SPECIES_WOBBUFFET) { Item(ITEM_AIR_BALLOON); };
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
-        TURN { MOVE(opponent, MOVE_TACKLE); }
+        TURN { MOVE(opponent, MOVE_SCRATCH); }
     } SCENE {
         MESSAGE("Wobbuffet floats in the air with its Air Balloon!");
-        MESSAGE("Foe Wobbuffet used Tackle!");
+        MESSAGE("The opposing Wobbuffet used Scratch!");
         MESSAGE("Wobbuffet's Air Balloon popped!");
     }
 }
@@ -44,13 +58,13 @@ SINGLE_BATTLE_TEST("Air Balloon no longer prevents the holder from taking damage
         PLAYER(SPECIES_WOBBUFFET) { Item(ITEM_AIR_BALLOON); };
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
-        TURN { MOVE(opponent, MOVE_TACKLE); }
+        TURN { MOVE(opponent, MOVE_SCRATCH); }
         TURN { MOVE(opponent, MOVE_EARTHQUAKE); }
     } SCENE {
         MESSAGE("Wobbuffet floats in the air with its Air Balloon!");
-        MESSAGE("Foe Wobbuffet used Tackle!");
+        MESSAGE("The opposing Wobbuffet used Scratch!");
         MESSAGE("Wobbuffet's Air Balloon popped!");
-        MESSAGE("Foe Wobbuffet used Earthquake!");
+        MESSAGE("The opposing Wobbuffet used Earthquake!");
         ANIMATION(ANIM_TYPE_MOVE, MOVE_EARTHQUAKE, opponent);
         NOT MESSAGE("It doesn't affect Wobbuffet…");
     }
@@ -63,12 +77,12 @@ SINGLE_BATTLE_TEST("Air Balloon can not be restored with Recycle after it has be
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
         TURN {
-            MOVE(opponent, MOVE_TACKLE);
+            MOVE(opponent, MOVE_SCRATCH);
             MOVE(player, MOVE_RECYCLE);
         }
     } SCENE {
         MESSAGE("Wobbuffet floats in the air with its Air Balloon!");
-        MESSAGE("Foe Wobbuffet used Tackle!");
+        MESSAGE("The opposing Wobbuffet used Scratch!");
         MESSAGE("Wobbuffet's Air Balloon popped!");
         MESSAGE("Wobbuffet used Recycle!");
         MESSAGE("But it failed!");
@@ -94,7 +108,7 @@ SINGLE_BATTLE_TEST("Air Balloon pops before it can be stolen with Magician")
         PLAYER(SPECIES_WOBBUFFET) { Item(ITEM_AIR_BALLOON); };
         OPPONENT(SPECIES_DELPHOX) { Ability(ABILITY_MAGICIAN); };
     } WHEN {
-        TURN { MOVE(opponent, MOVE_TACKLE); }
+        TURN { MOVE(opponent, MOVE_SCRATCH); }
     } SCENE {
         MESSAGE("Wobbuffet floats in the air with its Air Balloon!");
         MESSAGE("Wobbuffet's Air Balloon popped!");
@@ -102,21 +116,17 @@ SINGLE_BATTLE_TEST("Air Balloon pops before it can be stolen with Magician")
     }
 }
 
-SINGLE_BATTLE_TEST("Air Balloon pops before it can be stolen with Thief or Covet")
+SINGLE_BATTLE_TEST("Air Balloon pops before it can be stolen by Thief")
 {
-    u32 move;
-    KNOWN_FAILING;
-    PARAMETRIZE { move = MOVE_THIEF; }
-    PARAMETRIZE { move = MOVE_COVET; }
     GIVEN {
-        ASSUME(gBattleMoves[move].effect == EFFECT_THIEF);
+        ASSUME(GetMoveEffect(MOVE_THIEF) == EFFECT_STEAL_ITEM);
         PLAYER(SPECIES_WOBBUFFET) { Item(ITEM_AIR_BALLOON); };
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
-        TURN { MOVE(opponent, move); }
+        TURN { MOVE(opponent, MOVE_THIEF); }
     } SCENE {
         MESSAGE("Wobbuffet floats in the air with its Air Balloon!");
         MESSAGE("Wobbuffet's Air Balloon popped!");
-        NOT MESSAGE("Foe Wobbuffet stole Wobbuffet's Air Balloon!");
+        NOT MESSAGE("The opposing Wobbuffet stole Wobbuffet's Air Balloon!");
     }
 }

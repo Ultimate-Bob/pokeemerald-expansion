@@ -1,5 +1,6 @@
 #include "global.h"
 #include "event_data.h"
+#include "event_object_movement.h"
 #include "field_camera.h"
 #include "field_effect.h"
 #include "script.h"
@@ -61,8 +62,8 @@ static void DoBrailleRegisteelEffect(void);
 bool8 ShouldDoBrailleDigEffect(void)
 {
     if (!FlagGet(FLAG_SYS_BRAILLE_DIG)
-     && (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(SEALED_CHAMBER_OUTER_ROOM)
-     && gSaveBlock1Ptr->location.mapNum == MAP_NUM(SEALED_CHAMBER_OUTER_ROOM)))
+     && (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_SEALED_CHAMBER_OUTER_ROOM)
+     && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_SEALED_CHAMBER_OUTER_ROOM)))
     {
         if (gSaveBlock1Ptr->pos.x == 10 && gSaveBlock1Ptr->pos.y == 3)
             return TRUE;
@@ -80,13 +81,12 @@ void DoBrailleDigEffect(void)
     MapGridSetMetatileIdAt( 9 + MAP_OFFSET, 1 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_TopLeft);
     MapGridSetMetatileIdAt(10 + MAP_OFFSET, 1 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_TopMid);
     MapGridSetMetatileIdAt(11 + MAP_OFFSET, 1 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_TopRight);
-    MapGridSetMetatileIdAt( 9 + MAP_OFFSET, 2 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_BottomLeft | MAPGRID_COLLISION_MASK);
+    MapGridSetMetatileIdAt( 9 + MAP_OFFSET, 2 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_BottomLeft | MAPGRID_IMPASSABLE);
     MapGridSetMetatileIdAt(10 + MAP_OFFSET, 2 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_BottomMid);
-    MapGridSetMetatileIdAt(11 + MAP_OFFSET, 2 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_BottomRight | MAPGRID_COLLISION_MASK);
+    MapGridSetMetatileIdAt(11 + MAP_OFFSET, 2 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_BottomRight | MAPGRID_IMPASSABLE);
     DrawWholeMapView();
     PlaySE(SE_BANG);
     FlagSet(FLAG_SYS_BRAILLE_DIG);
-    UnlockPlayerFieldControls();
 }
 
 bool8 CheckRelicanthWailord(void)
@@ -167,8 +167,8 @@ static void Task_SealedChamberShakingEffect(u8 taskId)
 bool8 ShouldDoBrailleRegirockEffect(void)
 {
     if (!FlagGet(FLAG_SYS_REGIROCK_PUZZLE_COMPLETED)
-        && gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(DESERT_RUINS)
-        && gSaveBlock1Ptr->location.mapNum == MAP_NUM(DESERT_RUINS))
+        && gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_DESERT_RUINS)
+        && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_DESERT_RUINS))
     {
         if (gSaveBlock1Ptr->pos.x == 6 && gSaveBlock1Ptr->pos.y == 23)
         {
@@ -207,18 +207,19 @@ static void DoBrailleRegirockEffect(void)
     MapGridSetMetatileIdAt(7 + MAP_OFFSET, 19 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_TopLeft);
     MapGridSetMetatileIdAt(8 + MAP_OFFSET, 19 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_TopMid);
     MapGridSetMetatileIdAt(9 + MAP_OFFSET, 19 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_TopRight);
-    MapGridSetMetatileIdAt(7 + MAP_OFFSET, 20 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_BottomLeft | MAPGRID_COLLISION_MASK);
+    MapGridSetMetatileIdAt(7 + MAP_OFFSET, 20 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_BottomLeft | MAPGRID_IMPASSABLE);
     MapGridSetMetatileIdAt(8 + MAP_OFFSET, 20 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_BottomMid);
-    MapGridSetMetatileIdAt(9 + MAP_OFFSET, 20 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_BottomRight | MAPGRID_COLLISION_MASK);
+    MapGridSetMetatileIdAt(9 + MAP_OFFSET, 20 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_BottomRight | MAPGRID_IMPASSABLE);
     DrawWholeMapView();
     PlaySE(SE_BANG);
     FlagSet(FLAG_SYS_REGIROCK_PUZZLE_COMPLETED);
     UnlockPlayerFieldControls();
+    UnfreezeObjectEvents();
 }
 
 bool8 ShouldDoBrailleRegisteelEffect(void)
 {
-    if (!FlagGet(FLAG_SYS_REGISTEEL_PUZZLE_COMPLETED) && (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(ANCIENT_TOMB) && gSaveBlock1Ptr->location.mapNum == MAP_NUM(ANCIENT_TOMB)))
+    if (!FlagGet(FLAG_SYS_REGISTEEL_PUZZLE_COMPLETED) && (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_ANCIENT_TOMB) && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_ANCIENT_TOMB)))
     {
         if (gSaveBlock1Ptr->pos.x == 8 && gSaveBlock1Ptr->pos.y == 25)
         {
@@ -246,13 +247,14 @@ static void DoBrailleRegisteelEffect(void)
     MapGridSetMetatileIdAt(7 + MAP_OFFSET, 19 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_TopLeft);
     MapGridSetMetatileIdAt(8 + MAP_OFFSET, 19 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_TopMid);
     MapGridSetMetatileIdAt(9 + MAP_OFFSET, 19 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_TopRight);
-    MapGridSetMetatileIdAt(7 + MAP_OFFSET, 20 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_BottomLeft | MAPGRID_COLLISION_MASK);
+    MapGridSetMetatileIdAt(7 + MAP_OFFSET, 20 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_BottomLeft | MAPGRID_IMPASSABLE);
     MapGridSetMetatileIdAt(8 + MAP_OFFSET, 20 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_BottomMid);
-    MapGridSetMetatileIdAt(9 + MAP_OFFSET, 20 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_BottomRight | MAPGRID_COLLISION_MASK);
+    MapGridSetMetatileIdAt(9 + MAP_OFFSET, 20 + MAP_OFFSET, METATILE_Cave_SealedChamberEntrance_BottomRight | MAPGRID_IMPASSABLE);
     DrawWholeMapView();
     PlaySE(SE_BANG);
     FlagSet(FLAG_SYS_REGISTEEL_PUZZLE_COMPLETED);
     UnlockPlayerFieldControls();
+    UnfreezeObjectEvents();
 }
 
 // theory: another commented out DoBrailleWait and Task_BrailleWait.
@@ -284,8 +286,8 @@ bool8 ShouldDoBrailleRegicePuzzle(void)
 {
     u8 i;
 
-    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(ISLAND_CAVE)
-        && gSaveBlock1Ptr->location.mapNum == MAP_NUM(ISLAND_CAVE))
+    if (gSaveBlock1Ptr->location.mapGroup == MAP_GROUP(MAP_ISLAND_CAVE)
+        && gSaveBlock1Ptr->location.mapNum == MAP_NUM(MAP_ISLAND_CAVE))
     {
         if (FlagGet(FLAG_SYS_BRAILLE_REGICE_COMPLETED))
             return FALSE;

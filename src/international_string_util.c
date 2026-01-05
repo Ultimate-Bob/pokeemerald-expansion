@@ -75,10 +75,7 @@ int Intl_GetListMenuWidth(const struct ListMenuTemplate *listMenu)
     }
 
     finalWidth = maxWidth + listMenu->item_X + 9;
-    if (finalWidth < 0)
-        finalWidth += 7;
-
-    finalWidth >>= 3;
+    finalWidth /= 8;
     if (finalWidth > 28)
         finalWidth = 28;
 
@@ -223,7 +220,7 @@ void FillWindowTilesByRow(int windowId, int columnStart, int rowStart, int numFi
 
     fillSize = numFillTiles * TILE_SIZE_4BPP;
     windowRowSize = window->window.width * TILE_SIZE_4BPP;
-    windowTileData = window->tileData + (rowStart * windowRowSize) + (columnStart * TILE_SIZE_4BPP);
+    windowTileData = (u8 *)window->tileData + (rowStart * windowRowSize) + (columnStart * TILE_SIZE_4BPP);
     if (numRows > 0)
     {
         for (i = numRows; i != 0; i--)

@@ -6,7 +6,8 @@ SootopolisCity_LotadAndSeedotHouse_EventScript_SeedotBrother::
 	lock
 	faceplayer
 	msgbox SootopolisCity_LotadAndSeedotHouse_Text_PleaseShowMeBigSeedot, MSGBOX_DEFAULT
-	special ChoosePartyMon
+	fadescreen FADE_TO_BLACK
+	special ChooseBoxMon
 	waitstate
 	copyvar VAR_RESULT, VAR_0x8004
 	goto_if_eq VAR_RESULT, PARTY_NOTHING_CHOSEN, SootopolisCity_LotadAndSeedotHouse_EventScript_CancelShowSeedot
@@ -50,7 +51,8 @@ SootopolisCity_LotadAndSeedotHouse_EventScript_LotadBrother::
 	lock
 	faceplayer
 	msgbox SootopolisCity_LotadAndSeedotHouse_Text_PleaseShowMeBigLotad, MSGBOX_DEFAULT
-	special ChoosePartyMon
+	fadescreen FADE_TO_BLACK
+	special ChooseBoxMon
 	waitstate
 	copyvar VAR_RESULT, VAR_0x8004
 	goto_if_eq VAR_RESULT, PARTY_NOTHING_CHOSEN, SootopolisCity_LotadAndSeedotHouse_EventScript_CancelShowLotad
@@ -116,7 +118,7 @@ SootopolisCity_LotadAndSeedotHouse_Text_PleaseShowMeBigSeedot:
 	.string "P-p-please, show me!$"
 
 SootopolisCity_LotadAndSeedotHouse_Text_GoshMightBeBiggerThanLotad:
-	.string "{STR_VAR_2} inches!\n"
+	.string "{STR_VAR_2}!\n"
 	.string "Oh, my gosh, this is a big one!\p"
 	.string "It might even beat the big LOTAD\n"
 	.string "my younger brother saw!\p"
@@ -132,7 +134,7 @@ SootopolisCity_LotadAndSeedotHouse_Text_BagCrammedFull1:
 	.string "Your BAG is crammed full.$"
 
 SootopolisCity_LotadAndSeedotHouse_Text_SeenBiggerSeedot:
-	.string "{STR_VAR_2} inches, is it?\p"
+	.string "{STR_VAR_2}, is it?\p"
 	.string "Hmm… I've seen a bigger SEEDOT\n"
 	.string "than this one.$"
 
@@ -148,7 +150,7 @@ SootopolisCity_LotadAndSeedotHouse_Text_DontHaveBigSeedot:
 
 SootopolisCity_LotadAndSeedotHouse_Text_BiggestSeedotInHistory:
 	.string "The biggest SEEDOT in history!\n"
-	.string "{STR_VAR_2}'s {STR_VAR_3}-inch giant!\p"
+	.string "{STR_VAR_2}'s {STR_VAR_3} giant!\p"
 	.string "A SEEDOT bigger than a LOTAD\n"
 	.string "always wanted!$"
 
@@ -164,7 +166,7 @@ SootopolisCity_LotadAndSeedotHouse_Text_PleaseShowMeBigLotad:
 	.string "P-p-please show me!$"
 
 SootopolisCity_LotadAndSeedotHouse_Text_WowMightBeBiggerThanSeedot:
-	.string "{STR_VAR_2} inches!\n"
+	.string "{STR_VAR_2}!\n"
 	.string "Wow, that is big!\p"
 	.string "It might be even bigger than the huge\n"
 	.string "SEEDOT my big brother saw.\p"
@@ -180,7 +182,7 @@ SootopolisCity_LotadAndSeedotHouse_Text_BagCrammedFull2:
 	.string "Your BAG is crammed full.$"
 
 SootopolisCity_LotadAndSeedotHouse_Text_SeenBiggerLotad:
-	.string "{STR_VAR_2} inches?\p"
+	.string "{STR_VAR_2}?\p"
 	.string "Hmm… I've seen a bigger LOTAD\n"
 	.string "than this one here.$"
 
@@ -196,7 +198,7 @@ SootopolisCity_LotadAndSeedotHouse_Text_DontHaveBigLotad:
 
 SootopolisCity_LotadAndSeedotHouse_Text_BiggestLotadInHistory:
 	.string "The biggest LOTAD in history!\n"
-	.string "{STR_VAR_2}'s {STR_VAR_3}-inch colossus!\p"
+	.string "{STR_VAR_2}'s {STR_VAR_3} colossus!\p"
 	.string "A LOTAD bigger than a SEEDOT\n"
 	.string "always wanted!$"
 

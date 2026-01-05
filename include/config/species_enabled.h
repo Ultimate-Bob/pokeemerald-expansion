@@ -26,6 +26,8 @@
 #define P_GIGANTAMAX_FORMS               TRUE
 #define P_TERA_FORMS                     TRUE
 
+#define P_GEN_9_MEGA_EVOLUTIONS          P_MEGA_EVOLUTIONS // Mega Evolutions introduced in Z-A and its DLC
+
 // Fusion forms
 #define P_FUSION_FORMS                   TRUE
 
@@ -594,5 +596,11 @@
 #define P_FAMILY_MUNKIDORI               P_GEN_9_POKEMON
 #define P_FAMILY_FEZANDIPITI             P_GEN_9_POKEMON
 #define P_FAMILY_OGERPON                 P_GEN_9_POKEMON
+#define P_FAMILY_GOUGING_FIRE            P_GEN_9_POKEMON
+#define P_FAMILY_RAGING_BOLT             P_GEN_9_POKEMON
+#define P_FAMILY_IRON_BOULDER            P_GEN_9_POKEMON
+#define P_FAMILY_IRON_CROWN              P_GEN_9_POKEMON
+#define P_FAMILY_TERAPAGOS               P_GEN_9_POKEMON
+#define P_FAMILY_PECHARUNT               P_GEN_9_POKEMON
 
 #endif // GUARD_CONFIG_SPECIES_ENABLED_H

@@ -5,7 +5,7 @@ if [[ -n $IS_WSL ]]
 then
     projPath=$(wslpath -a ./)
     echo $projPath
-    ./tools/pory/porymap.exe $projPath
+    ./tools/porymap/porymap.exe $projPath
 else
-    ./tools/pory/porymap
+    ./tools/porymap/porymap
 fi

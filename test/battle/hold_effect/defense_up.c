@@ -3,15 +3,16 @@
 
 ASSUMPTIONS
 {
-    ASSUME(gItems[ITEM_GANLON_BERRY].holdEffect == HOLD_EFFECT_DEFENSE_UP);
-    ASSUME(gBattleMoves[MOVE_DRAGON_RAGE].effect == EFFECT_DRAGON_RAGE);
+    ASSUME(gItemsInfo[ITEM_GANLON_BERRY].holdEffect == HOLD_EFFECT_DEFENSE_UP);
+    ASSUME(GetMoveEffect(MOVE_DRAGON_RAGE) == EFFECT_FIXED_HP_DAMAGE);
+    ASSUME(GetMoveFixedHPDamage(MOVE_DRAGON_RAGE) == 40);
 }
 
 SINGLE_BATTLE_TEST("Ganlon Berry raises the holder's Defense by one stage when HP drops to 1/4 or below")
 {
     u32 move;
 
-    PARAMETRIZE { move = MOVE_TACKLE; }
+    PARAMETRIZE { move = MOVE_SCRATCH; }
     PARAMETRIZE { move = MOVE_DRAGON_RAGE; }
 
     GIVEN {
@@ -21,7 +22,7 @@ SINGLE_BATTLE_TEST("Ganlon Berry raises the holder's Defense by one stage when H
         TURN { MOVE(opponent, move); }
     } SCENE {
         ANIMATION(ANIM_TYPE_MOVE, move, opponent);
-        if (move == MOVE_TACKLE) {
+        if (move == MOVE_SCRATCH) {
             NONE_OF {
                 ANIMATION(ANIM_TYPE_GENERAL, B_ANIM_HELD_ITEM_EFFECT, player);
                 MESSAGE("Using Ganlon Berry, the Defense of Wobbuffet rose!");

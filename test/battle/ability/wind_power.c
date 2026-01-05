@@ -3,16 +3,17 @@
 
 ASSUMPTIONS
 {
-    ASSUME(gBattleMoves[MOVE_THUNDERBOLT].power != 0);
-    ASSUME(gBattleMoves[MOVE_THUNDERBOLT].type == TYPE_ELECTRIC);
-    ASSUME(gBattleMoves[MOVE_TACKLE].power != 0);
-    ASSUME(gBattleMoves[MOVE_AIR_CUTTER].power != 0);
-    ASSUME(gBattleMoves[MOVE_AIR_CUTTER].target == MOVE_TARGET_BOTH);
-    ASSUME(gBattleMoves[MOVE_AIR_CUTTER].windMove == TRUE);
-    ASSUME(gBattleMoves[MOVE_PETAL_BLIZZARD].power != 0);
-    ASSUME(gBattleMoves[MOVE_PETAL_BLIZZARD].target == MOVE_TARGET_FOES_AND_ALLY);
-    ASSUME(gBattleMoves[MOVE_PETAL_BLIZZARD].windMove == TRUE);
-    ASSUME(gBattleMoves[MOVE_TACKLE].windMove == FALSE);
+    ASSUME(!IsBattleMoveStatus(MOVE_NUZZLE));
+    ASSUME(GetMoveType(MOVE_NUZZLE) == TYPE_ELECTRIC);
+    ASSUME(!IsBattleMoveStatus(MOVE_SCRATCH));
+    ASSUME(!IsWindMove(MOVE_SCRATCH));
+    ASSUME(!IsBattleMoveStatus(MOVE_AIR_CUTTER));
+    ASSUME(GetMoveTarget(MOVE_AIR_CUTTER) == TARGET_BOTH);
+    ASSUME(IsWindMove(MOVE_AIR_CUTTER));
+    ASSUME(!IsBattleMoveStatus(MOVE_PETAL_BLIZZARD));
+    ASSUME(GetMoveTarget(MOVE_PETAL_BLIZZARD) == TARGET_FOES_AND_ALLY);
+    ASSUME(IsWindMove(MOVE_PETAL_BLIZZARD));
+    ASSUME(!IsWindMove(MOVE_SCRATCH));
 }
 
 SINGLE_BATTLE_TEST("Wind Power sets up Charge for player when hit by a wind move")
@@ -20,34 +21,34 @@ SINGLE_BATTLE_TEST("Wind Power sets up Charge for player when hit by a wind move
     s16 dmgBefore, dmgAfter;
     u16 move;
 
-    PARAMETRIZE {move = MOVE_TACKLE; }
+    PARAMETRIZE {move = MOVE_SCRATCH; }
     PARAMETRIZE {move = MOVE_AIR_CUTTER; }
 
     GIVEN {
-        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_WIND_POWER); Speed(10); }
-        OPPONENT(SPECIES_WOBBUFFET) {Ability(ABILITY_LIMBER); Speed(5) ;} // Limber, so it doesn't get paralyzed.
+        PLAYER(SPECIES_WATTREL) { Ability(ABILITY_WIND_POWER); Speed(10); }
+        OPPONENT(SPECIES_PERSIAN) {Ability(ABILITY_LIMBER); Speed(5) ;} // Limber, so it doesn't get paralyzed.
     } WHEN {
-        TURN { MOVE(player, MOVE_THUNDERBOLT), MOVE(opponent, move); }
-        TURN { MOVE(player, MOVE_THUNDERBOLT), MOVE(opponent, move); }
+        TURN { MOVE(player, MOVE_NUZZLE), MOVE(opponent, move); }
+        TURN { MOVE(player, MOVE_NUZZLE), MOVE(opponent, move); }
     } SCENE {
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_THUNDERBOLT, player);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_NUZZLE, player);
         HP_BAR(opponent, captureDamage: &dmgBefore);
 
         ANIMATION(ANIM_TYPE_MOVE, move, opponent);
         HP_BAR(player);
         if (move == MOVE_AIR_CUTTER) {
             ABILITY_POPUP(player, ABILITY_WIND_POWER);
-            MESSAGE("Being hit by Air Cutter charged Wobbuffet with power!");
+            MESSAGE("Being hit by Air Cutter charged Wattrel with power!");
         }
 
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_THUNDERBOLT, player);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_NUZZLE, player);
         HP_BAR(opponent, captureDamage: &dmgAfter);
 
         ANIMATION(ANIM_TYPE_MOVE, move, opponent);
         HP_BAR(player);
         if (move == MOVE_AIR_CUTTER) {
             ABILITY_POPUP(player, ABILITY_WIND_POWER);
-            MESSAGE("Being hit by Air Cutter charged Wobbuffet with power!");
+            MESSAGE("Being hit by Air Cutter charged Wattrel with power!");
         }
     }
     THEN {
@@ -65,34 +66,34 @@ SINGLE_BATTLE_TEST("Wind Power sets up Charge for opponent when hit by a wind mo
     s16 dmgBefore, dmgAfter;
     u16 move;
 
-    PARAMETRIZE {move = MOVE_TACKLE; }
+    PARAMETRIZE {move = MOVE_SCRATCH; }
     PARAMETRIZE {move = MOVE_AIR_CUTTER; }
 
     GIVEN {
-        PLAYER(SPECIES_WOBBUFFET) {Ability(ABILITY_LIMBER); Speed(5) ;} // Limber, so it doesn't get paralyzed.
-        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_WIND_POWER); Speed(10); }
+        PLAYER(SPECIES_PERSIAN) {Ability(ABILITY_LIMBER); Speed(5) ;} // Limber, so it doesn't get paralyzed.
+        OPPONENT(SPECIES_WATTREL) { Ability(ABILITY_WIND_POWER); Speed(10); }
     } WHEN {
-        TURN { MOVE(opponent, MOVE_THUNDERBOLT), MOVE(player, move); }
-        TURN { MOVE(opponent, MOVE_THUNDERBOLT), MOVE(player, move); }
+        TURN { MOVE(opponent, MOVE_NUZZLE), MOVE(player, move); }
+        TURN { MOVE(opponent, MOVE_NUZZLE), MOVE(player, move); }
     } SCENE {
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_THUNDERBOLT, opponent);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_NUZZLE, opponent);
         HP_BAR(player, captureDamage: &dmgBefore);
 
         ANIMATION(ANIM_TYPE_MOVE, move, player);
         HP_BAR(opponent);
         if (move == MOVE_AIR_CUTTER) {
             ABILITY_POPUP(opponent, ABILITY_WIND_POWER);
-            MESSAGE("Being hit by Air Cutter charged Foe Wobbuffet with power!");
+            MESSAGE("Being hit by Air Cutter charged the opposing Wattrel with power!");
         }
 
-        ANIMATION(ANIM_TYPE_MOVE, MOVE_THUNDERBOLT, opponent);
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_NUZZLE, opponent);
         HP_BAR(player, captureDamage: &dmgAfter);
 
         ANIMATION(ANIM_TYPE_MOVE, move, player);
         HP_BAR(opponent);
         if (move == MOVE_AIR_CUTTER) {
             ABILITY_POPUP(opponent, ABILITY_WIND_POWER);
-            MESSAGE("Being hit by Air Cutter charged Foe Wobbuffet with power!");
+            MESSAGE("Being hit by Air Cutter charged the opposing Wattrel with power!");
         }
     }
     THEN {
@@ -105,19 +106,57 @@ SINGLE_BATTLE_TEST("Wind Power sets up Charge for opponent when hit by a wind mo
     }
 }
 
+SINGLE_BATTLE_TEST("Wind Power sets up Charge for only one attack when hit by a wind move")
+{
+    s16 dmgCharged, dmgAfter;
+    u16 move;
+
+    PARAMETRIZE {move = MOVE_SCRATCH; }
+    PARAMETRIZE {move = MOVE_AIR_CUTTER; }
+
+    GIVEN {
+        PLAYER(SPECIES_WATTREL) { Ability(ABILITY_WIND_POWER); Speed(5); }
+        OPPONENT(SPECIES_PERSIAN) {Ability(ABILITY_LIMBER); Speed(10) ;} // Limber, so it doesn't get paralyzed.
+    } WHEN {
+        TURN { MOVE(opponent, move); MOVE(player, MOVE_NUZZLE); }
+        TURN { MOVE(player, MOVE_NUZZLE); }
+    } SCENE {
+        ANIMATION(ANIM_TYPE_MOVE, move, opponent);
+        HP_BAR(player);
+        if (move == MOVE_AIR_CUTTER) {
+            ABILITY_POPUP(player, ABILITY_WIND_POWER);
+            MESSAGE("Being hit by Air Cutter charged Wattrel with power!");
+        }
+
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_NUZZLE, player);
+        HP_BAR(opponent, captureDamage: &dmgCharged);
+
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_NUZZLE, player);
+        HP_BAR(opponent, captureDamage: &dmgAfter);
+    }
+    THEN {
+        if (move == MOVE_AIR_CUTTER) {
+            EXPECT_MUL_EQ(dmgAfter, Q_4_12(2.0), dmgCharged);
+        }
+        else {
+            EXPECT_EQ(dmgAfter, dmgCharged);
+        }
+    }
+}
+
 DOUBLE_BATTLE_TEST("Wind Power activates correctly for every battler with the ability when hit by a 2/3 target move")
 {
-    u16 abilityLeft, abilityRight;
+    enum Ability abilityLeft, abilityRight;
 
     PARAMETRIZE {abilityLeft = ABILITY_NONE, abilityRight = ABILITY_WIND_POWER;}
     PARAMETRIZE {abilityLeft = ABILITY_WIND_POWER, abilityRight = ABILITY_NONE; }
     PARAMETRIZE {abilityLeft = ABILITY_WIND_POWER, abilityRight = ABILITY_WIND_POWER; }
 
     GIVEN {
-        PLAYER(SPECIES_WOBBUFFET) { Ability(abilityLeft); Speed(10); }
-        PLAYER(SPECIES_WOBBUFFET) { Ability(abilityRight); Speed(5); }
-        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_LIMBER); Speed(20); }
-        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_LIMBER); Speed(15); }
+        PLAYER(SPECIES_WATTREL) { Ability(abilityLeft); Speed(10); }
+        PLAYER(SPECIES_WATTREL) { Ability(abilityRight); Speed(5); }
+        OPPONENT(SPECIES_PERSIAN) { Ability(ABILITY_LIMBER); Speed(20); }
+        OPPONENT(SPECIES_PERSIAN) { Ability(ABILITY_LIMBER); Speed(15); }
     } WHEN {
         TURN { MOVE(opponentLeft, MOVE_AIR_CUTTER); MOVE(opponentRight, MOVE_AIR_CUTTER);}
     } SCENE {
@@ -126,12 +165,12 @@ DOUBLE_BATTLE_TEST("Wind Power activates correctly for every battler with the ab
         HP_BAR(playerLeft);
         if (abilityLeft == ABILITY_WIND_POWER) {
             ABILITY_POPUP(playerLeft, ABILITY_WIND_POWER);
-            MESSAGE("Being hit by Air Cutter charged Wobbuffet with power!");
+            MESSAGE("Being hit by Air Cutter charged Wattrel with power!");
         }
         HP_BAR(playerRight);
         if (abilityRight == ABILITY_WIND_POWER) {
             ABILITY_POPUP(playerRight, ABILITY_WIND_POWER);
-            MESSAGE("Being hit by Air Cutter charged Wobbuffet with power!");
+            MESSAGE("Being hit by Air Cutter charged Wattrel with power!");
         }
         NONE_OF {
             HP_BAR(opponentLeft);
@@ -148,34 +187,34 @@ DOUBLE_BATTLE_TEST("Wind Power activates correctly for every battler with the ab
 
 DOUBLE_BATTLE_TEST("Wind Power activates correctly for every battler with the ability when hit by a 3 target move")
 {
-    u16 abilityLeft, abilityRight;
+    enum Ability abilityLeft, abilityRight;
 
     PARAMETRIZE {abilityLeft = ABILITY_NONE, abilityRight = ABILITY_WIND_POWER; }
     PARAMETRIZE {abilityLeft = ABILITY_WIND_POWER, abilityRight = ABILITY_NONE; }
     PARAMETRIZE {abilityLeft = ABILITY_WIND_POWER, abilityRight = ABILITY_WIND_POWER; }
 
     GIVEN {
-        PLAYER(SPECIES_WOBBUFFET) { Ability(abilityLeft); Speed(10); }
-        PLAYER(SPECIES_WOBBUFFET) { Ability(abilityRight); Speed(5); }
-        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_LIMBER); Speed(20); }
-        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_LIMBER); Speed(15); }
+        PLAYER(SPECIES_WATTREL) { Ability(abilityLeft); Speed(10); }
+        PLAYER(SPECIES_WATTREL) { Ability(abilityRight); Speed(5); }
+        OPPONENT(SPECIES_PERSIAN) { Ability(ABILITY_LIMBER); Speed(20); }
+        OPPONENT(SPECIES_PERSIAN) { Ability(ABILITY_LIMBER); Speed(15); }
     } WHEN {
         TURN { MOVE(opponentLeft, MOVE_PETAL_BLIZZARD);}
     } SCENE {
         ANIMATION(ANIM_TYPE_MOVE, MOVE_PETAL_BLIZZARD, opponentLeft);
 
         HP_BAR(playerLeft);
-        if (abilityLeft == ABILITY_WIND_POWER) {
-            ABILITY_POPUP(playerLeft, ABILITY_WIND_POWER);
-            MESSAGE("Being hit by PetalBlizzrd charged Wobbuffet with power!");
-        }
         HP_BAR(playerRight);
-        if (abilityRight == ABILITY_WIND_POWER) {
-            ABILITY_POPUP(playerRight, ABILITY_WIND_POWER);
-            MESSAGE("Being hit by PetalBlizzrd charged Wobbuffet with power!");
-        }
         HP_BAR(opponentRight);
         NOT HP_BAR(opponentLeft);
+        if (abilityLeft == ABILITY_WIND_POWER) {
+            ABILITY_POPUP(playerLeft, ABILITY_WIND_POWER);
+            MESSAGE("Being hit by Petal Blizzard charged Wattrel with power!");
+        }
+        if (abilityRight == ABILITY_WIND_POWER) {
+            ABILITY_POPUP(playerRight, ABILITY_WIND_POWER);
+            MESSAGE("Being hit by Petal Blizzard charged Wattrel with power!");
+        }
     }
     THEN {
         EXPECT_NE(playerLeft->hp, playerLeft->maxHP);
@@ -193,11 +232,11 @@ DOUBLE_BATTLE_TEST("Wind Power activates correctly when Tailwind is used")
     PARAMETRIZE {opponentSide = FALSE;}
 
     GIVEN {
-        ASSUME(gBattleMoves[MOVE_TAILWIND].effect == EFFECT_TAILWIND);
-        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_WIND_POWER); Speed(10); }
-        PLAYER(SPECIES_WOBBUFFET) { Ability(ABILITY_WIND_POWER); Speed(5); }
-        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_WIND_POWER); Speed(20); }
-        OPPONENT(SPECIES_WOBBUFFET) { Ability(ABILITY_WIND_POWER); Speed(15); }
+        ASSUME(GetMoveEffect(MOVE_TAILWIND) == EFFECT_TAILWIND);
+        PLAYER(SPECIES_WATTREL) { Ability(ABILITY_WIND_POWER); Speed(10); }
+        PLAYER(SPECIES_WATTREL) { Ability(ABILITY_WIND_POWER); Speed(5); }
+        OPPONENT(SPECIES_WATTREL) { Ability(ABILITY_WIND_POWER); Speed(20); }
+        OPPONENT(SPECIES_WATTREL) { Ability(ABILITY_WIND_POWER); Speed(15); }
     } WHEN {
         TURN { MOVE((opponentSide == TRUE) ? opponentLeft : playerLeft, MOVE_TAILWIND);}
     } SCENE {
@@ -205,19 +244,19 @@ DOUBLE_BATTLE_TEST("Wind Power activates correctly when Tailwind is used")
             ANIMATION(ANIM_TYPE_MOVE, MOVE_TAILWIND, opponentLeft);
 
             ABILITY_POPUP(opponentLeft, ABILITY_WIND_POWER);
-            MESSAGE("Being hit by Tailwind charged Foe Wobbuffet with power!");
+            MESSAGE("Being hit by Tailwind charged the opposing Wattrel with power!");
 
             ABILITY_POPUP(opponentRight, ABILITY_WIND_POWER);
-            MESSAGE("Being hit by Tailwind charged Foe Wobbuffet with power!");
+            MESSAGE("Being hit by Tailwind charged the opposing Wattrel with power!");
         }
         else {
             ANIMATION(ANIM_TYPE_MOVE, MOVE_TAILWIND, playerLeft);
 
             ABILITY_POPUP(playerLeft, ABILITY_WIND_POWER);
-            MESSAGE("Being hit by Tailwind charged Wobbuffet with power!");
+            MESSAGE("Being hit by Tailwind charged Wattrel with power!");
 
             ABILITY_POPUP(playerRight, ABILITY_WIND_POWER);
-            MESSAGE("Being hit by Tailwind charged Wobbuffet with power!");
+            MESSAGE("Being hit by Tailwind charged Wattrel with power!");
         }
     }
 }

@@ -405,6 +405,24 @@
 #define ANIM_TAG_SYRUP_SHELL_YELLOW         (ANIM_SPRITES_START + 391)
 #define ANIM_TAG_SYRUP_SPLAT_RED            (ANIM_SPRITES_START + 392)
 #define ANIM_TAG_SYRUP_SPLAT_YELLOW         (ANIM_SPRITES_START + 393)
+#define ANIM_TAG_IVY_CUDGEL_GRASS           (ANIM_SPRITES_START + 394)
+#define ANIM_TAG_IVY_CUDGEL_FIRE            (ANIM_SPRITES_START + 395)
+#define ANIM_TAG_IVY_CUDGEL_ROCK            (ANIM_SPRITES_START + 396)
+#define ANIM_TAG_IVY_CUDGEL_WATER           (ANIM_SPRITES_START + 397)
+#define ANIM_TAG_TERA_CRYSTAL               (ANIM_SPRITES_START + 398)
+#define ANIM_TAG_TERA_SHATTER               (ANIM_SPRITES_START + 399)
+#define ANIM_TAG_DREEPY_SHINY               (ANIM_SPRITES_START + 400)
+#define ANIM_TAG_BLOOD_MOON                 (ANIM_SPRITES_START + 401)
+#define ANIM_TAG_BEAM                       (ANIM_SPRITES_START + 402)
+#define ANIM_TAG_RED_EXPLOSION              (ANIM_SPRITES_START + 403)
+#define ANIM_TAG_PURPLE_CHAIN               (ANIM_SPRITES_START + 404)
+#define ANIM_TAG_PINKVIO_ORB                (ANIM_SPRITES_START + 405)
+#define ANIM_TAG_STARSTORM                  (ANIM_SPRITES_START + 406)
+#define ANIM_TAG_SALT_PARTICLE              (ANIM_SPRITES_START + 407)
+#define ANIM_TAG_TERA_SYMBOL                (ANIM_SPRITES_START + 408)
+#define ANIM_TAG_TATSUGIRI_CURLY            (ANIM_SPRITES_START + 409)
+#define ANIM_TAG_TATSUGIRI_DROOPY           (ANIM_SPRITES_START + 410)
+#define ANIM_TAG_TATSUGIRI_STRETCHY         (ANIM_SPRITES_START + 411)
 
 // battlers
 #define ANIM_ATTACKER         0
@@ -414,8 +432,8 @@
 
 // Below are used by AnimTask_ShakeMon2 and AnimTask_SetGrayscaleOrOriginalPal
 #define ANIM_PLAYER_LEFT      (MAX_BATTLERS_COUNT + 0)
-#define ANIM_PLAYER_RIGHT     (MAX_BATTLERS_COUNT + 1)
-#define ANIM_OPPONENT_LEFT    (MAX_BATTLERS_COUNT + 2)
+#define ANIM_OPPONENT_LEFT    (MAX_BATTLERS_COUNT + 1)
+#define ANIM_PLAYER_RIGHT     (MAX_BATTLERS_COUNT + 2)
 #define ANIM_OPPONENT_RIGHT   (MAX_BATTLERS_COUNT + 3)
 #define ANIM_ATTACKER_FORCE   (MAX_BATTLERS_COUNT + 4)
 
@@ -492,9 +510,9 @@
 #define BG_BOLT_STRIKE 55
 #define BG_ZMOVE_ACTIVATE 56
 #define BG_TECTONIC_RAGE 57
-#define BG_BLUE_SKY_DAY 58
-#define BG_BLUE_SKY_AFTERNOON 59
-#define BG_BLUE_SKY_NIGHT 60
+#define BG_ROCK_FIELD_DAY 58
+#define BG_ROCK_FIELD_AFTERNOON 59
+#define BG_ROCK_FIELD_NIGHT 60
 #define BG_ZMOVE_MOUNTAIN 61
 #define BG_NEVERENDING_NIGHTMARE 62
 #define BG_WATER_PULSE 63
@@ -515,9 +533,11 @@
 #define BG_STEEL_BEAM_OPPONENT 78
 #define BG_STEEL_BEAM_PLAYER 79
 #define BG_CHLOROBLAST 80
-#define BG_RAINBOW 81
+#define BG_RAINBOW_PLAYER 81
+#define BG_RAINBOW_OPPONENT 82
+#define BG_SWAMP 83
 
-// table ids for general animations (gBattleAnims_General)
+// table ids for general animations (sBattleAnims_General)
 #define B_ANIM_STATS_CHANGE             0
 #define B_ANIM_SUBSTITUTE_FADE          1
 #define B_ANIM_SUBSTITUTE_APPEAR        2
@@ -563,8 +583,20 @@
 #define B_ANIM_RAINBOW                  42
 #define B_ANIM_SEA_OF_FIRE              43
 #define B_ANIM_SWAMP                    44
+#define B_ANIM_TRICK_ROOM               45
+#define B_ANIM_WONDER_ROOM              46
+#define B_ANIM_MAGIC_ROOM               47
+#define B_ANIM_TAILWIND                 48
+#define B_ANIM_FOG_CONTINUES            49
+#define B_ANIM_TERA_CHARGE              50
+#define B_ANIM_TERA_ACTIVATE            51
+#define B_ANIM_SIMPLE_HEAL              52
+#define B_ANIM_POWER_CONSTRUCT          53
+#define B_ANIM_SWAP_TO_SUBSTITUTE       54
+#define B_ANIM_SWAP_FROM_SUBSTITUTE     55
+#define NUM_B_ANIMS_GENERAL             56
 
-// special animations table (gBattleAnims_Special)
+// special animations table (sBattleAnims_Special)
 #define B_ANIM_LVL_UP                   0
 #define B_ANIM_SWITCH_OUT_PLAYER_MON    1
 #define B_ANIM_SWITCH_OUT_OPPONENT_MON  2
@@ -574,7 +606,9 @@
 #define B_ANIM_MON_TO_SUBSTITUTE        6
 #define B_ANIM_CRITICAL_CAPTURE_THROW   7
 
-// status animation table (gBattleAnims_StatusConditions)
+#define NUM_B_ANIMS_SPECIAL             8
+
+// status animation table (sBattleAnims_StatusConditions)
 #define B_ANIM_STATUS_PSN               0
 #define B_ANIM_STATUS_CONFUSION         1
 #define B_ANIM_STATUS_BRN               2
@@ -584,7 +618,9 @@
 #define B_ANIM_STATUS_FRZ               6
 #define B_ANIM_STATUS_CURSED            7
 #define B_ANIM_STATUS_NIGHTMARE         8
-#define B_ANIM_STATUS_WRAPPED           9 // does not actually exist
+#define B_ANIM_STATUS_FRB               9
+
+#define NUM_B_ANIMS_STATUS              10
 
 // Tasks with return values often assign them to gBattleAnimArgs[7].
 #define ARG_RET_ID 7
@@ -611,6 +647,7 @@
 #define ANIM_WEATHER_SANDSTORM 3
 #define ANIM_WEATHER_HAIL 4
 #define ANIM_WEATHER_SNOW 5
+#define ANIM_WEATHER_FOG 6
 
 // horseshoe/fist frames
 #define ANIM_RIGHT_FIST  0
@@ -627,6 +664,20 @@
 #define ANIM_SURF_PAL_MUDDY_WATER    1
 #define ANIM_SURF_PAL_SLUDGE_WAVE    2
 
+// Order Up palettes for Commander
+#define ANIM_ORDER_UP_NONE           0
+#define ANIM_ORDER_UP_CURLY          1
+#define ANIM_ORDER_UP_DROOPY         2
+#define ANIM_ORDER_UP_STRETCHY       3
+
+// AnimTask_TransformMon variations
+enum SpeciesGfxChange
+{
+    SPECIES_GFX_CHANGE_TRANSFORM,
+    SPECIES_GFX_CHANGE_FORM_CHANGE,
+    SPECIES_GFX_CHANGE_ILLUSION_OFF,
+};
+
 // Flags given to various functions to indicate which palettes to consider.
 // Handled by UnpackSelectedBattlePalettes
 #define F_PAL_BG                  (1 << 0)
@@ -642,5 +693,8 @@
 #define F_PAL_ADJACENT            (F_PAL_DEF_SIDE | F_PAL_ATK_PARTNER)
 #define F_PAL_ALL_BUT_DEF         (F_PAL_ATK_SIDE | F_PAL_DEF_PARTNER)
 #define F_PAL_ALL_BUT_ATK_PARTNER (F_PAL_ATTACKER | F_PAL_DEF_SIDE)
+// The below are only used by AnimTask_BlendBattleAnimPal to get battler sprite palettes by position rather than by role.
+// It's redundant with F_PAL_BATTLERS, because they're only ever used together to refer to all the battlers at once.
+#define F_PAL_BATTLERS_2  (1 << 7 | 1 << 8 | 1 << 9 | 1 << 10)
 
 #endif // GUARD_CONSTANTS_BATTLE_ANIM_H
