@@ -194,7 +194,7 @@ static void SwapMoveDescAndContestTilemaps(void);
 #define CONTESTANT_TEXT_COLOR_START 10
 
 enum {
-// The "{Pokemon Name} / {Trainer Name}" windows.
+// The "{Pokémon Name} / {Trainer Name}" windows.
     WIN_CONTESTANT0_NAME,
     WIN_CONTESTANT1_NAME,
     WIN_CONTESTANT2_NAME,
@@ -358,12 +358,34 @@ EWRAM_DATA bool8 gCurContestWinnerIsForArtist = 0;
 EWRAM_DATA u8 gCurContestWinnerSaveIdx = 0;
 
 // IWRAM common vars.
-rng_value_t gContestRngValue;
+COMMON_DATA rng_value_t gContestRngValue = {0};
 
-extern const u8 gText_LinkStandby4[];
+const u8 gText_LinkStandby4[] = COMPOUND_STRING("Link standby!");
 extern const u8 gText_BDot[];
 extern const u8 gText_CDot[];
-extern void (*const gContestEffectFuncs[])(void);
+
+//Text
+const u8 gText_AppealNumWhichMoveWillBePlayed[] = COMPOUND_STRING("Appeal no. {STR_VAR_1}!\nWhich move will be played?");
+const u8 gText_AppealNumButItCantParticipate[] = COMPOUND_STRING("Appeal no. {STR_VAR_1}!\nBut it can't participate!");
+const u8 gText_MonAppealedWithMove[] = COMPOUND_STRING("{STR_VAR_1} appealed with\n{STR_VAR_2}!");
+const u8 gText_MonWasWatchingOthers[] = COMPOUND_STRING("{STR_VAR_1} was watching\nthe others.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}");
+const u8 gText_AllOutOfAppealTime[] = COMPOUND_STRING("We're all out of\nAppeal Time!{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}");
+const u8 gText_JudgeLookedAtMonExpectantly[] = COMPOUND_STRING("The JUDGE looked at\n{STR_VAR_1} expectantly.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}");
+const u8 gText_AppealComboWentOverWell[] = COMPOUND_STRING("The appeal combo went\nover well.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}");
+const u8 gText_AppealComboWentOverVeryWell[] = COMPOUND_STRING("The appeal combo went\nover very well.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}");
+const u8 gText_AppealComboWentOverExcellently[] = COMPOUND_STRING("The appeal combo went\nover excellently.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}");
+const u8 gText_MonWasTooNervousToMove[] = COMPOUND_STRING("{STR_VAR_1} was too\nnervous to move.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}");
+const u8 gText_CouldntImproveItsCondition[] = COMPOUND_STRING("But it couldn't improve\nits condition…{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}");
+const u8 gText_BadConditionResultedInWeakAppeal[] = COMPOUND_STRING("Its bad condition\nresulted in a weak appeal.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}");
+const u8 gText_MonWasUnaffected[] = COMPOUND_STRING("{STR_VAR_1} was\nunaffected.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}");
+const u8 gText_RepeatedAppeal[] = COMPOUND_STRING("{STR_VAR_1} disappointed\nby repeating an appeal.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}");
+const u8 gText_MonsXWentOverGreat[] = COMPOUND_STRING("{STR_VAR_1}'s {STR_VAR_3}\nwent over great.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}");
+const u8 gText_MonsXDidntGoOverWell[] = COMPOUND_STRING("{STR_VAR_1}'s {STR_VAR_3}\ndidn't go over well here…{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}");
+const u8 gText_MonsXGotTheCrowdGoing[] = COMPOUND_STRING("{STR_VAR_1}'s {STR_VAR_3}\ngot the crowd going.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}");
+const u8 gText_MonCantAppealNextTurn[] = COMPOUND_STRING("{STR_VAR_1} can't appeal\nnext turn…{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}");
+const u8 gText_AttractedCrowdsAttention[] = COMPOUND_STRING("It attracted the crowd's\nattention.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}");
+const u8 gText_CrowdContinuesToWatchMon[] = COMPOUND_STRING("The crowd continues to\nwatch {STR_VAR_3}.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}");
+const u8 gText_MonsMoveIsIgnored[] = COMPOUND_STRING("{STR_VAR_1}'s\n{STR_VAR_2} is ignored.{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}{PAUSE 0x0F}");
 
 static const u8 sSliderHeartYPositions[CONTESTANT_COUNT] =
 {
@@ -420,7 +442,7 @@ static const union AffineAnimCmd sAffineAnim_SliderHeart_SpinAppear[] =
     AFFINEANIMCMD_END
 };
 
-static const union AffineAnimCmd* const sAffineAnims_SliderHeart[] =
+static const union AffineAnimCmd *const sAffineAnims_SliderHeart[] =
 {
     [SLIDER_HEART_ANIM_NORMAL]    = sAffineAnim_SliderHeart_Normal,
     [SLIDER_HEART_ANIM_DISAPPEAR] = sAffineAnim_SliderHeart_SpinDisappear,
@@ -432,10 +454,7 @@ static const struct SpriteTemplate sSpriteTemplate_SliderHeart =
     .tileTag = TAG_SLIDER_HEART,
     .paletteTag = TAG_CONTEST_SYMBOLS_PAL,
     .oam = &sOam_SliderHeart,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
     .affineAnims = sAffineAnims_SliderHeart,
-    .callback = SpriteCallbackDummy
 };
 
 static const struct CompressedSpriteSheet sSpriteSheet_NextTurn[CONTESTANT_COUNT] =
@@ -491,37 +510,21 @@ static const struct SpriteTemplate sSpriteTemplates_NextTurn[CONTESTANT_COUNT] =
         .tileTag = TAG_NEXT_TURN_1_GFX,
         .paletteTag = TAG_NEXT_TURN_PAL,
         .oam = &sOam_NextTurn,
-        .anims = gDummySpriteAnimTable,
-        .images = NULL,
-        .affineAnims = gDummySpriteAffineAnimTable,
-        .callback = SpriteCallbackDummy,
     },
     {
         .tileTag = TAG_NEXT_TURN_2_GFX,
         .paletteTag = TAG_NEXT_TURN_PAL,
         .oam = &sOam_NextTurn,
-        .anims = gDummySpriteAnimTable,
-        .images = NULL,
-        .affineAnims = gDummySpriteAffineAnimTable,
-        .callback = SpriteCallbackDummy,
     },
     {
         .tileTag = TAG_NEXT_TURN_3_GFX,
         .paletteTag = TAG_NEXT_TURN_PAL,
         .oam = &sOam_NextTurn,
-        .anims = gDummySpriteAnimTable,
-        .images = NULL,
-        .affineAnims = gDummySpriteAffineAnimTable,
-        .callback = SpriteCallbackDummy,
     },
     {
         .tileTag = TAG_NEXT_TURN_4_GFX,
         .paletteTag = TAG_NEXT_TURN_PAL,
         .oam = &sOam_NextTurn,
-        .anims = gDummySpriteAnimTable,
-        .images = NULL,
-        .affineAnims = gDummySpriteAffineAnimTable,
-        .callback = SpriteCallbackDummy,
     }
 };
 
@@ -584,10 +587,6 @@ static const struct SpriteTemplate sSpriteTemplate_Faces =
     .tileTag = TAG_FACES_GFX,
     .paletteTag = TAG_CONTEST_SYMBOLS_PAL,
     .oam = &sOam_Faces,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy
 };
 
 static const struct CompressedSpriteSheet sSpriteSheet_ApplauseMeter =
@@ -622,10 +621,6 @@ static const struct SpriteTemplate sSpriteTemplate_ApplauseMeter =
     .tileTag = TAG_APPLAUSE_METER,
     .paletteTag = TAG_APPLAUSE_METER,
     .oam = &sOam_ApplauseMeter,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy
 };
 
 static const struct OamData sOam_Judge =
@@ -647,10 +642,6 @@ static const struct SpriteTemplate sSpriteTemplate_Judge =
     .tileTag = TAG_JUDGE,
     .paletteTag = TAG_JUDGE,
     .oam = &sOam_Judge,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy
 };
 
 static const struct CompressedSpriteSheet sSpriteSheet_Judge =
@@ -667,7 +658,7 @@ static const struct CompressedSpriteSheet sSpriteSheet_JudgeSymbols =
     .tag = TAG_JUDGE_SYMBOLS_GFX
 };
 
-static const struct CompressedSpritePalette sSpritePalette_JudgeSymbols =
+static const struct SpritePalette sSpritePalette_JudgeSymbols =
 {
     .data = gContestJudgeSymbolsPal,
     .tag = TAG_CONTEST_SYMBOLS_PAL
@@ -678,15 +669,75 @@ static const struct SpriteTemplate sSpriteTemplate_JudgeSpeechBubble =
     .tileTag = TAG_JUDGE_SYMBOLS_GFX,
     .paletteTag = TAG_CONTEST_SYMBOLS_PAL,
     .oam = &gOamData_AffineOff_ObjNormal_16x16,
-    .anims = gDummySpriteAnimTable,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy
 };
 
 static const u16 sText_Pal[] = INCBIN_U16("graphics/contest/text.gbapal");
 
 #include "data/contest_text_tables.h"
+
+const struct ContestCategory gContestCategoryInfo[CONTEST_CATEGORIES_COUNT + 1] =
+{
+    [CONTEST_CATEGORY_COOL] =
+    {
+        .name = COMPOUND_STRING("COOL"),
+        .condition = COMPOUND_STRING("coolness"),
+        .generic = COMPOUND_STRING("COOL Move"),
+        .negativeTrait = COMPOUND_STRING("shyness"),
+        .palette = 13,
+    },
+
+    [CONTEST_CATEGORY_BEAUTY] =
+    {
+        .name = COMPOUND_STRING("BEAUTY"),
+        .condition = COMPOUND_STRING("beauty"),
+        .generic = COMPOUND_STRING("BEAUTY Move"),
+        .negativeTrait = COMPOUND_STRING("anxiety"),
+        .palette = 14,
+    },
+
+    [CONTEST_CATEGORY_CUTE] =
+    {
+        .name = COMPOUND_STRING("CUTE"),
+        .condition = COMPOUND_STRING("cuteness"),
+        .generic = COMPOUND_STRING("CUTE Move"),
+        .negativeTrait = COMPOUND_STRING("laziness"),
+        .palette = 14,
+    },
+
+    [CONTEST_CATEGORY_SMART] =
+    {
+        .name = COMPOUND_STRING("SMART"),
+        .condition = COMPOUND_STRING("smartness"),
+        .generic = COMPOUND_STRING("SMART Move"),
+        .negativeTrait = COMPOUND_STRING("hesitancy"),
+        .palette = 15,
+    },
+
+    [CONTEST_CATEGORY_TOUGH] =
+    {
+        .name = COMPOUND_STRING("TOUGH"),
+        .condition = COMPOUND_STRING("toughness"),
+        .generic = COMPOUND_STRING("TOUGH Move"),
+        .negativeTrait = COMPOUND_STRING("fear"),
+        .palette = 13,
+    },
+
+    [CONTEST_CATEGORIES_COUNT] =
+    {
+        .generic = COMPOUND_STRING("???"),
+    },
+};
+
+// Takes the .attentionLevel of a contestant as an index.
+static const u8 *const sRoundResultTexts[] =
+{
+    COMPOUND_STRING("{STR_VAR_1} failed to\nstand out at all…{PAUSE_UNTIL_PRESS}"),
+    COMPOUND_STRING("{STR_VAR_1} didn't stand\nout very much…{PAUSE_UNTIL_PRESS}"),
+    COMPOUND_STRING("{STR_VAR_1} caught a\nlittle attention.{PAUSE_UNTIL_PRESS}"),
+    COMPOUND_STRING("{STR_VAR_1} attracted a\nlot of attention.{PAUSE_UNTIL_PRESS}"),
+    COMPOUND_STRING("{STR_VAR_1} commanded\ntotal attention.{PAUSE_UNTIL_PRESS}"),
+    COMPOUND_STRING("{STR_VAR_1} hasn't made\nits appeal.{PAUSE_UNTIL_PRESS}"),
+};
 
 static const struct BgTemplate sContestBgTemplates[] =
 {
@@ -858,23 +909,22 @@ static const struct CompressedSpriteSheet sSpriteSheets_ContestantsTurnBlinkEffe
     }
 };
 
-// Yup this is super dangerous but that's how it is here
 static const struct SpritePalette sSpritePalettes_ContestantsTurnBlinkEffect[CONTESTANT_COUNT] =
 {
     {
-        .data = (u16 *)(gHeap + 0x1A0A4),
+        .data = eContestTempSave.cachedWindowPalettes[5],
         .tag = TAG_BLINK_EFFECT_CONTESTANT0
     },
     {
-        .data = (u16 *)(gHeap + 0x1A0C4),
+        .data = eContestTempSave.cachedWindowPalettes[6],
         .tag = TAG_BLINK_EFFECT_CONTESTANT1
     },
     {
-        .data = (u16 *)(gHeap + 0x1A0E4),
+        .data = eContestTempSave.cachedWindowPalettes[7],
         .tag = TAG_BLINK_EFFECT_CONTESTANT2
     },
     {
-        .data = (u16 *)(gHeap + 0x1A104),
+        .data = eContestTempSave.cachedWindowPalettes[8],
         .tag = TAG_BLINK_EFFECT_CONTESTANT3
     }
 };
@@ -921,37 +971,25 @@ static const struct SpriteTemplate sSpriteTemplates_ContestantsTurnBlinkEffect[C
         .tileTag = TAG_BLINK_EFFECT_CONTESTANT0,
         .paletteTag = TAG_BLINK_EFFECT_CONTESTANT0,
         .oam = &sOam_ContestantsTurnBlinkEffect,
-        .anims = gDummySpriteAnimTable,
-        .images = NULL,
         .affineAnims = sAffineAnims_ContestantsTurnBlinkEffect,
-        .callback = SpriteCallbackDummy
     },
     {
         .tileTag = TAG_BLINK_EFFECT_CONTESTANT1,
         .paletteTag = TAG_BLINK_EFFECT_CONTESTANT1,
         .oam = &sOam_ContestantsTurnBlinkEffect,
-        .anims = gDummySpriteAnimTable,
-        .images = NULL,
         .affineAnims = sAffineAnims_ContestantsTurnBlinkEffect,
-        .callback = SpriteCallbackDummy
     },
     {
         .tileTag = TAG_BLINK_EFFECT_CONTESTANT2,
         .paletteTag = TAG_BLINK_EFFECT_CONTESTANT2,
         .oam = &sOam_ContestantsTurnBlinkEffect,
-        .anims = gDummySpriteAnimTable,
-        .images = NULL,
         .affineAnims = sAffineAnims_ContestantsTurnBlinkEffect,
-        .callback = SpriteCallbackDummy
     },
     {
         .tileTag = TAG_BLINK_EFFECT_CONTESTANT3,
         .paletteTag = TAG_BLINK_EFFECT_CONTESTANT3,
         .oam = &sOam_ContestantsTurnBlinkEffect,
-        .anims = gDummySpriteAnimTable,
-        .images = NULL,
         .affineAnims = sAffineAnims_ContestantsTurnBlinkEffect,
-        .callback = SpriteCallbackDummy
     }
 };
 
@@ -994,6 +1032,18 @@ static const s8 sContestExcitementTable[CONTEST_CATEGORIES_COUNT][CONTEST_CATEGO
     }
 };
 
+static void CopyNicknameToFit(u8 *dest, u32 contestant)
+{
+    u8 *end = StringCopy(dest, gContestMons[contestant].nickname);
+    WrapFontIdToFit(dest, end, FONT_NORMAL, 60);
+}
+
+static void CopyMoveNameToFit(u8 *dest, u32 move)
+{
+    u8 *end = StringCopy(dest, GetMoveName(move));
+    WrapFontIdToFit(dest, end, FONT_NORMAL, 84);
+}
+
 static void TaskDummy1(u8 taskId)
 {
 }
@@ -1031,11 +1081,11 @@ void LoadContestBgAfterMoveAnim(void)
 {
     s32 i;
 
-    LZDecompressVram(gContestInterfaceGfx, (void *)VRAM);
-    LZDecompressVram(gContestAudienceGfx, (void *)(BG_SCREEN_ADDR(4)));
+    DecompressDataWithHeaderVram(gContestInterfaceGfx, (void *)VRAM);
+    DecompressDataWithHeaderVram(gContestAudienceGfx, (void *)(BG_SCREEN_ADDR(4)));
     CopyToBgTilemapBuffer(3, gContestAudienceTilemap, 0, 0);
     CopyBgTilemapBufferToVram(3);
-    LoadCompressedPalette(gContestInterfaceAudiencePalette, BG_PLTT_OFFSET, BG_PLTT_SIZE);
+    LoadPalette(gContestInterfaceAudiencePalette, BG_PLTT_OFFSET, BG_PLTT_SIZE);
     LoadContestPalettes();
     for (i = 0; i < CONTESTANT_COUNT; i++)
     {
@@ -1312,10 +1362,10 @@ static bool8 SetupContestGraphics(u8 *stateVar)
         RequestDma3Fill(0, (void *)VRAM + 0x10000, 0x8000, 1);
         break;
     case 1:
-        LZDecompressVram(gContestInterfaceGfx, (void *)VRAM);
+        DecompressDataWithHeaderVram(gContestInterfaceGfx, (void *)VRAM);
         break;
     case 2:
-        LZDecompressVram(gContestAudienceGfx, (void *)(BG_SCREEN_ADDR(4)));
+        DecompressDataWithHeaderVram(gContestAudienceGfx, (void *)(BG_SCREEN_ADDR(4)));
         DmaCopyLarge32(3, (void *)(BG_SCREEN_ADDR(4)), eUnzippedContestAudience_Gfx, 0x2000, 0x1000);
         break;
     case 3:
@@ -1329,7 +1379,7 @@ static bool8 SetupContestGraphics(u8 *stateVar)
         DmaCopy32Defvars(3, gContestResources->contestBgTilemaps[2], eContestTempSave.savedJunk, sizeof(eContestTempSave.savedJunk));
         break;
     case 5:
-        LoadCompressedPalette(gContestInterfaceAudiencePalette, BG_PLTT_OFFSET, BG_PLTT_SIZE);
+        LoadPalette(gContestInterfaceAudiencePalette, BG_PLTT_OFFSET, BG_PLTT_SIZE);
         CpuCopy32(&gPlttBufferUnfaded[BG_PLTT_ID(8)], tempPalette1, PLTT_SIZE_4BPP);
         CpuCopy32(&gPlttBufferUnfaded[BG_PLTT_ID(5 + gContestPlayerMonIndex)], tempPalette2, PLTT_SIZE_4BPP);
         CpuCopy32(tempPalette2, &gPlttBufferUnfaded[BG_PLTT_ID(8)], PLTT_SIZE_4BPP);
@@ -1347,13 +1397,13 @@ static bool8 SetupContestGraphics(u8 *stateVar)
         CreateApplauseMeterSprite();
         CreateJudgeAttentionEyeTask();
         CreateUnusedBlendTask();
-        gBattlerPositions[0] = B_POSITION_PLAYER_LEFT;
-        gBattlerPositions[1] = B_POSITION_OPPONENT_LEFT;
-        gBattlerPositions[2] = B_POSITION_OPPONENT_RIGHT;
-        gBattlerPositions[3] = B_POSITION_PLAYER_RIGHT;
+        gBattlerPositions[B_BATTLER_0] = B_POSITION_PLAYER_LEFT;
+        gBattlerPositions[B_BATTLER_1] = B_POSITION_OPPONENT_LEFT;
+        gBattlerPositions[B_BATTLER_2] = B_POSITION_OPPONENT_RIGHT;
+        gBattlerPositions[B_BATTLER_3] = B_POSITION_PLAYER_RIGHT;
         gBattleTypeFlags = 0;
-        gBattlerAttacker = B_POSITION_PLAYER_RIGHT;
-        gBattlerTarget = B_POSITION_OPPONENT_RIGHT;
+        gBattlerAttacker = B_BATTLER_2;
+        gBattlerTarget = B_BATTLER_3;
         // Unclear why judge sprite is assigned here
         // Overwritten in APPEALSTATE_SLIDE_MON_IN with the attacking contest mon
         gBattlerSpriteIds[gBattlerAttacker] = CreateJudgeSprite();
@@ -1537,15 +1587,15 @@ static void Task_ShowMoveSelectScreen(u8 taskId)
         }
         else if (move != MOVE_NONE
                  && eContestantStatus[gContestPlayerMonIndex].prevMove == move
-                 && gContestMoves[move].effect != CONTEST_EFFECT_REPETITION_NOT_BORING)
+                 && GetMoveContestEffect(move) != CONTEST_EFFECT_REPETITION_NOT_BORING)
         {
             // Gray the text because it's a repeated move
             moveNameBuffer = StringCopy(moveName, gText_ColorBlue);
         }
-        moveNameBuffer = StringCopy(moveNameBuffer, gMoveNames[move]);
+        moveNameBuffer = StringCopy(moveNameBuffer, GetMoveName(move));
 
         FillWindowPixelBuffer(i + MOVE_WINDOWS_START, PIXEL_FILL(0));
-        Contest_PrintTextToBg0WindowAt(i + MOVE_WINDOWS_START, moveName, 5, 1, FONT_NARROW);
+        Contest_PrintTextToBg0WindowAt(i + MOVE_WINDOWS_START, moveName, 5, 1, GetFontIdToFit(moveName, FONT_NARROW, 0, WindowWidthPx(i + MOVE_WINDOWS_START) - 11));
     }
 
     DrawMoveSelectArrow(eContest.playerMoveChoice);
@@ -1808,11 +1858,11 @@ static void Task_DoAppeals(u8 taskId)
         else
         {
             ContestClearGeneralTextWindow();
-            StringCopy(gStringVar1, gContestMons[contestant].nickname);
+            CopyNicknameToFit(gStringVar1, contestant);
             if (eContestantStatus[contestant].currMove < MOVES_COUNT)
-                StringCopy(gStringVar2, gMoveNames[eContestantStatus[contestant].currMove]);
+                StringCopy(gStringVar2, GetMoveName(eContestantStatus[contestant].currMove));
             else
-                StringCopy(gStringVar2, sInvalidContestMoveNames[eContestantStatus[contestant].moveCategory]);
+                StringCopy(gStringVar2, gContestCategoryInfo[eContestantStatus[contestant].moveCategory].generic);
             StringExpandPlaceholders(gStringVar4, gText_MonAppealedWithMove);
             Contest_StartTextPrinter(gStringVar4, TRUE);
             gTasks[taskId].tState = APPEALSTATE_WAIT_USED_MOVE_MSG;
@@ -2074,7 +2124,7 @@ static void Task_DoAppeals(u8 taskId)
                 || eContestantStatus[contestant].turnSkipped)
             {
                 ContestClearGeneralTextWindow();
-                StringCopy(gStringVar1, gContestMons[contestant].nickname);
+                CopyNicknameToFit(gStringVar1, contestant);
                 StringExpandPlaceholders(gStringVar4, gText_MonCantAppealNextTurn);
                 Contest_StartTextPrinter(gStringVar4, TRUE);
             }
@@ -2116,7 +2166,7 @@ static void Task_DoAppeals(u8 taskId)
         {
             // Started combo
             ContestClearGeneralTextWindow();
-            StringCopy(gStringVar1, gContestMons[contestant].nickname);
+            CopyNicknameToFit(gStringVar1, contestant);
             StringExpandPlaceholders(gStringVar4, gText_JudgeLookedAtMonExpectantly);
             Contest_StartTextPrinter(gStringVar4, TRUE);
             DoJudgeSpeechBubble(JUDGE_SYMBOL_ONE_EXCLAMATION);
@@ -2160,7 +2210,7 @@ static void Task_DoAppeals(u8 taskId)
         if (eContestantStatus[contestant].repeatedMove)
         {
             ContestClearGeneralTextWindow();
-            StringCopy(gStringVar1, gContestMons[contestant].nickname);
+            CopyNicknameToFit(gStringVar1, contestant);
             StringExpandPlaceholders(gStringVar4, gText_RepeatedAppeal);
             Contest_StartTextPrinter(gStringVar4, TRUE);
             gTasks[taskId].tCounter = 0;
@@ -2204,18 +2254,18 @@ static void Task_DoAppeals(u8 taskId)
             if (eContestantStatus[contestant].overrideCategoryExcitementMod)
             {
                 r3 = 1;
-                StringCopy(gStringVar3, gMoveNames[eContestantStatus[contestant].currMove]);
+                CopyMoveNameToFit(gStringVar3, eContestantStatus[contestant].currMove);
             }
             else
             {
-                StringCopy(gStringVar3, sContestConditions[gContestMoves[eContestantStatus[contestant].currMove].contestCategory]);
+                StringCopy(gStringVar3, gContestCategoryInfo[GetMoveContestCategory(eContestantStatus[contestant].currMove)].condition);
             }
 
             if (r3 > 0 && eContestantStatus[contestant].repeatedMove)
                 r3 = 0;
 
             ContestClearGeneralTextWindow();
-            StringCopy(gStringVar1, gContestMons[contestant].nickname);
+            CopyNicknameToFit(gStringVar1, contestant);
             eContest.applauseLevel += r3;
             if (eContest.applauseLevel < 0)
                 eContest.applauseLevel = 0;
@@ -2337,9 +2387,9 @@ static void Task_DoAppeals(u8 taskId)
         return;
     case APPEALSTATE_PRINT_CROWD_WATCHES_MSG:
         ContestClearGeneralTextWindow();
-        StringCopy(gStringVar3, gContestMons[eContestExcitement.freezer].nickname);
-        StringCopy(gStringVar1, gContestMons[contestant].nickname);
-        StringCopy(gStringVar2, gMoveNames[eContestantStatus[contestant].currMove]);
+        CopyNicknameToFit(gStringVar3, eContestExcitement.freezer);
+        CopyNicknameToFit(gStringVar1, contestant);
+        CopyMoveNameToFit(gStringVar2, eContestantStatus[contestant].currMove);
         StringExpandPlaceholders(gStringVar4, gText_CrowdContinuesToWatchMon);
         Contest_StartTextPrinter(gStringVar4, TRUE);
         gTasks[taskId].tState = APPEALSTATE_PRINT_MON_MOVE_IGNORED_MSG;
@@ -2364,8 +2414,8 @@ static void Task_DoAppeals(u8 taskId)
         if (eContestantStatus[contestant].hasJudgesAttention)
             eContestantStatus[contestant].hasJudgesAttention = FALSE;
         StartStopFlashJudgeAttentionEye(contestant);
-        StringCopy(gStringVar1, gContestMons[contestant].nickname);
-        StringCopy(gStringVar2, gMoveNames[eContestantStatus[contestant].currMove]);
+        CopyNicknameToFit(gStringVar1, contestant);
+        CopyMoveNameToFit(gStringVar2, eContestantStatus[contestant].currMove);
         StringExpandPlaceholders(gStringVar4, gText_MonWasTooNervousToMove);
         Contest_StartTextPrinter(gStringVar4, TRUE);
         gTasks[taskId].tState = APPEALSTATE_WAIT_TOO_NERVOUS_MSG;
@@ -2409,7 +2459,7 @@ static void Task_DoAppeals(u8 taskId)
         return;
     case APPEALSTATE_PRINT_SKIP_TURN_MSG:
         ContestClearGeneralTextWindow();
-        StringCopy(gStringVar1, gContestMons[contestant].nickname);
+        CopyNicknameToFit(gStringVar1, contestant);
         StringExpandPlaceholders(gStringVar4, gText_MonWasWatchingOthers);
         Contest_StartTextPrinter(gStringVar4, TRUE);
         gTasks[taskId].tState = APPEALSTATE_WAIT_SKIP_TURN_MSG;
@@ -2665,7 +2715,9 @@ static void Task_EndAppeals(u8 taskId)
     CalculateFinalScores();
     ContestClearGeneralTextWindow();
     if (!(gLinkContestFlags & LINK_CONTEST_FLAG_IS_LINK))
+    {
         BravoTrainerPokemonProfile_BeforeInterview1(eContestantStatus[gContestPlayerMonIndex].prevMove);
+    }
     else
     {
         CalculateContestLiveUpdateData();
@@ -2852,7 +2904,6 @@ void SetContestants(u8 contestType, u8 rank)
     u8 opponentsCount = 0;
     u8 opponents[100];
     bool8 allowPostgameContestants = FALSE;
-    const u8 *filter;
 
     TryPutPlayerLast();
 
@@ -2860,19 +2911,18 @@ void SetContestants(u8 contestType, u8 rank)
         allowPostgameContestants = TRUE;
 
     // Find all suitable opponents
-    filter = gPostgameContestOpponentFilter;
     for (i = 0; i < ARRAY_COUNT(gContestOpponents); i++)
     {
         if (rank == gContestOpponents[i].whichRank)
         {
             if (allowPostgameContestants == TRUE)
             {
-                if (filter[i] == CONTEST_FILTER_NO_POSTGAME)
+                if (gContestOpponents[i].filter == CONTEST_FILTER_NO_POSTGAME)
                     continue;
             }
             else
             {
-                if (filter[i] == CONTEST_FILTER_ONLY_POSTGAME)
+                if (gContestOpponents[i].filter == CONTEST_FILTER_ONLY_POSTGAME)
                     continue;
             }
             if      (contestType == CONTEST_CATEGORY_COOL && gContestOpponents[i].aiPool_Cool)
@@ -2921,12 +2971,12 @@ void SetLinkAIContestants(u8 contestType, u8 rank, bool32 isPostgame)
 
         if (isPostgame == TRUE)
         {
-            if (gPostgameContestOpponentFilter[i] == CONTEST_FILTER_NO_POSTGAME)
+            if (gContestOpponents[i].filter == CONTEST_FILTER_NO_POSTGAME)
                 continue;
         }
         else
         {
-            if (gPostgameContestOpponentFilter[i] == CONTEST_FILTER_ONLY_POSTGAME)
+            if (gContestOpponents[i].filter == CONTEST_FILTER_ONLY_POSTGAME)
                 continue;
         }
         if ((contestType == CONTEST_CATEGORY_COOL && gContestOpponents[i].aiPool_Cool)
@@ -3042,7 +3092,7 @@ static void PrintContestantMonName(u8 contestant)
 static void PrintContestantMonNameWithColor(u8 contestant, u8 color)
 {
     Contest_CopyStringWithColor(gContestMons[contestant].nickname, color);
-    Contest_PrintTextToBg0WindowAt(gContestantTurnOrder[contestant], gDisplayedStringBattle, 5, 1, FONT_NARROW);
+    Contest_PrintTextToBg0WindowAt(gContestantTurnOrder[contestant], gDisplayedStringBattle, 5, 1, GetFontIdToFit(gContestMons[contestant].nickname, FONT_NARROW, 0, 50));
 }
 
 static u16 CalculateContestantRound1Points(u8 who, u8 contestCategory)
@@ -3096,7 +3146,7 @@ static u8 CreateJudgeSprite(void)
     u8 spriteId;
 
     LoadCompressedSpriteSheet(&sSpriteSheet_Judge);
-    LoadCompressedPalette(gContest2Pal, OBJ_PLTT_ID(1), PLTT_SIZE_4BPP);
+    LoadPalette(gContest2Pal, OBJ_PLTT_ID(1), PLTT_SIZE_4BPP);
     spriteId = CreateSprite(&sSpriteTemplate_Judge, 112, 36, 30);
     gSprites[spriteId].oam.paletteNum = 1;
     gSprites[spriteId].callback = SpriteCallbackDummy;
@@ -3108,7 +3158,7 @@ static u8 CreateJudgeSpeechBubbleSprite(void)
     u8 spriteId;
 
     LoadCompressedSpriteSheet(&sSpriteSheet_JudgeSymbols);
-    LoadCompressedSpritePalette(&sSpritePalette_JudgeSymbols);
+    LoadSpritePalette(&sSpritePalette_JudgeSymbols);
     spriteId = CreateSprite(&sSpriteTemplate_JudgeSpeechBubble, 96, 10, 29);
     gSprites[spriteId].invisible = TRUE;
     gSprites[spriteId].data[0] = gSprites[spriteId].oam.tileNum;
@@ -3120,9 +3170,9 @@ static u8 CreateContestantSprite(u16 species, bool8 isShiny, u32 personality, u3
     u8 spriteId;
     species = SanitizeSpecies(species);
 
-    HandleLoadSpecialPokePic(FALSE, gMonSpritesGfxPtr->sprites.ptr[B_POSITION_PLAYER_LEFT], species, personality);
+    HandleLoadSpecialPokePic(FALSE, gMonSpritesGfxPtr->spritesGfx[B_POSITION_PLAYER_LEFT], species, personality);
 
-    LoadCompressedPalette(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), OBJ_PLTT_ID(2), PLTT_SIZE_4BPP);
+    LoadPalette(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), OBJ_PLTT_ID(2), PLTT_SIZE_4BPP);
     SetMultiuseSpriteTemplateToPokemon(species, B_POSITION_PLAYER_LEFT);
 
     spriteId = CreateSprite(&gMultiuseSpriteTemplate, 0x70, GetBattlerSpriteFinal_Y(2, species, FALSE), 30);
@@ -3163,18 +3213,21 @@ static u16 GetMoveEffectSymbolTileOffset(u16 move, u8 contestant)
 {
     u16 offset;
 
-    switch (gContestEffects[gContestMoves[move].effect].effectType)
+    switch (gContestEffects[GetMoveContestEffect(move)].effectType)
     {
-    case 0:
-    case 1:
-    case 8:
+    case CONTEST_EFFECT_TYPE_APPEAL:
+    case CONTEST_EFFECT_TYPE_AVOID_STARTLE:
+    case CONTEST_EFFECT_TYPE_UNKNOWN:
         offset = 0x9082;
         break;
-    case 2:
-    case 3:
+    case CONTEST_EFFECT_TYPE_STARTLE_MON:
+    case CONTEST_EFFECT_TYPE_STARTLE_MONS:
         offset = 0x9088;
         break;
     default:
+    //case CONTEST_EFFECT_TYPE_WORSEN:
+    //case CONTEST_EFFECT_TYPE_SPECIAL_APPEAL:
+    //case CONTEST_EFFECT_TYPE_TURN_ORDER:
         offset = 0x9086;
         break;
     }
@@ -3189,7 +3242,7 @@ static void PrintContestMoveDescription(u16 move)
     u8 numHearts;
 
     // The contest category icon is implemented as a 5x2 group of tiles.
-    category = gContestMoves[move].contestCategory;
+    category = GetMoveContestCategory(move);
     if      (category == CONTEST_CATEGORY_COOL)
         categoryTile = 0x4040;
     else if (category == CONTEST_CATEGORY_BEAUTY)
@@ -3205,27 +3258,27 @@ static void PrintContestMoveDescription(u16 move)
     ContestBG_FillBoxWithIncrementingTile(0, categoryTile + 0x10, 0x0b, 0x20, 0x05, 0x01, 0x11, 0x01);
 
     // Appeal hearts
-    if (gContestEffects[gContestMoves[move].effect].appeal == 0xFF)
+    if (gContestEffects[GetMoveContestEffect(move)].appeal == 0xFF)
         numHearts = 0;
     else
-        numHearts = gContestEffects[gContestMoves[move].effect].appeal / 10;
+        numHearts = gContestEffects[GetMoveContestEffect(move)].appeal / 10;
     if (numHearts > MAX_CONTEST_MOVE_HEARTS)
         numHearts = MAX_CONTEST_MOVE_HEARTS;
     ContestBG_FillBoxWithTile(0, TILE_EMPTY_APPEAL_HEART, 0x15, 0x1f, MAX_CONTEST_MOVE_HEARTS, 0x01, 0x11);
     ContestBG_FillBoxWithTile(0, TILE_FILLED_APPEAL_HEART, 0x15, 0x1f, numHearts, 0x01, 0x11);
 
     // Jam hearts
-    if (gContestEffects[gContestMoves[move].effect].jam == 0xFF)
+    if (gContestEffects[GetMoveContestEffect(move)].jam == 0xFF)
         numHearts = 0;
     else
-        numHearts = gContestEffects[gContestMoves[move].effect].jam / 10;
+        numHearts = gContestEffects[GetMoveContestEffect(move)].jam / 10;
     if (numHearts > MAX_CONTEST_MOVE_HEARTS)
         numHearts = MAX_CONTEST_MOVE_HEARTS;
     ContestBG_FillBoxWithTile(0, TILE_EMPTY_JAM_HEART, 0x15, 0x20, MAX_CONTEST_MOVE_HEARTS, 0x01, 0x11);
     ContestBG_FillBoxWithTile(0, TILE_FILLED_JAM_HEART, 0x15, 0x20, numHearts, 0x01, 0x11);
 
     FillWindowPixelBuffer(WIN_MOVE_DESCRIPTION, PIXEL_FILL(0));
-    Contest_PrintTextToBg0WindowStd(WIN_MOVE_DESCRIPTION, gContestEffectDescriptionPointers[gContestMoves[move].effect]);
+    Contest_PrintTextToBg0WindowStd(WIN_MOVE_DESCRIPTION, gContestEffects[GetMoveContestEffect(move)].description);
     Contest_PrintTextToBg0WindowStd(WIN_SLASH, gText_Slash);
 }
 
@@ -3429,11 +3482,11 @@ static void RankContestants(void)
 
     // For each contestant, find the best rank with their point total.
     // Normally, each point total is different, and this will output the
-    // rankings as expected. However, if two pokemon are tied, then they
+    // rankings as expected. However, if two Pokémon are tied, then they
     // both get the best rank for that point total.
     //
     // For example if the point totals are [100, 80, 80, 50], the ranks will
-    // be [1, 2, 2, 4]. The pokemon with a point total of 80 stop looking
+    // be [1, 2, 2, 4]. The Pokémon with a point total of 80 stop looking
     // when they see the first 80 in the array, so they both share the '2'
     // rank.
     for (i = 0; i < CONTESTANT_COUNT; i++)
@@ -4426,9 +4479,9 @@ static void CalculateAppealMoveImpact(u8 contestant)
         return;
 
     move = eContestantStatus[contestant].currMove;
-    effect = gContestMoves[move].effect;
+    effect = GetMoveContestEffect(move);
 
-    eContestantStatus[contestant].moveCategory = gContestMoves[eContestantStatus[contestant].currMove].contestCategory;
+    eContestantStatus[contestant].moveCategory = GetMoveContestCategory(eContestantStatus[contestant].currMove);
     if (eContestantStatus[contestant].currMove == eContestantStatus[contestant].prevMove && eContestantStatus[contestant].currMove != MOVE_NONE)
     {
         eContestantStatus[contestant].repeatedMove = TRUE;
@@ -4454,7 +4507,7 @@ static void CalculateAppealMoveImpact(u8 contestant)
         && !AreMovesContestCombo(eContestantStatus[contestant].prevMove, eContestantStatus[contestant].currMove))
         eContestantStatus[contestant].hasJudgesAttention = FALSE;
 
-    gContestEffectFuncs[effect]();
+    gContestEffects[effect].function();
 
     if (eContestantStatus[contestant].conditionMod == CONDITION_GAIN)
         eContestantStatus[contestant].appeal += eContestantStatus[contestant].condition - 10;
@@ -4479,7 +4532,7 @@ static void CalculateAppealMoveImpact(u8 contestant)
         }
         else
         {
-            if (gContestMoves[eContestantStatus[contestant].currMove].comboStarterId != 0)
+            if (GetMoveContestComboStarter(eContestantStatus[contestant].currMove) != 0)
             {
                 eContestantStatus[contestant].hasJudgesAttention = TRUE;
                 eContestantStatus[contestant].usedComboMove = TRUE;
@@ -4558,17 +4611,8 @@ void SetStartledString(u8 contestant, u8 jam)
 static void PrintAppealMoveResultText(u8 contestant, u8 stringId)
 {
     StringCopy(gStringVar1, gContestMons[contestant].nickname);
-    StringCopy(gStringVar2, gMoveNames[eContestantStatus[contestant].currMove]);
-    if      (gContestMoves[eContestantStatus[eContestAppealResults.contestant].currMove].contestCategory == CONTEST_CATEGORY_COOL)
-        StringCopy(gStringVar3, gText_Contest_Shyness);
-    else if (gContestMoves[eContestantStatus[eContestAppealResults.contestant].currMove].contestCategory == CONTEST_CATEGORY_BEAUTY)
-        StringCopy(gStringVar3, gText_Contest_Anxiety);
-    else if (gContestMoves[eContestantStatus[eContestAppealResults.contestant].currMove].contestCategory == CONTEST_CATEGORY_CUTE)
-        StringCopy(gStringVar3, gText_Contest_Laziness);
-    else if (gContestMoves[eContestantStatus[eContestAppealResults.contestant].currMove].contestCategory == CONTEST_CATEGORY_SMART)
-        StringCopy(gStringVar3, gText_Contest_Hesitancy);
-    else
-        StringCopy(gStringVar3, gText_Contest_Fear);
+    StringCopy(gStringVar2, GetMoveName(eContestantStatus[contestant].currMove));
+    StringCopy(gStringVar3, gContestCategoryInfo[GetMoveContestCategory(eContestantStatus[eContestAppealResults.contestant].currMove)].negativeTrait);
     StringExpandPlaceholders(gStringVar4, sAppealResultTexts[stringId]);
     ContestClearGeneralTextWindow();
     Contest_StartTextPrinter(gStringVar4, TRUE);
@@ -4585,10 +4629,10 @@ void MakeContestantNervous(u8 p)
 // ContestantStatus::nextTurnOrder field of each contestant. The remaining
 // turns are assigned such that the turn order will reverse.
 //
-// For example, if no pokemon have a defined nextTurnOrder, then the 4th
+// For example, if no Pokémon have a defined nextTurnOrder, then the 4th
 // will become 1st, the 3rd will become 2nd, etc.
 //
-// Note: This function assumes that multiple pokemon cannot have the same
+// Note: This function assumes that multiple Pokémon cannot have the same
 // nextTurnOrder value.
 static void ApplyNextTurnOrder(void)
 {
@@ -4738,7 +4782,7 @@ static void UpdateApplauseMeter(void)
 
 s8 Contest_GetMoveExcitement(u16 move)
 {
-    return sContestExcitementTable[gSpecialVar_ContestCategory][gContestMoves[move].contestCategory];
+    return sContestExcitementTable[gSpecialVar_ContestCategory][GetMoveContestCategory(move)];
 }
 
 static u8 StartApplauseOverflowAnimation(void)
@@ -5283,15 +5327,21 @@ static void Task_WaitForSliderHeartAnim(u8 taskId)
 
 static u16 SanitizeMove(u16 move)
 {
-    if (move >= MOVES_COUNT)
-        move = MOVE_POUND;
+    assertf(move < MOVES_COUNT, "invalid move: %d", move)
+    {
+        return MOVE_POUND;
+    }
+
     return move;
 }
 
 static u16 SanitizeSpecies(u16 species)
 {
-    if (species >= NUM_SPECIES)
-        species = SPECIES_NONE;
+    assertf(species < NUM_SPECIES, "invalid species: %d", species)
+    {
+        return SPECIES_NONE;
+    }
+
     return species;
 }
 
@@ -5306,7 +5356,7 @@ static void SetMoveSpecificAnimData(u8 contestant)
     switch (move)
     {
     case MOVE_CURSE:
-        if (gSpeciesInfo[species].types[0] == TYPE_GHOST || gSpeciesInfo[species].types[1] == TYPE_GHOST)
+        if (GetSpeciesType(species, 0) == TYPE_GHOST || GetSpeciesType(species, 1) == TYPE_GHOST)
             gAnimMoveTurn = 0;
         else
             gAnimMoveTurn = 1;
@@ -5380,14 +5430,15 @@ static void SetMoveTargetPosition(u16 move)
 {
     switch (GetBattlerMoveTargetType(gBattlerAttacker, move))
     {
-    case MOVE_TARGET_USER_OR_SELECTED:
-    case MOVE_TARGET_USER:
+    case TARGET_USER:
         gBattlerTarget = B_POSITION_PLAYER_RIGHT;
         break;
-    case MOVE_TARGET_SELECTED:
-    case MOVE_TARGET_RANDOM:
-    case MOVE_TARGET_BOTH:
-    case MOVE_TARGET_FOES_AND_ALLY:
+    case TARGET_OPPONENT:
+    case TARGET_SELECTED:
+    case TARGET_SMART:
+    case TARGET_RANDOM:
+    case TARGET_BOTH:
+    case TARGET_FOES_AND_ALLY:
     default:
         gBattlerTarget = B_POSITION_OPPONENT_RIGHT;
         break;
@@ -5407,10 +5458,10 @@ static void Contest_PrintTextToBg0WindowStd(u32 windowId, const u8 *b)
     printerTemplate.currentY = 1;
     printerTemplate.letterSpacing = 0;
     printerTemplate.lineSpacing = 0;
-    printerTemplate.unk = 0;
-    printerTemplate.fgColor = 15;
-    printerTemplate.bgColor = 0;
-    printerTemplate.shadowColor = 8;
+    printerTemplate.color.accent = TEXT_COLOR_TRANSPARENT;
+    printerTemplate.color.foreground = 15;
+    printerTemplate.color.background = TEXT_COLOR_TRANSPARENT;
+    printerTemplate.color.shadow = 8;
 
     AddTextPrinter(&printerTemplate, 0, 0);
     PutWindowTilemap(windowId);
@@ -5430,10 +5481,10 @@ void Contest_PrintTextToBg0WindowAt(u32 windowId, u8 *currChar, s32 x, s32 y, s3
     printerTemplate.currentY = y;
     printerTemplate.letterSpacing = 0;
     printerTemplate.lineSpacing = 0;
-    printerTemplate.unk = 0;
-    printerTemplate.fgColor = 15;
-    printerTemplate.bgColor = 0;
-    printerTemplate.shadowColor = 8;
+    printerTemplate.color.accent = TEXT_COLOR_TRANSPARENT;
+    printerTemplate.color.foreground = 15;
+    printerTemplate.color.background = TEXT_COLOR_TRANSPARENT;
+    printerTemplate.color.shadow = 8;
 
     AddTextPrinter(&printerTemplate, 0, 0);
     PutWindowTilemap(windowId);
@@ -5454,10 +5505,10 @@ static void Contest_StartTextPrinter(const u8 *currChar, bool32 b)
     printerTemplate.currentY = 1;
     printerTemplate.letterSpacing = 0;
     printerTemplate.lineSpacing = 0;
-    printerTemplate.unk = 0;
-    printerTemplate.fgColor = 1;
-    printerTemplate.bgColor = 0;
-    printerTemplate.shadowColor = 8;
+    printerTemplate.color.accent = TEXT_COLOR_TRANSPARENT;
+    printerTemplate.color.foreground = 1;
+    printerTemplate.color.background = TEXT_COLOR_TRANSPARENT;
+    printerTemplate.color.shadow = 8;
 
     if (!b)
     {
@@ -5551,7 +5602,7 @@ bool8 SaveContestWinner(u8 rank)
         gSaveBlock1Ptr->contestWinners[id].personality = gContestMons[i].personality;
         gSaveBlock1Ptr->contestWinners[id].species = gContestMons[i].species;
         gSaveBlock1Ptr->contestWinners[id].trainerId = gContestMons[i].otId;
-        StringCopy(gSaveBlock1Ptr->contestWinners[id].monName, gContestMons[i].nickname);
+        StringCopyN(gSaveBlock1Ptr->contestWinners[id].monName, gContestMons[i].nickname, VANILLA_POKEMON_NAME_LENGTH);
         StringCopy(gSaveBlock1Ptr->contestWinners[id].trainerName, gContestMons[i].trainerName);
         if(gLinkContestFlags & LINK_CONTEST_FLAG_IS_LINK)
             gSaveBlock1Ptr->contestWinners[id].contestRank = CONTEST_RANK_LINK;
@@ -5570,7 +5621,7 @@ bool8 SaveContestWinner(u8 rank)
         gCurContestWinner.isShiny = gContestMons[i].isShiny;
         gCurContestWinner.trainerId = gContestMons[i].otId;
         gCurContestWinner.species = gContestMons[i].species;
-        StringCopy(gCurContestWinner.monName, gContestMons[i].nickname);
+        StringCopyN(gCurContestWinner.monName, gContestMons[i].nickname, VANILLA_POKEMON_NAME_LENGTH);
         StringCopy(gCurContestWinner.trainerName, gContestMons[i].trainerName);
         gCurContestWinner.contestCategory = captionId;
     }

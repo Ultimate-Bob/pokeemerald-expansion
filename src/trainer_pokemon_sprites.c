@@ -11,7 +11,7 @@
 
 #define PICS_COUNT 8
 
-// Needs to be large enough to store either a decompressed pokemon pic or trainer pic
+// Needs to be large enough to store either a decompressed Pokémon pic or trainer pic
 #define PIC_SPRITE_SIZE max(MON_PIC_SIZE, TRAINER_PIC_SIZE)
 #define MAX_PIC_FRAMES  max(MAX_MON_PIC_FRAMES, MAX_TRAINER_PIC_FRAMES)
 
@@ -57,18 +57,20 @@ bool16 ResetAllPicSprites(void)
     return FALSE;
 }
 
-static bool16 DecompressPic(u16 species, u32 personality, bool8 isFrontPic, u8 *dest, bool8 isTrainer)
+static bool16 DecompressPic(u16 picId, u32 personality, bool8 isFrontPic, u8 *dest, bool8 isTrainer)
 {
     if (!isTrainer)
     {
+        u16 species = picId;
         LoadSpecialPokePic(dest, species, personality, isFrontPic);
     }
     else
     {
+        u16 trainerPicId = picId;
         if (isFrontPic)
-            DecompressPicFromTable(&gTrainerSprites[species].frontPic, dest);
+            DecompressPicFromTable(&gTrainerSprites[trainerPicId].frontPic, dest);
         else
-            DecompressPicFromTable(&gTrainerBacksprites[species].backPic, dest);
+            CopyTrainerBackspriteFramesToDest(trainerPicId, dest);
     }
     return FALSE;
 }
@@ -80,12 +82,12 @@ static void LoadPicPaletteByTagOrSlot(u16 species, bool8 isShiny, u32 personalit
         if (paletteTag == TAG_NONE)
         {
             sCreatingSpriteTemplate.paletteTag = TAG_NONE;
-            LoadCompressedPalette(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), OBJ_PLTT_ID(paletteSlot), PLTT_SIZE_4BPP);
+            LoadPalette(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), OBJ_PLTT_ID(paletteSlot), PLTT_SIZE_4BPP);
         }
         else
         {
             sCreatingSpriteTemplate.paletteTag = paletteTag;
-            LoadCompressedSpritePaletteWithTag(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), species);
+            LoadSpritePaletteWithTag(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), species);
         }
     }
     else
@@ -93,12 +95,12 @@ static void LoadPicPaletteByTagOrSlot(u16 species, bool8 isShiny, u32 personalit
         if (paletteTag == TAG_NONE)
         {
             sCreatingSpriteTemplate.paletteTag = TAG_NONE;
-            LoadCompressedPalette(gTrainerSprites[species].palette.data, OBJ_PLTT_ID(paletteSlot), PLTT_SIZE_4BPP);
+            LoadPalette(gTrainerSprites[species].palette.data, OBJ_PLTT_ID(paletteSlot), PLTT_SIZE_4BPP);
         }
         else
         {
             sCreatingSpriteTemplate.paletteTag = paletteTag;
-            LoadCompressedSpritePalette(&gTrainerSprites[species].palette);
+            LoadSpritePalette(&gTrainerSprites[species].palette);
         }
     }
 }
@@ -106,9 +108,9 @@ static void LoadPicPaletteByTagOrSlot(u16 species, bool8 isShiny, u32 personalit
 static void LoadPicPaletteBySlot(u16 species, bool8 isShiny, u32 personality, u8 paletteSlot, bool8 isTrainer)
 {
     if (!isTrainer)
-        LoadCompressedPalette(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), PLTT_ID(paletteSlot), PLTT_SIZE_4BPP);
+        LoadPalette(GetMonSpritePalFromSpeciesAndPersonality(species, isShiny, personality), PLTT_ID(paletteSlot), PLTT_SIZE_4BPP);
     else
-        LoadCompressedPalette(gTrainerSprites[species].palette.data, PLTT_ID(paletteSlot), PLTT_SIZE_4BPP);
+        LoadPalette(gTrainerSprites[species].palette.data, PLTT_ID(paletteSlot), PLTT_SIZE_4BPP);
 }
 
 static void AssignSpriteAnimsTable(bool8 isTrainer)
@@ -116,7 +118,7 @@ static void AssignSpriteAnimsTable(bool8 isTrainer)
     if (!isTrainer)
         sCreatingSpriteTemplate.anims = gAnims_MonPic;
     else
-        sCreatingSpriteTemplate.anims = gTrainerSprites[0].animation;
+        sCreatingSpriteTemplate.anims = gAnims_Trainer;
 }
 
 static u16 CreatePicSprite(u16 species, bool8 isShiny, u32 personality, bool8 isFrontPic, s16 x, s16 y, u8 paletteSlot, u16 paletteTag, bool8 isTrainer)
@@ -251,7 +253,7 @@ u16 CreateMonPicSprite_Affine(u16 species, bool8 isShiny, u32 personality, u8 fl
     return spriteId;
 }
 
-static u16 FreeAndDestroyPicSpriteInternal(u16 spriteId)
+static u16 FreeAndDestroyPicSpriteInternal(u16 spriteId, bool8 clearPalette)
 {
     u8 i;
     u8 *framePics;
@@ -267,7 +269,7 @@ static u16 FreeAndDestroyPicSpriteInternal(u16 spriteId)
 
     framePics = sSpritePics[i].frames;
     images = sSpritePics[i].images;
-    if (sSpritePics[i].paletteTag != TAG_NONE)
+    if (clearPalette && sSpritePics[i].paletteTag != TAG_NONE)
         FreeSpritePaletteByTag(GetSpritePaletteTagByPaletteNum(gSprites[spriteId].oam.paletteNum));
     DestroySprite(&gSprites[spriteId]);
     Free(framePics);
@@ -307,7 +309,12 @@ u16 CreateMonPicSprite(u16 species, bool8 isShiny, u32 personality, bool8 isFron
 
 u16 FreeAndDestroyMonPicSprite(u16 spriteId)
 {
-    return FreeAndDestroyPicSpriteInternal(spriteId);
+    return FreeAndDestroyPicSpriteInternal(spriteId, TRUE);
+}
+
+u16 FreeAndDestroyMonPicSpriteNoPalette(u16 spriteId)
+{
+    return FreeAndDestroyPicSpriteInternal(spriteId, FALSE);
 }
 
 static u16 UNUSED LoadMonPicInWindow(u16 species, bool8 isShiny, u32 personality, bool8 isFrontPic, u8 paletteSlot, u8 windowId)
@@ -328,7 +335,7 @@ u16 CreateTrainerPicSprite(u16 species, bool8 isFrontPic, s16 x, s16 y, u8 palet
 
 u16 FreeAndDestroyTrainerPicSprite(u16 spriteId)
 {
-    return FreeAndDestroyPicSpriteInternal(spriteId);
+    return FreeAndDestroyPicSpriteInternal(spriteId, TRUE);
 }
 
 static u16 UNUSED LoadTrainerPicInWindow(u16 species, bool8 isFrontPic, u8 paletteSlot, u8 windowId)
@@ -351,4 +358,12 @@ u16 PlayerGenderToFrontTrainerPicId_Debug(u8 gender, bool8 getClass)
             return gFacilityClassToPicIndex[FACILITY_CLASS_BRENDAN];
     }
     return gender;
+}
+
+void CopyTrainerBackspriteFramesToDest(u8 trainerPicId, u8 *dest)
+{
+    const struct SpriteFrameImage *frame = &gTrainerBacksprites[trainerPicId].backPic;
+    // y_offset is repurposed to indicates how many frames does the trainer pic have.
+    u32 size = (frame->size * gTrainerBacksprites[trainerPicId].coordinates.y_offset);
+    CpuSmartCopy16(frame->data, dest, size);
 }

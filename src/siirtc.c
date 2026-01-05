@@ -4,7 +4,7 @@
 
 #include "gba/gba.h"
 #include "siirtc.h"
-#include "config.h"
+#include "config/general.h"
 
 #define STATUS_INTFE  0x02 // frequency interrupt enable
 #define STATUS_INTME  0x08 // per-minute interrupt enable
@@ -75,7 +75,7 @@ static u8 ReadData();
 static void EnableGpioPortRead();
 static void DisableGpioPortRead();
 
-static const char AgbLibRtcVersion[] = "SIIRTC_V001";
+KEEP_SECTION USED static const char AgbLibRtcVersion[] = "SIIRTC_V001";
 
 void SiiRtcUnprotect(void)
 {
@@ -343,7 +343,7 @@ bool8 SiiRtcSetTime(struct SiiRtcInfo *rtc)
     return TRUE;
 }
 
-bool8 SiiRtcSetAlarm(struct SiiRtcInfo *rtc)
+static bool8 UNUSED SiiRtcSetAlarm(struct SiiRtcInfo *rtc)
 {
     u8 i;
     u8 alarmData[2];

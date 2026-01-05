@@ -2,8 +2,12 @@
 
 	@ Takes a MAP constant and outputs the map group and map number as separate bytes
 	.macro map map_id:req
+	.ifdef \map_id
 	.byte \map_id >> 8    @ map group
 	.byte \map_id & 0xFF  @ map num
+	.else
+	.error "undefined map (check for typos)"
+	.endif
 	.endm
 
 	@ Defines a map script. 'type' is any MAP_SCRIPT_* constant (see include/constants/map_scripts.h)
@@ -22,12 +26,15 @@
 	@ Defines an object event template for map data, to be used by a normal object. Mirrors the struct layout of ObjectEventTemplate in include/global.fieldmap.h
 	.macro object_event index:req, gfx:req, x:req, y:req, elevation:req, movement_type:req, x_radius:req, y_radius:req, trainer_type:req, sight_radius_tree_etc:req, script:req, event_flag:req
 	.byte \index
-	.byte \gfx
+	.2byte \gfx
 	.byte OBJ_KIND_NORMAL
-	.space 1  @ Padding
 	.2byte \x, \y
 	.byte \elevation
 	.byte \movement_type
+	.if \x_radius > 15
+		@ This warning is relevant for GetItemBallIdAndAmountFromTemplate
+		.error "movementRangeX has a bitfield of 4 bytes, so values over 15 will overflow. Use a custom script for item balls that should give the player more than 15 items."
+	.endif
 	.byte ((\y_radius << 4) | \x_radius)
 	.space 1  @ Padding
 	.2byte \trainer_type
@@ -105,6 +112,9 @@
 
 	@ Defines a background hidden item event for map data
 	.macro bg_hidden_item_event x:req, y:req, elevation:req, item:req, flag:req
+	.if \flag < FLAG_HIDDEN_ITEMS_START
+	.error "Hidden Item flag \flag is too small. Must be >= FLAG_HIDDEN_ITEMS_START."
+	.endif
 	bg_event \x, \y, \elevation, BG_EVENT_HIDDEN_ITEM, \item, ((\flag) - FLAG_HIDDEN_ITEMS_START)
 	.endm
 
