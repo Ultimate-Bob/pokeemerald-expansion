@@ -3985,6 +3985,7 @@ u8 IsRunningFromBattleImpossible(u32 battler)
 
     gPotentialItemEffectBattler = battler;
 
+    // start feature/available-mystery-gifts
     // Prevent special battlers from running, using Teleport, etc (lookin at you Deoxys)
     if (GetBattlerSide(battler) == B_SIDE_OPPONENT) 
     {
@@ -3994,6 +3995,7 @@ u8 IsRunningFromBattleImpossible(u32 battler)
             return BATTLE_RUN_FORBIDDEN;
         }
     }
+    // end feature/available-mystery-gifts
 
     if (gBattleTypeFlags & BATTLE_TYPE_FIRST_BATTLE) // Cannot ever run from saving Birch's battle.
     {
