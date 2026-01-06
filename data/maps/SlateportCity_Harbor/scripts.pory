@@ -39,7 +39,7 @@ script SlateportHarbor_CheckTicketPresented {
 
 script SlateportHarbor_SelectedSSTicket {
 	msgbox(SlateportCity_Harbor_Text_FlashedTicketWhereTo, MSGBOX_DEFAULT)
-	dynmultipush("Lilycove City", 0)
+	dynmultipush("Lilycove", 0)
 	if (flag(FLAG_MET_SCOTT_ON_SS_TIDAL)) {
 		dynmultipush("Battle Frontier", 1)
 	}
