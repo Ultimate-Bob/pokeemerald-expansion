@@ -68,14 +68,7 @@ BattleFrontier_SelectedSSTicket_4:
 	goto BattleFrontier_SelectedSSTicket_1
 
 
-.set LOCALID_SS_TIDAL, 2
-.set LOCALID_FERRY_ATTENDANT, 3
-.set LOCALID_MANIAC_1, 9
-.set LOCALID_MANIAC_2, 10
-.set LOCALID_GIRL, 12
-.set LOCALID_CAMPER, 14
-.set LOCALID_FISHERMAN_2, 18
-.set LOCALID_MAN_4, 23
+
 
 BattleFrontier_OutsideWest_MapScripts::
 	map_script MAP_SCRIPT_ON_TRANSITION, BattleFrontier_OutsideWest_OnTransition
@@ -86,16 +79,6 @@ BattleFrontier_OutsideWest_OnTransition:
 	setflag FLAG_HIDE_BATTLE_TOWER_REPORTER
 	end
 
-@ BattleFrontier_OutsideWest_EventScript_FerryAttendant::
-@ 	lock
-@ 	faceplayer
-@ 	msgbox BattleFrontier_OutsideWest_Text_MayISeeYourTicket, MSGBOX_DEFAULT
-@ 	checkitem ITEM_SS_TICKET
-@ 	goto_if_eq VAR_RESULT, FALSE, BattleFrontier_OutsideWest_EventScript_NoSSTicket
-@ 	message BattleFrontier_OutsideWest_Text_WhereWouldYouLikeToGo
-@ 	waitmessage
-@ 	goto BattleFrontier_OutsideWest_EventScript_ChooseFerryDestination
-@ 	end
 
 BattleFrontier_OutsideWest_EventScript_ChooseFerryDestination::
 	multichoicedefault 18, 6, MULTI_SSTIDAL_BATTLE_FRONTIER, 2, FALSE

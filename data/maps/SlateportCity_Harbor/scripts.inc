@@ -1,9 +1,3 @@
-.set LOCALID_CAPT_STERN, 4
-.set LOCALID_SS_TIDAL, 5
-.set LOCALID_GRUNT, 6
-.set LOCALID_ARCHIE, 7
-.set LOCALID_SUBMARINE, 8
-
 SlateportCity_Harbor_EventScript_FerryAttendant::
 	call SlateportHarbor_FerryAttendantDynamic
 	return
@@ -76,6 +70,7 @@ SlateportHarbor_SelectedSSTicket_7:
 	warp MAP_BATTLE_FRONTIER_OUTSIDE_WEST, 19, 67
 	waitstate
 	goto SlateportHarbor_SelectedSSTicket_4
+
 
 
 SlateportCity_Harbor_MapScripts::
@@ -233,14 +228,6 @@ SlateportCity_Harbor_Movement_SternApproachPlayer:
 SlateportCity_Harbor_Movement_PlayerWalkUp:
 	walk_up
 	step_end
-
-@ SlateportCity_Harbor_EventScript_FerryAttendant::
-@ 	lock
-@ 	faceplayer
-@ 	goto_if_set FLAG_SYS_GAME_CLEAR, SlateportCity_Harbor_EventScript_AskForTicket
-@ 	msgbox SlateportCity_Harbor_Text_FerryServiceUnavailable, MSGBOX_DEFAULT
-@ 	release
-@ 	end
 
 SlateportCity_Harbor_EventScript_AskForTicket::
 	msgbox SlateportCity_Harbor_Text_MayISeeYourTicket, MSGBOX_DEFAULT
@@ -623,7 +610,7 @@ SlateportHarbor_PushDynTickets_Text_0:
 	.string "{STR_VAR_1}$"
 
 SlateportHarbor_SelectedSSTicket_Text_0:
-	.string "Lilycove$"
+	.string "Lilycove City$"
 
 SlateportHarbor_SelectedSSTicket_Text_1:
 	.string "Battle Frontier$"

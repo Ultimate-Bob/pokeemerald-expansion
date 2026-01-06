@@ -472,7 +472,7 @@ endif
 %.rl:       %      ; $(GFX) $< $@
 ifeq ($(COMPILE_PORYSCRIPT),1)
 # Auto gen pory
-data/%.inc: data/%.pory; $(PORYSCRIPT) -i $< -o $@ -fc tools/poryscript/font_config.json -cc tools/poryscript/command_config.json
+data/%.inc: data/%.pory; $(PORYSCRIPT) -lm=false -i $< -o $@ -fc tools/poryscript/font_config.json -cc tools/poryscript/command_config.json
 endif
 
 clean-generated:

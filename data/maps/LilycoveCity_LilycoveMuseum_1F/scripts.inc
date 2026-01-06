@@ -67,8 +67,6 @@ OpenMysteryGiftTunnelDoor::
 	return
 
 
-.set LOCALID_CURATOR, 2
-.set LOCALID_ARTIST_2, 8
 
 LilycoveCity_LilycoveMuseum_1F_EventScript_Greeter::
 	msgbox LilycoveCity_LilycoveMuseum_1F_Text_WelcomeToLilycoveMuseum, MSGBOX_SIGN

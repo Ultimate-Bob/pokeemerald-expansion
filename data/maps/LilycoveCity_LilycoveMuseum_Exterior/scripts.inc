@@ -55,8 +55,8 @@ MysteryGiftGirl_GiveItems_Text_1:
 	.string "Pleasant isn't it?\p"
 	.string "Thank you for listening to me.\p"
 	.string "In my travels, I came across a couple of\n"
-	.string "curiosities that perhaps you would\l"
-	.string "find interesting. Want to take a look?$"
+	.string "curiosities that perhaps you would find\l"
+	.string "interesting. Want to take a look?$"
 
 MysteryGiftGirl_GiveItems_Text_2:
 	.string "Oh hello again. Interested in my curious\n"
