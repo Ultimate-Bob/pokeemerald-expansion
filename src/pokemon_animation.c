@@ -5,6 +5,7 @@
 #include "pokemon_animation.h"
 #include "sprite.h"
 #include "task.h"
+#include "test_runner.h"
 #include "trig.h"
 #include "util.h"
 #include "data.h"
@@ -238,7 +239,7 @@ static const u8 sVerticalShakeData[][2] =
     {-1,   0}
 };
 
-static void (* const sMonAnimFunctions[])(struct Sprite *sprite) =
+static void (*const sMonAnimFunctions[])(struct Sprite *sprite) =
 {
     [ANIM_V_SQUISH_AND_BOUNCE]               = Anim_VerticalSquishBounce,
     [ANIM_CIRCULAR_STRETCH_TWICE]            = Anim_CircularStretchTwice,
@@ -425,36 +426,7 @@ static const u8 sBackAnimationIds[] =
     [(BACK_ANIM_SHAKE_FLASH_YELLOW - 1) * 3]      = ANIM_SHAKE_FLASH_YELLOW_FAST, ANIM_SHAKE_FLASH_YELLOW, ANIM_SHAKE_FLASH_YELLOW_SLOW,
     [(BACK_ANIM_SHAKE_GLOW_RED - 1) * 3]          = ANIM_SHAKE_GLOW_RED_FAST, ANIM_SHAKE_GLOW_RED, ANIM_SHAKE_GLOW_RED_SLOW,
     [(BACK_ANIM_SHAKE_GLOW_GREEN - 1) * 3]        = ANIM_SHAKE_GLOW_GREEN_FAST, ANIM_SHAKE_GLOW_GREEN, ANIM_SHAKE_GLOW_GREEN_SLOW,
-    [(BACK_ANIM_SHAKE_GLOW_BLUE - 1) * 3]         = ANIM_SHAKE_GLOW_BLUE_FAST,  ANIM_SHAKE_GLOW_BLUE, ANIM_SHAKE_GLOW_BLUE_SLOW,
-};
-
-static const u8 sBackAnimNatureModTable[NUM_NATURES] =
-{
-    [NATURE_HARDY]   = 0,
-    [NATURE_LONELY]  = 2,
-    [NATURE_BRAVE]   = 0,
-    [NATURE_ADAMANT] = 0,
-    [NATURE_NAUGHTY] = 0,
-    [NATURE_BOLD]    = 1,
-    [NATURE_DOCILE]  = 1,
-    [NATURE_RELAXED] = 1,
-    [NATURE_IMPISH]  = 0,
-    [NATURE_LAX]     = 1,
-    [NATURE_TIMID]   = 2,
-    [NATURE_HASTY]   = 0,
-    [NATURE_SERIOUS] = 1,
-    [NATURE_JOLLY]   = 0,
-    [NATURE_NAIVE]   = 0,
-    [NATURE_MODEST]  = 2,
-    [NATURE_MILD]    = 2,
-    [NATURE_QUIET]   = 2,
-    [NATURE_BASHFUL] = 2,
-    [NATURE_RASH]    = 1,
-    [NATURE_CALM]    = 1,
-    [NATURE_GENTLE]  = 2,
-    [NATURE_SASSY]   = 1,
-    [NATURE_CAREFUL] = 2,
-    [NATURE_QUIRKY]  = 1,
+    [(BACK_ANIM_SHAKE_GLOW_BLUE - 1) * 3]         = ANIM_SHAKE_GLOW_BLUE_FAST, ANIM_SHAKE_GLOW_BLUE, ANIM_SHAKE_GLOW_BLUE_SLOW,
 };
 
 static const union AffineAnimCmd sMonAffineAnim_0[] =
@@ -496,7 +468,7 @@ static void SetPosForRotation(struct Sprite *sprite, u16 index, s16 amplitudeX, 
     sprite->y2 = yAdder + amplitudeY;
 }
 
-u8 GetSpeciesBackAnimSet(u16 species)
+enum BackAnim GetSpeciesBackAnimSet(u16 species)
 {
     if (gSpeciesInfo[species].backAnimId != BACK_ANIM_NONE)
         return gSpeciesInfo[species].backAnimId - 1;
@@ -537,7 +509,10 @@ static void Task_HandleMonAnimation(u8 taskId)
         for (i = 2; i < ARRAY_COUNT(sprite->data); i++)
             sprite->data[i] = 0;
 
-        sprite->callback = sMonAnimFunctions[gTasks[taskId].tAnimId];
+        if (gTestRunnerHeadless)
+            sprite->callback = WaitAnimEnd;
+        else
+            sprite->callback = sMonAnimFunctions[gTasks[taskId].tAnimId];
         sIsSummaryAnim = FALSE;
 
         gTasks[taskId].tState++;
@@ -548,11 +523,16 @@ static void Task_HandleMonAnimation(u8 taskId)
         sprite->data[2] = gTasks[taskId].tSpeciesId;
         sprite->data[1] = 0;
 
+        // Task_HandleMonAnimation handles more than just KO animations,
+        // but if the counter is non-zero then only KO animations are running.
+        // This assumption is not checked.
+        if (gBattleStruct->battlerKOAnimsRunning > 0)
+            gBattleStruct->battlerKOAnimsRunning--;
         DestroyTask(taskId);
     }
 }
 
-void LaunchAnimationTaskForFrontSprite(struct Sprite *sprite, u8 frontAnimId)
+void LaunchAnimationTaskForFrontSprite(struct Sprite *sprite, enum AnimFunctionIDs frontAnimId)
 {
     u8 taskId = CreateTask(Task_HandleMonAnimation, 128);
     gTasks[taskId].tPtrHi = (u32)(sprite) >> 16;
@@ -560,26 +540,27 @@ void LaunchAnimationTaskForFrontSprite(struct Sprite *sprite, u8 frontAnimId)
     gTasks[taskId].tAnimId = frontAnimId;
 }
 
-void StartMonSummaryAnimation(struct Sprite *sprite, u8 frontAnimId)
+void StartMonSummaryAnimation(struct Sprite *sprite, enum AnimFunctionIDs frontAnimId)
 {
     // sDontFlip is expected to still be FALSE here, not explicitly cleared
     sIsSummaryAnim = TRUE;
     sprite->callback = sMonAnimFunctions[frontAnimId];
 }
 
-void LaunchAnimationTaskForBackSprite(struct Sprite *sprite, u8 backAnimSet)
+void LaunchAnimationTaskForBackSprite(struct Sprite *sprite, enum BackAnim backAnimSet)
 {
-    u8 nature, taskId, animId, battlerId;
+    u8 nature, taskId, battler;
+    enum AnimFunctionIDs animId;
 
     taskId = CreateTask(Task_HandleMonAnimation, 128);
     gTasks[taskId].tPtrHi = (u32)(sprite) >> 16;
     gTasks[taskId].tPtrLo = (u32)(sprite);
 
-    battlerId = sprite->data[0];
-    nature = GetNature(&gPlayerParty[gBattlerPartyIndexes[battlerId]]);
+    battler = sprite->data[0];
+    nature = GetNature(GetBattlerMon(battler));
 
     // * 3 below because each back anim has 3 variants depending on nature
-    animId = 3 * backAnimSet + sBackAnimNatureModTable[nature];
+    animId = 3 * backAnimSet + gNaturesInfo[nature].backAnim;
     gTasks[taskId].tAnimId = sBackAnimationIds[animId];
 }
 
@@ -4583,29 +4564,24 @@ static void ShrinkGrowVibrate(struct Sprite *sprite)
     }
     else
     {
-        u8 posY_unsigned;
-        s8 posY_signed;
-        s32 posY;
-        s16 index = (u16)(sprite->data[2] % sprite->data[6] * 256) / sprite->data[6] % 256;
+        s8 sinY;
+        u16 y;
+        s16 index = ((u16)(sprite->data[2] % sprite->data[6] * 256) / sprite->data[6]) % 256;
         if (sprite->data[2] % 2 == 0)
         {
             sprite->data[4] = Sin(index, 32) + 256;
             sprite->data[5] = Sin(index, 32) + 256;
-            posY_unsigned = Sin(index, 32);
-            posY_signed = posY_unsigned;
+            sinY = Sin(index, 32);
         }
         else
         {
             sprite->data[4] = Sin(index, 8) + 256;
             sprite->data[5] = Sin(index, 8) + 256;
-            posY_unsigned = Sin(index, 8);
-            posY_signed = posY_unsigned;
+            sinY = Sin(index, 8);
         }
 
-        posY = posY_signed;
-        if (posY < 0)
-            posY += 7;
-        sprite->y2 = (u32)(posY) >> 3;
+        y = sinY / 8;
+        sprite->y2 = y;
         HandleSetAffineData(sprite, sprite->data[4], sprite->data[5], 0);
     }
 

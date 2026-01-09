@@ -50,7 +50,7 @@ enum {
 struct UsePokeblockSession
 {
     void (*callback)(void);
-    void (*exitCallback)(void);
+    MainCallback exitCallback;
     struct Pokeblock *pokeblock;
     struct Pokemon *mon;
     u8 stringBuffer[64];
@@ -73,10 +73,10 @@ struct UsePokeblockSession
     u8 natureText[34];
 };
 
-// This struct is identical to PokenavMonListItem, the struct used for managing lists of pokemon in the pokenav
+// This struct is identical to PokenavMonListItem, the struct used for managing lists of Pokémon in the PokéNav
 // Given that this screen is essentially duplicated in the poknav, this struct was probably the same one with
 // a more general name/purpose
-// TODO: Once the pokenav conditions screens are documented, resolve the above
+// TODO: Once the PokéNav conditions screens are documented, resolve the above
 struct UsePokeblockMenuPokemon
 {
     u8 boxId; // Because this screen is never used for the PC this is always set to TOTAL_BOXES_COUNT to refer to party
@@ -162,7 +162,7 @@ extern const u16 gConditionText_Pal[];
 // The below 3 are saved for returning to the screen after feeding a pokeblock to a mon
 // so that the rest of the data can be freed
 static EWRAM_DATA struct UsePokeblockSession *sInfo = NULL;
-static EWRAM_DATA void (*sExitCallback)(void) = NULL;
+static EWRAM_DATA MainCallback sExitCallback = NULL;
 static EWRAM_DATA struct Pokeblock *sPokeblock = NULL;
 EWRAM_DATA u8 gPokeblockMonId = 0;
 EWRAM_DATA s16 gPokeblockGain = 0;
@@ -173,8 +173,8 @@ static EWRAM_DATA struct UsePokeblockMenu *sMenu = NULL;
 
 static const u32 sMonFrame_Pal[] = INCBIN_U32("graphics/pokeblock/use_screen/mon_frame_pal.bin");
 static const u32 sMonFrame_Gfx[] = INCBIN_U32("graphics/pokeblock/use_screen/mon_frame.4bpp");
-static const u32 sMonFrame_Tilemap[] = INCBIN_U32("graphics/pokeblock/use_screen/mon_frame.bin.lz");
-static const u32 sGraphData_Tilemap[] = INCBIN_U32("graphics/pokeblock/use_screen/graph_data.bin.lz");
+static const u32 sMonFrame_Tilemap[] = INCBIN_U32("graphics/pokeblock/use_screen/mon_frame.bin.smolTM");
+static const u32 sGraphData_Tilemap[] = INCBIN_U32("graphics/pokeblock/use_screen/graph_data.bin.smolTM");
 
 // The condition/flavors aren't listed in their normal order in this file, they're listed as shown on the graph going counter-clockwise
 // Normally they would go Cool/Spicy, Beauty/Dry, Cute/Sweet, Smart/Bitter, Tough/Sour (also graph order, but clockwise)
@@ -352,9 +352,6 @@ static const struct SpriteTemplate sSpriteTemplate_UpDown =
     .paletteTag = TAG_UP_DOWN,
     .oam = &sOam_UpDown,
     .anims = sAnims_UpDown,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
-    .callback = SpriteCallbackDummy,
 };
 
 static const struct OamData sOam_Condition =
@@ -402,8 +399,6 @@ static const struct SpriteTemplate sSpriteTemplate_Condition =
     .paletteTag = TAG_CONDITION,
     .oam = &sOam_Condition,
     .anims = sAnims_Condition,
-    .images = NULL,
-    .affineAnims = gDummySpriteAffineAnimTable,
     .callback = SpriteCB_Condition,
 };
 
@@ -1259,7 +1254,7 @@ static void LoadAndCreateSelectionIcons(void)
     LoadSpriteSheets(spriteSheets);
     LoadSpritePalettes(spritePals);
 
-    // Fill pokeball selection icons up to number in party
+    // Fill Poké Ball selection icons up to number in party
     for (i = 0; i < sMenu->info.numSelections - 1; i++)
     {
         spriteId = CreateSprite(&spriteTemplate, 226, (i * 20) + 8, 0);
@@ -1334,7 +1329,7 @@ static bool8 LoadUsePokeblockMenuGfx(void)
         sMonFrame_TilemapPtr = Alloc(1280);
         break;
     case 2:
-        LZ77UnCompVram(sMonFrame_Tilemap, sMonFrame_TilemapPtr);
+        DecompressDataWithHeaderVram(sMonFrame_Tilemap, sMonFrame_TilemapPtr);
         break;
     case 3:
         LoadBgTiles(3, sMonFrame_Gfx, 224, 0);
@@ -1347,10 +1342,10 @@ static bool8 LoadUsePokeblockMenuGfx(void)
         sMenu->curMonXOffset = -80;
         break;
     case 6:
-        LZ77UnCompVram(gUsePokeblockGraph_Gfx, sGraph_Gfx);
+        DecompressDataWithHeaderVram(gUsePokeblockGraph_Gfx, sGraph_Gfx);
         break;
     case 7:
-        LZ77UnCompVram(gUsePokeblockGraph_Tilemap, sGraph_Tilemap);
+        DecompressDataWithHeaderVram(gUsePokeblockGraph_Tilemap, sGraph_Tilemap);
         LoadPalette(gUsePokeblockGraph_Pal, BG_PLTT_ID(2), PLTT_SIZE_4BPP);
         break;
     case 8:
@@ -1362,7 +1357,7 @@ static bool8 LoadUsePokeblockMenuGfx(void)
         CopyBgTilemapBufferToVram(1);
         break;
     case 10:
-        LZ77UnCompVram(sGraphData_Tilemap, sMenu->tilemapBuffer);
+        DecompressDataWithHeaderVram(sGraphData_Tilemap, sMenu->tilemapBuffer);
         break;
     case 11:
         LoadBgTilemap(2, sMenu->tilemapBuffer, 1280, 0);
@@ -1393,7 +1388,7 @@ static void UpdateMonInfoText(u16 loadId, bool8 firstPrint)
         partyIndex = GetPartyIdFromSelectionId(sMenu->info.curSelection);
         nature = GetNature(&gPlayerParty[partyIndex]);
         str = StringCopy(sMenu->info.natureText, gText_NatureSlash);
-        str = StringCopy(str, gNatureNamePointers[nature]);
+        str = StringCopy(str, gNaturesInfo[nature].name);
         AddTextPrinterParameterized3(WIN_NATURE, FONT_NORMAL, 2, 1, sNatureTextColors, 0, sMenu->info.natureText);
     }
 
@@ -1489,7 +1484,7 @@ static bool8 LoadNewSelection_CancelToMon(void)
     case 2:
         if (!ConditionMenu_UpdateMonEnter(&sMenu->graph, &sMenu->curMonXOffset))
         {
-            // Load the new adjacent pokemon (not the one being shown)
+            // Load the new adjacent Pokémon (not the one being shown)
             LoadMonInfo(sMenu->toLoadSelection, sMenu->toLoadId);
             sMenu->info.helperState++;
         }
@@ -1552,7 +1547,7 @@ static bool8 LoadNewSelection_MonToMon(void)
     case 2:
         if (!ConditionMenu_UpdateMonEnter(&sMenu->graph, &sMenu->curMonXOffset))
         {
-            // Load the new adjacent pokemon (not the one being shown)
+            // Load the new adjacent Pokémon (not the one being shown)
             LoadMonInfo(sMenu->toLoadSelection, sMenu->toLoadId);
             sMenu->info.helperState++;
         }
@@ -1593,8 +1588,8 @@ static void SpriteCB_SelectionIconCancel(struct Sprite *sprite)
         sprite->oam.paletteNum = IndexOfSpritePaletteTag(TAG_CONDITION_CANCEL);
 }
 
-// Calculate the max id for sparkles/stars that appear around the pokemon on the condition screen
-// All pokemon start with 1 sparkle (added by CreateConditionSparkleSprites), so the number here +1
+// Calculate the max id for sparkles/stars that appear around the Pokémon on the condition screen
+// All Pokémon start with 1 sparkle (added by CreateConditionSparkleSprites), so the number here +1
 // is the total number of sparkles that appear
 static void CalculateNumAdditionalSparkles(u8 monIndex)
 {

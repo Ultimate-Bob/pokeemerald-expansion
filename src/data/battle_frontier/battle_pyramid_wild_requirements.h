@@ -5,15 +5,15 @@
 
 struct BattlePyramidRequirement {
     const u16 *moves; /* use moves instead of effects so we don't need to find moves with said effect in our loop */
-    u16 abilities[10];
+    enum Ability abilities[10];
     u8 nAbilities;
-    u8 type;
+    enum Type type;
     u8 nMoves;
     const u16 *evoItems;
     u8 nEvoItems;
 };
 
-// EFFECT_PARALYZE, EFFECT_PARALYZE_HIT (30% or more)
+// MOVE_EFFECT_PARALYZE (30% or more)
 static const u16 sParalyzingMoves[] = {
     //MOVE_THUNDER_PUNCH,
     MOVE_BODY_SLAM,
@@ -35,7 +35,7 @@ static const u16 sParalyzingMoves[] = {
     MOVE_COMBAT_TORQUE,
 };
 
-// EFFECT_POISON_HIT (30% or more), EFFECT_POISON, EFFECT_POISON_FANG, EFFECT_TOXIC, EFFECT_TOXIC_THREAD
+// MOVE_EFFECT_POISON (30% or more), MOVE_EFFECT_TOXIC, EFFECT_TOXIC_THREAD
 static const u16 sPoisoningMoves[] = {
     MOVE_POISON_STING,
     //MOVE_TWINEEDLE,
@@ -57,7 +57,7 @@ static const u16 sPoisoningMoves[] = {
     MOVE_TOXIC_THREAD,
 };
 
-// EFFECT_BURN_HIT, EFFECT_WILL_O_WISP
+// MOVE_EFFECT_BURN
 static const u16 sBurningMoves[] = {
     MOVE_WILL_O_WISP,
     //MOVE_EMBER,
@@ -79,7 +79,7 @@ static const u16 sBurningMoves[] = {
     MOVE_BLAZING_TORQUE,
 };
 
-// EFFECT_FREEZE, EFFECT_FREEZE_HIT
+// EFFECT_FREEZE, MOVE_EFFECT_FREEZE_OR_FROSTBITE
 static const u16 sFrostbiteMoves[] = {
     MOVE_ICE_PUNCH,
     MOVE_ICE_BEAM,
@@ -110,7 +110,7 @@ static const u16 sWeatherChangingMoves[] = {
     MOVE_SUNNY_DAY,
 };
 
-// EFFECT_RECHARGE, EFFECT_RECOIL_33
+// MOVE_EFFECT_RECHARGE, recoil
 static const u16 sPowerfulNormalMoves[] = {
     MOVE_HYPER_BEAM,
     MOVE_GIGA_IMPACT,
@@ -169,7 +169,7 @@ static const struct BattlePyramidRequirement sBattlePyramidRequirementsByRound[]
     {
         .type = TYPE_ICE,
     },
-    
+
     [7] = /* pokemon with explosion effects */
     {
         .type = TYPE_MYSTERY,
