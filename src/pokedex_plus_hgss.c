@@ -6681,6 +6681,7 @@ static void PrintEvolutionTargetSpeciesAndMethod(u8 taskId, u16 species, u8 dept
                         StringAppend(gStringVar4, COMPOUND_STRING("???"));
                         break;
                     case REGION_KANTO: StringAppend(gStringVar4, COMPOUND_STRING("Kanto")); break;
+                    case REGION_SEVII: StringAppend(gStringVar4, COMPOUND_STRING("Sevii Islands")); break;
                     case REGION_JOHTO: StringAppend(gStringVar4, COMPOUND_STRING("Johto")); break;
                     case REGION_HOENN: StringAppend(gStringVar4, COMPOUND_STRING("Hoenn")); break;
                     case REGION_SINNOH: StringAppend(gStringVar4, COMPOUND_STRING("Sinnoh")); break;
