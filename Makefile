@@ -1,8 +1,13 @@
 ## MINE
+
 # OPTIMIZE := -O2
 #OPTIMIZE := -O2
 # USE_ANALYSER := -fanalyzer
 #USE_ANALYSER :=
+
+# If true, .pory will be compiled into .inc files.
+COMPILE_PORYSCRIPT ?= 1
+
 ## THEIRS
 
 GAME_VERSION ?= EMERALD
@@ -230,7 +235,7 @@ RAMSCRGEN    := $(TOOLS_DIR)/ramscrgen/ramscrgen$(EXE)
 FIX          := $(TOOLS_DIR)/gbafix/gbafix$(EXE)
 MAPJSON      := $(TOOLS_DIR)/mapjson/mapjson$(EXE)
 JSONPROC     := $(TOOLS_DIR)/jsonproc/jsonproc$(EXE)
-SCRIPT		 := $(TOOLS_DIR)/poryscript/poryscript$(EXE)
+PORYSCRIPT	 := $(TOOLS_DIR)/poryscript/poryscript$(EXE)
 TRAINERPROC  := $(TOOLS_DIR)/trainerproc/trainerproc$(EXE)
 PATCHELF     := $(TOOLS_DIR)/patchelf/patchelf$(EXE)
 ifeq ($(shell uname),Darwin)
@@ -449,8 +454,11 @@ generated: $(AUTO_GEN_TARGETS)
 %.png: ;
 %.pal: ;
 %.aif: ;
-%.pory: ;
 %.wav: ;
+ifeq ($(COMPILE_PORYSCRIPT),1)
+%.pory: ;
+endif
+
 
 %.1bpp:     %.png  ; $(GFX) $< $@
 %.4bpp:     %.png  ; $(GFX) $< $@
@@ -462,6 +470,10 @@ generated: $(AUTO_GEN_TARGETS)
 %.fastSmol: %      ; $(SMOL) -w $< $@ false false false
 %.smol:     %      ; $(SMOL) -w $< $@
 %.rl:       %      ; $(GFX) $< $@
+ifeq ($(COMPILE_PORYSCRIPT),1)
+# Auto gen pory
+data/%.inc: data/%.pory; $(PORYSCRIPT) -i $< -o $@ -fc tools/poryscript/font_config.json -cc tools/poryscript/command_config.json
+endif
 
 clean-generated:
 	@rm -f $(AUTO_GEN_TARGETS)
