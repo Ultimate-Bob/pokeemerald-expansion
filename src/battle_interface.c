@@ -577,10 +577,11 @@ static const union TextColor sHealthBoxTextColor =
 // feature/shiny-wild-special-handling
 static const union TextColor sHealthBoxTextColorShiny =
 {
-    .background = 9,
-    .foreground = 4,
-    .shadow = 2,
-    .accent = 0
+    // 9, 4, 2
+    .background = 0,
+    .foreground = 9,
+    .shadow = 4,
+    .accent = 2
 };
 // end feature/shiny-wild-special-handling
 
