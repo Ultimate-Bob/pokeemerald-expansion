@@ -3,6 +3,8 @@
 #include "strings.h"
 #include "constants/region_map_sections.h"
 
+// feature/multi-region
+
 const u8 gText_RegionNone[] = _("Somewhere");
 const u8 gText_RegionKanto[] = _("Kanto");
 const u8 gText_RegionSevii[] = _("Sevii Islands");
@@ -229,7 +231,7 @@ const enum Region gMapsecToRegion[] = {
     [MAPSEC_AQUA_HIDEOUT]                = REGION_HOENN,
     [MAPSEC_MAGMA_HIDEOUT]               = REGION_HOENN,
     [MAPSEC_MIRAGE_TOWER]                = REGION_HOENN,
-    [MAPSEC_BIRTH_ISLAND]                = REGION_HOENN,
+    [MAPSEC_BIRTH_ISLAND]                = REGION_SEVII,
     [MAPSEC_FARAWAY_ISLAND]              = REGION_HOENN,
     [MAPSEC_ARTISAN_CAVE]                = REGION_HOENN,
     [MAPSEC_MARINE_CAVE]                 = REGION_HOENN,
@@ -240,13 +242,15 @@ const enum Region gMapsecToRegion[] = {
     [MAPSEC_UNDERWATER_129]              = REGION_HOENN,
     [MAPSEC_DESERT_UNDERPASS]            = REGION_HOENN,
     [MAPSEC_ALTERING_CAVE]               = REGION_HOENN,
-    [MAPSEC_NAVEL_ROCK]                  = REGION_HOENN,
+    [MAPSEC_NAVEL_ROCK]                  = REGION_SEVII,
     [MAPSEC_TRAINER_HILL]                = REGION_HOENN,
-    [MAPSEC_NONE]                        = REGION_HOENN,
+    [MAPSEC_NONE]                        = REGION_NONE,
 };
 
 // There should be a region assigned to every mapsec.
-STATIC_ASSERT(sizeof(u8) * MAPSEC_NONE == sizeof(gMapsecToRegion), HasAllMapsecsAssignedToRegions);
+STATIC_ASSERT(sizeof(enum Region) * MAPSEC_COUNT == sizeof(gMapsecToRegion), HasAllMapsecsAssignedToRegions);
+
+// end feature/multi-region
 
 static const u16 sKantoSubregionMapsecs[KANTO_SUBREGION_COUNT][30] = {
     [KANTO_SUBREGION_KANTO] =
