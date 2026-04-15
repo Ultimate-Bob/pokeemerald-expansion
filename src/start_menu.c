@@ -51,9 +51,6 @@
 #include "constants/rgb.h"
 #include "constants/songs.h"
 
-// bare-minimum: Save confirmation skip
-#define SKIP_SAVE_CONFIRMATION TRUE
-
 // Menu actions
 enum
 {
@@ -1112,11 +1109,7 @@ static u8 SaveFileExistsCallback(void)
     }
     else
     {
-        // bare-minimum: Save confirmation skip
-        if (SKIP_SAVE_CONFIRMATION)
-            sSaveDialogCallback = SaveSavingMessageCallback;
-        else
-            ShowSaveMessage(gText_AlreadySavedFile, SaveConfirmOverwriteCallback);
+        ShowSaveMessage(gText_AlreadySavedFile, SaveConfirmOverwriteCallback);
     }
 
     return SAVE_IN_PROGRESS;
