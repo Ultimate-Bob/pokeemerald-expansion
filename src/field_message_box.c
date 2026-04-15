@@ -33,33 +33,34 @@ static void Task_DrawFieldMessage(u8 taskId)
 
     switch (task->tState)
     {
-        case 0:
-            if (gMsgIsSignPost)
-                LoadSignPostWindowFrameGfx();
-            else
-                LoadMessageBoxAndBorderGfx();
-            task->tState++;
-            break;
-        case 1:
+    case 0:
+        if (gMsgIsSignPost)
+            LoadSignPostWindowFrameGfx();
+        else
+            LoadMessageBoxAndBorderGfx();
+        task->tState++;
+        break;
+    case 1:
+    {
+        u32 nameboxWinId = GetNameboxWindowId();
+        DrawDialogueFrame(0, TRUE);
+        if (nameboxWinId != WINDOW_NONE)
+            DrawNamebox(nameboxWinId, NAME_BOX_BASE_TILE_NUM - NAME_BOX_BASE_TILES_TOTAL, TRUE);
+        task->tState++;
+        break;
+    }
+    case 2:
+        if (RunTextPrintersAndIsPrinter0Active() != TRUE)
         {
-            u32 nameboxWinId = GetNameboxWindowId();
-            DrawDialogueFrame(0, TRUE);
-            if (nameboxWinId != WINDOW_NONE)
-                DrawNamebox(nameboxWinId, NAME_BOX_BASE_TILE_NUM - NAME_BOX_BASE_TILES_TOTAL, TRUE);
-            task->tState++;
-            break;
-        }
-        case 2:
-            if (RunTextPrintersAndIsPrinter0Active() != TRUE)
-            {
-                // Bugfix, prevent messageautoscroll from persisting after its use.
-                gTextFlags.autoScroll = FALSE;
-                gTextFlags.useForceTextSpeed = FALSE;
-                gTextFlags.forceTextSpeed = OPTIONS_TEXT_SPEED_MID;
+            // feature/general-improvements Bugfix, prevent messageautoscroll from persisting after its use.
+            gTextFlags.autoScroll = FALSE;
+            gTextFlags.useForceTextSpeed = FALSE;
+            gTextFlags.forceTextSpeed = OPTIONS_TEXT_SPEED_MID;
+            // end feature/general-improvements
 
-                sFieldMessageBoxMode = FIELD_MESSAGE_BOX_HIDDEN;
-                DestroyTask(taskId);
-            }
+            sFieldMessageBoxMode = FIELD_MESSAGE_BOX_HIDDEN;
+            DestroyTask(taskId);
+        }
     }
 }
 
