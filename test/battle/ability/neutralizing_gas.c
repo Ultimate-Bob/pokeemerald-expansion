@@ -7,7 +7,7 @@ SINGLE_BATTLE_TEST("Neutralizing Gas activates on switch-in")
         PLAYER(SPECIES_WEEZING) { Ability(ABILITY_NEUTRALIZING_GAS); }
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
-        TURN { }
+        TURN {}
     } SCENE {
         ABILITY_POPUP(player, ABILITY_NEUTRALIZING_GAS);
         MESSAGE("Neutralizing gas filled the area!");
@@ -20,7 +20,7 @@ SINGLE_BATTLE_TEST("Neutralizing Gas prevents opponent's switch-in ability from 
         PLAYER(SPECIES_WEEZING) { Ability(ABILITY_NEUTRALIZING_GAS); }
         OPPONENT(SPECIES_ZEKROM) { Ability(ABILITY_TERAVOLT); }
     } WHEN {
-        TURN { }
+        TURN {}
     } SCENE {
         ABILITY_POPUP(player, ABILITY_NEUTRALIZING_GAS);
         NONE_OF {
@@ -38,7 +38,7 @@ DOUBLE_BATTLE_TEST("Neutralizing Gas prevents ally's switch-in ability from acti
         OPPONENT(SPECIES_WOBBUFFET);
         OPPONENT(SPECIES_WOBBUFFET);
     } WHEN {
-        TURN { }
+        TURN {}
     } SCENE {
         ABILITY_POPUP(playerLeft, ABILITY_NEUTRALIZING_GAS);
         NONE_OF {
@@ -243,7 +243,7 @@ SINGLE_BATTLE_TEST("Neutralizing Gas prevents Trace from copying it")
         PLAYER(SPECIES_RALTS) { Ability(ABILITY_TRACE); }
         OPPONENT(SPECIES_WEEZING) { Ability(ABILITY_NEUTRALIZING_GAS); }
     } WHEN {
-        TURN { }
+        TURN {}
     } SCENE {
         ABILITY_POPUP(opponent, ABILITY_NEUTRALIZING_GAS);
         NONE_OF {
@@ -319,7 +319,8 @@ SINGLE_BATTLE_TEST("Neutralizing Gas exiting the field does not activate Air Loc
     PARAMETRIZE { species = SPECIES_RAYQUAZA; ability = ABILITY_AIR_LOCK; }
 
     GIVEN {
-        ASSUME(GetMoveEffect(MOVE_RAIN_DANCE) == EFFECT_RAIN_DANCE);
+        ASSUME(GetMoveEffect(MOVE_RAIN_DANCE) == EFFECT_WEATHER);
+        ASSUME(GetMoveWeatherType(MOVE_RAIN_DANCE) == BATTLE_WEATHER_RAIN);
         PLAYER(SPECIES_WOBBUFFET);
         PLAYER(species) { Ability(ability); }
         OPPONENT(SPECIES_WEEZING) { Ability(ABILITY_NEUTRALIZING_GAS); }
@@ -393,5 +394,31 @@ DOUBLE_BATTLE_TEST("Neutralizing Gas is active until the last Dragon Darts hit e
         HP_BAR(playerRight);
         NOT MESSAGE("Golem fainted!");
         ABILITY_POPUP(playerRight, ABILITY_STURDY);
+    }
+}
+
+DOUBLE_BATTLE_TEST("Neutralizing Gas doesn't reactivate Beads of Ruin after Chi-Yu faints")
+{
+    GIVEN {
+        PLAYER(SPECIES_WOBBUFFET) { Speed(4); }
+        PLAYER(SPECIES_WOBBUFFET) { Speed(3); }
+        OPPONENT(SPECIES_WEEZING) { Ability(ABILITY_NEUTRALIZING_GAS); HP(1); Speed(2); }
+        OPPONENT(SPECIES_CHI_YU) { Ability(ABILITY_BEADS_OF_RUIN); HP(1); Speed(1); }
+    } WHEN {
+        TURN { MOVE(playerLeft, MOVE_SCRATCH, target: opponentRight); MOVE(playerRight, MOVE_SCRATCH, target: opponentLeft); }
+    } SCENE {
+        ABILITY_POPUP(opponentLeft, ABILITY_NEUTRALIZING_GAS);
+        MESSAGE("Neutralizing gas filled the area!");
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SCRATCH, playerLeft);
+        HP_BAR(opponentRight);
+        MESSAGE("The opposing Chi-Yu fainted!");
+        ANIMATION(ANIM_TYPE_MOVE, MOVE_SCRATCH, playerRight);
+        HP_BAR(opponentLeft);
+        MESSAGE("The effects of the neutralizing gas wore off!");
+        NONE_OF {
+            ABILITY_POPUP(opponentRight, ABILITY_BEADS_OF_RUIN);
+            MESSAGE("The opposing Chi-Yu's Beads of Ruin weakened the Sp. Def of all surrounding Pokémon!");
+        }
+        MESSAGE("The opposing Weezing fainted!");
     }
 }
