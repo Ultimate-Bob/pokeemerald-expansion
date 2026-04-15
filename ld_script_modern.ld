@@ -73,6 +73,12 @@ SECTIONS {
 		data/*.o(script_data);
     } > ROM =0
 
+    .rodata.compound_string :
+    SUBALIGN(0)
+    {
+        *.o(.rodata.compound_string.*);
+    } > ROM =0
+
     .rodata :
     ALIGN(4)
     {
@@ -124,6 +130,8 @@ SECTIONS {
     .debug_loc      0 : { *(.debug_loc) }
     .debug_macinfo  0 : { *(.debug_macinfo) }
 
+    /* DWARF 5*/
+    .debug_line_str     0 : { *(.debug_line_str) }
     /*
      * base/bare-minimum: WOAH DWARF 5!!! THIS IS SOOOO COOOL IT MAKES GDB WORK PROPERLY!
      *
@@ -133,8 +141,9 @@ SECTIONS {
      *   ❌️ DWARF Error: DW_FORM_line_strp used without required section
      * Apparently these DWARF 5 sections are required for DWARF 5 support.
      * In any case, placing breakpoints in VSCode now works...
+     *
+     * Update: 2026-04-16:   debug_line_str was added along with the DWARF 5 comment, hence removed from the following list
      */
-    .debug_line_str     0 : { *(.debug_line_str) } 
     .debug_str_offsets  0 : { *(.debug_str_offsets) } 
     .debug_types        0 : { *(.debug_types) }
     .debug_macro        0 : { *(.debug_macro) }
