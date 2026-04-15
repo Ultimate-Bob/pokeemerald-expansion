@@ -2812,6 +2812,26 @@ static void PartyMenuRemoveWindow(u8 *ptr)
     }
 }
 
+// feature/general-improvements
+static bool8 PlayerNeedsToSwitchIn()
+{
+    // Count alive mons on player side (copied from ShouldUseChooseMonText)
+    u8 numAliveMons = 0;
+    for (u32 slot = 0; slot < PARTY_SIZE; slot++)
+    {
+        struct Pokemon *mon = GetPartyMonFromPartyMenuId(slot);
+        if (GetMonData(mon, MON_DATA_SPECIES) != SPECIES_NONE && (GetMonData(mon, MON_DATA_HP) != 0 || GetMonData(mon, MON_DATA_IS_EGG)))
+            numAliveMons++;
+    }
+    
+    u8 numAliveBattlers = IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_LEFT) ? 1 : 0) + 
+        (IsDoubleBattle() && IsBattlerAlive(GetBattlerAtPosition(B_POSITION_PLAYER_RIGHT)) ? 1 : 0);
+
+    u8 targetNumBattlers = IsDoubleBattle() ? 2 : 1;
+    return numAliveBattlers < targetNumBattlers && numAliveMons >= targetNumBattlers; // There are more alive mons in party than there are desired battlers that are still alive.
+} 
+// end feature/general-improvements
+
 void DisplayPartyMenuStdMessage(u32 stringId)
 {
     u8 *windowPtr = &sPartyMenuInternal->windowId[1];
@@ -2853,11 +2873,11 @@ void DisplayPartyMenuStdMessage(u32 stringId)
                 stringId = PARTY_MSG_CHOOSE_MON_AND_CONFIRM;
             else if (!ShouldUseChooseMonText())
                 stringId = PARTY_MSG_CHOOSE_MON_OR_CANCEL;
-            else if (gMain.inBattle && gPlayerPartyCount > 0 && IsBattlerAlive(B_SIDE_PLAYER)) // General improvements
+            else if (gMain.inBattle && gPlayerPartyCount > 0 && gEnemyPartyCount > 0 && !PlayerNeedsToSwitchIn()) // General improvements
             {
                 // When switch mode is enabled, the name of the incoming mon is only shown once before opening the switch menu. 
                 // This will also show the incoming opposing mon's name in the party menu.
-                // The above check for IsBattlerAlive is to prevent this when:
+                // The above check for PlayerNeedsToSwitchIn() is to prevent this when:
                 // - the player's mon has fainted (the opponent is not switching in)
                 // - the player's mon and opponent's mon have fainted simultaneously (which does not reveal the incoming mon)
 
@@ -2865,7 +2885,7 @@ void DisplayPartyMenuStdMessage(u32 stringId)
                 if (switchinPartyId > 0 && switchinPartyId < PARTY_SIZE && switchinPartyId < gEnemyPartyCount)
                 {
                     // This is an incoming mon.
-                    IllusionNickHack(B_SIDE_OPPONENT, switchinPartyId, gStringVar2);
+                    IllusionNickHack(GetBattlerAtPosition(B_POSITION_OPPONENT_LEFT), switchinPartyId, gStringVar2);
                 }
                 else
                 {

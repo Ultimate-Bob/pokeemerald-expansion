@@ -9,7 +9,7 @@
 					"label": "Get location music"
 				},
 				{
-					"line": 1522,
+					"line": 1519,
 					"column": 10,
 					"label": "New Game"
 				}
@@ -227,16 +227,6 @@
 					"line": 488,
 					"column": 8,
 					"label": "Summary Text Cols"
-				}
-			]
-		},
-		{
-			"path": "include/constants/pokemon.h",
-			"bookmarks": [
-				{
-					"line": 94,
-					"column": 4,
-					"label": "Shiny Odds"
 				}
 			]
 		}
