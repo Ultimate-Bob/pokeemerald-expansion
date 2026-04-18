@@ -423,19 +423,22 @@
 #define ANIM_TAG_TATSUGIRI_CURLY            (ANIM_SPRITES_START + 409)
 #define ANIM_TAG_TATSUGIRI_DROOPY           (ANIM_SPRITES_START + 410)
 #define ANIM_TAG_TATSUGIRI_STRETCHY         (ANIM_SPRITES_START + 411)
+#define ANIM_TAG_SAFARI_BAIT                (ANIM_SPRITES_START + 412)
+#define ANIM_TAG_COUNT                      GET_TRUE_SPRITE_INDEX(ANIM_TAG_SAFARI_BAIT + 1)
 
 // battlers
-#define ANIM_ATTACKER         0
-#define ANIM_TARGET           1
-#define ANIM_ATK_PARTNER      2
-#define ANIM_DEF_PARTNER      3
-
-// Below are used by AnimTask_ShakeMon2 and AnimTask_SetGrayscaleOrOriginalPal
-#define ANIM_PLAYER_LEFT      (MAX_BATTLERS_COUNT + 0)
-#define ANIM_OPPONENT_LEFT    (MAX_BATTLERS_COUNT + 1)
-#define ANIM_PLAYER_RIGHT     (MAX_BATTLERS_COUNT + 2)
-#define ANIM_OPPONENT_RIGHT   (MAX_BATTLERS_COUNT + 3)
-#define ANIM_ATTACKER_FORCE   (MAX_BATTLERS_COUNT + 4)
+enum AnimBattler
+{
+    ANIM_ATTACKER,
+    ANIM_TARGET,
+    ANIM_ATK_PARTNER,
+    ANIM_DEF_PARTNER,
+    ANIM_PLAYER_LEFT = MAX_BATTLERS_COUNT,
+    ANIM_OPPONENT_LEFT,
+    ANIM_PLAYER_RIGHT,
+    ANIM_OPPONENT_RIGHT,
+    ANIM_ATTACKER_FORCE,
+};
 
 // Flags for inverting specific palettes.
 #define INVERT_BG                       0x1
@@ -459,6 +462,7 @@
 //          127
 //
 #define SOUND_PAN_ATTACKER -64
+#define SOUND_PAN_MIDDLE     0
 #define SOUND_PAN_TARGET    63
 
 // move background ids
@@ -492,11 +496,11 @@
 #define BG_MAGMA_STORM 27
 #define BG_GIGA_IMPACT_OPPONENT 28
 #define BG_GIGA_IMPACT_PLAYER 29
-#define BG_GIGA_IMPACT_CONTEST 30
+#define BG_GIGA_IMPACT_CONTESTS 30
 #define BG_TRICK_ROOM 31
 #define BG_ROCK_WRECKER 32
-#define BG_SPACIAL_REND_ON_OPPONENT 33
-#define BG_SPACIAL_REND_ON_PLAYER 34
+#define BG_SPACIAL_REND_OPPONENT 33
+#define BG_SPACIAL_REND_PLAYER 34
 #define BG_DARK_VOID 35
 #define BG_WATER 36
 #define BG_NIGHTMARE 37
@@ -530,7 +534,7 @@
 #define BG_BLOOM_DOOM 65
 #define BG_SHATTERED_PSYCHE 66
 #define BG_TWINKLE_TACKLE 67
-#define BG_BLACKHOLE_ECLIPSE 68
+#define BG_BLACK_HOLE_ECLIPSE 68
 #define BG_SOULSTEALING_7STAR_STRIKE 69
 #define BG_MALICIOUS_MOONSAULT 70
 #define BG_CLANGOROUS_SOULBLAZE 71
@@ -546,6 +550,7 @@
 #define BG_RAINBOW_PLAYER 81
 #define BG_RAINBOW_OPPONENT 82
 #define BG_SWAMP 83
+#define BG_COUNT 84
 
 // table ids for general animations (sBattleAnims_General)
 #define B_ANIM_STATS_CHANGE             0
@@ -604,10 +609,17 @@
 #define B_ANIM_POWER_CONSTRUCT          53
 #define B_ANIM_SWAP_TO_SUBSTITUTE       54
 #define B_ANIM_SWAP_FROM_SUBSTITUTE     55
+#define B_ANIM_MON_SCARED               56
+#define B_ANIM_GHOST_GET_OUT            57
+#define B_ANIM_SILPH_SCOPED             58
+#define B_ANIM_ROCK_THROW               59
+#define B_ANIM_SAFARI_REACTION          60
+#define B_ANIM_FORM_CHANGE_INSTANT      61
+#define B_ANIM_FORM_CHANGE_DISGUISE     62
 // start feature/custom-catch-behaviour
-#define B_ANIM_START_CUSTOM_CATCH_BEHAVIOUR     (B_ANIM_SWAP_FROM_SUBSTITUTE + 1)
-#define B_ANIM_BALL_CAUGHT_AND_RETURNED         (B_ANIM_START_CUSTOM_CATCH_BEHAVIOUR + 0) // 56
-#define B_ANIM_END_CUSTOM_CATCH_BEHAVIOUR       (B_ANIM_BALL_CAUGHT_AND_RETURNED)
+#define B_ANIM_START_CUSTOM_CATCH_BEHAVIOUR     (B_ANIM_FORM_CHANGE_DISGUISE + 1) // 63
+#define B_ANIM_BALL_CAUGHT_AND_RETURNED         (B_ANIM_START_CUSTOM_CATCH_BEHAVIOUR + 0) // 63
+#define B_ANIM_END_CUSTOM_CATCH_BEHAVIOUR       (B_ANIM_BALL_CAUGHT_AND_RETURNED) // 63
 // end feature/custom-catch-behaviour
 #define NUM_B_ANIMS_GENERAL             (B_ANIM_END_CUSTOM_CATCH_BEHAVIOUR + 1)
 
@@ -690,8 +702,14 @@ enum SpeciesGfxChange
 {
     SPECIES_GFX_CHANGE_TRANSFORM,
     SPECIES_GFX_CHANGE_FORM_CHANGE,
+    SPECIES_GFX_CHANGE_FORM_CHANGE_INSTANT,
     SPECIES_GFX_CHANGE_ILLUSION_OFF,
+    SPECIES_GFX_CHANGE_GHOST_UNVEIL,
 };
+
+// Surf wave palettes
+#define ANIM_SURF_PAL_SURF           0
+#define ANIM_SURF_PAL_MUDDY_WATER    1
 
 // Flags given to various functions to indicate which palettes to consider.
 // Handled by UnpackSelectedBattlePalettes
@@ -711,5 +729,13 @@ enum SpeciesGfxChange
 // The below are only used by AnimTask_BlendBattleAnimPal to get battler sprite palettes by position rather than by role.
 // It's redundant with F_PAL_BATTLERS, because they're only ever used together to refer to all the battlers at once.
 #define F_PAL_BATTLERS_2  (1 << 7 | 1 << 8 | 1 << 9 | 1 << 10)
+
+enum { SHAKE_BG_X, SHAKE_BG_Y, SHAKE_MON_X, SHAKE_MON_Y };
+enum { SHAKE_MON_ATTACKER, SHAKE_MON_TARGET, SHAKE_MON_BOTH };
+
+//  Max number of tile and palette allocations for battle animations
+//  These values must be even
+#define ANIM_SPRITE_GFX_COUNT 8
+#define ANIM_SPRITE_PAL_COUNT 8
 
 #endif // GUARD_CONSTANTS_BATTLE_ANIM_H
