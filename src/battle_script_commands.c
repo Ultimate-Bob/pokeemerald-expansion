@@ -4279,7 +4279,7 @@ static void Cmd_getexp(void)
                     && !gBattleStruct->wildVictorySong)
                 {
                     BattleStopLowHpSound();
-                    PlayBGM(GetLocationMusicWildVictory(gMapHeader.regionMapSectionId));
+                    PlayBGM(GetLocationMusicWildVictory(gMapHeader.regionMapSectionId)); // feature/location-battle-music
                     gBattleStruct->wildVictorySong++;
                 }
 

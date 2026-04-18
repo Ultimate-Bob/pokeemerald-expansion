@@ -5362,7 +5362,7 @@ static void HandleEndTurn_BattleWon(void)
             PlayBGM(MUS_VICTORY_GYM_LEADER);
             break;
         default:
-            PlayBGM(GetLocationMusicTrainerVictory(gMapHeader.regionMapSectionId));
+            PlayBGM(GetLocationMusicTrainerVictory(gMapHeader.regionMapSectionId)); // feature/location-battle-music
             break;
         }
     }

@@ -27,7 +27,7 @@ u16 GetRegionMusicTrainerBattle(u8 region)
         case REGION_SEVII:
             return MUS_RG_VS_TRAINER;
         default:
-            return MUS_VS_TRAINER;
+            return IS_FRLG ? MUS_RG_VS_TRAINER : MUS_VS_TRAINER;
     }
 }
 
@@ -39,7 +39,7 @@ u16 GetRegionMusicWildBattle(u8 region)
         case REGION_SEVII:
             return MUS_RG_VS_WILD;
         default:
-            return MUS_VS_WILD;
+            return IS_FRLG ? MUS_RG_VS_WILD : MUS_VS_WILD;
     }
 }
 
@@ -51,7 +51,7 @@ u16 GetRegionMusicTrainerVictory(u8 region)
         case REGION_SEVII:
             return MUS_RG_VICTORY_TRAINER;
         default:
-            return MUS_VICTORY_TRAINER;
+            return IS_FRLG ? MUS_RG_VICTORY_TRAINER : MUS_VICTORY_TRAINER;
     }
 }
 
@@ -63,7 +63,7 @@ u16 GetRegionMusicWildVictory(u8 region)
         case REGION_SEVII:
             return MUS_RG_VICTORY_WILD;
         default:
-            return MUS_VICTORY_WILD;
+            return IS_FRLG ? MUS_RG_VICTORY_WILD : MUS_VICTORY_WILD;
     }
 }
 
@@ -75,7 +75,7 @@ u16 GetRegionMusicSurf(u8 region)
         case REGION_SEVII:
             return MUS_RG_SURF;
         default:
-            return MUS_SURF;
+            return IS_FRLG ? MUS_RG_SURF : MUS_SURF;
     }
 }
 
