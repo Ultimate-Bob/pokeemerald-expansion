@@ -35645,7 +35645,6 @@ gBattleAnimGeneral_BallCaughtAndReturned::
 	
 
 BallThrowMonCatchAndReturn:
-	loadspritegfx ANIM_TAG_IMPACT
 	delay 25
 	monbg ANIM_DEF_PARTNER
 	setalpha 12, 8
@@ -35655,4 +35654,6 @@ BallThrowMonCatchAndReturn:
 	waitforvisualfinish
 	clearmonbg ANIM_DEF_PARTNER
 	goto BallThrowEnd
+	end
+
 @ end feature/custom-catch-behaviour
