@@ -5242,13 +5242,17 @@ u16 GetBattleBGM(void)
     }
     else
     {
-        u32 species = GetMonData(&gEnemyParty[0], MON_DATA_SPECIES, NULL);
-        return GetBattleBGMForMon(species);
+        // feature/default-legendary-music
+        return GetBattleBGMForMon(&gEnemyParty[0]);
+        // end feature/default-legendary-music
     }
 }
 
-u16 GetBattleBGMForMon(u32 species)
+// feature/default-legendary-music
+u16 GetBattleBGMForMon(struct Pokemon *mon)
 {
+    u32 species = GetMonData(mon, MON_DATA_SPECIES, NULL);
+
 #ifndef MUSIC_EXPANSION
 
 #define MUS_HG_VS_RAIKOU                MUS_C_VS_LEGEND_BEAST
@@ -5584,6 +5588,7 @@ u16 GetBattleBGMForMon(u32 species)
         return GetLocationMusicWildBattle(gMapHeader.regionMapSectionId);
     }
 }
+// end feature/default-legendary-music
 
 void PlayBattleBGM(void)
 {

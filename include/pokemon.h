@@ -943,6 +943,6 @@ u32 GiveScriptedMonToPlayer(struct Pokemon *mon, u8 slot);
 void ChangePokemonNicknameWithCallback(void (*callback)(void));
 bool32 HasShedinjaHPHandling(enum Species species);
 
-u16 GetBattleBGMForMon(u32 species);
+u16 GetBattleBGMForMon(struct Pokemon *mon);
 
 #endif // GUARD_POKEMON_H
