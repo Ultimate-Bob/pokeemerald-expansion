@@ -44,7 +44,7 @@
 					"label": "Skip Birch Intro"
 				},
 				{
-					"line": 1723,
+					"line": 1703,
 					"column": 15,
 					"label": "Set Default Name"
 				}
@@ -84,7 +84,7 @@
 			"path": "src/battle_main.c",
 			"bookmarks": [
 				{
-					"line": 1874,
+					"line": 1805,
 					"column": 10,
 					"label": "Create Trainer Party"
 				}
@@ -129,7 +129,7 @@
 			"path": "src/start_menu.c",
 			"bookmarks": [
 				{
-					"line": 1049,
+					"line": 1043,
 					"column": 13,
 					"label": "Hide save confirmation"
 				}
@@ -149,24 +149,14 @@
 			"path": "src/battle_setup.c",
 			"bookmarks": [
 				{
-					"line": 851,
+					"line": 849,
 					"column": 11,
 					"label": "Get trainer transition"
 				},
 				{
-					"line": 970,
+					"line": 968,
 					"column": 22,
 					"label": "Give starter pokemon"
-				}
-			]
-		},
-		{
-			"path": "src/data/trainer_parties.h",
-			"bookmarks": [
-				{
-					"line": 4413,
-					"column": 13,
-					"label": "Wallace party"
 				}
 			]
 		},

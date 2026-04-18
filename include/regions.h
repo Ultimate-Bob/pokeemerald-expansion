@@ -18,15 +18,20 @@ extern const u8 gText_RegionHisui[];
 extern const u8 gText_RegionPaldea[];
 
 extern const u8 *const gRegionNames[];
-extern const u8 gMapsecToRegion[];
+extern const enum Region gMapsecToRegion[];
 
-static inline u32 GetCurrentRegion(void)
+enum KantoSubRegion GetKantoSubregion(u32 mapSecId);
+
+static inline enum Region GetRegionForSectionId(u32 sectionId)
 {
-    // TODO: Since there's no current multi-region support, we have this constant for the purposes of regional form comparisons.
-    //return REGION_HOENN;
-
-    return gMapHeader.region;
+    if (sectionId >= KANTO_MAPSEC_START && sectionId < KANTO_MAPSEC_END)
+        return REGION_KANTO;
+    return gMapsecToRegion[gMapHeader.regionMapSectionId]; // feature/multi-region
 }
 
+static inline enum Region GetCurrentRegion(void)
+{
+    return GetRegionForSectionId(gMapHeader.regionMapSectionId);
+}
 
 #endif // GUARD_REGIONS_H
