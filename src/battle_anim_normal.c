@@ -849,31 +849,33 @@ void AnimTask_InvertScreenColor(u8 taskId)
 
     u32 selectedPalettes = 0;
 
-    if (cmd->flagsScenery & 0x1)
+    // start feature/move-improvements: Named and additional inversion flags
+    if (cmd->flagsScenery & INVERT_BG)
         selectedPalettes = GetBattlePalettesMask(TRUE, FALSE, FALSE, FALSE, FALSE, FALSE, FALSE);
-    if (cmd->flagsScenery & 0x2)
+    if (cmd->flagsScenery & INVERT_ATTACKER)
         selectedPalettes |= (0x10000 << gBattleAnimAttacker);
-    if (cmd->flagsScenery & 0x4)
+    if (cmd->flagsScenery & INVERT_TARGET)
         selectedPalettes |= (0x10000 << gBattleAnimTarget);
-    if (cmd->flagsScenery & 0x8 && IsBattlerAlive(BATTLE_PARTNER(gBattleAnimTarget)))
+    if (cmd->flagsScenery & INVERT_TARGET_PARTNER && IsBattlerAlive(BATTLE_PARTNER(gBattleAnimTarget)))
         selectedPalettes |= (0x10000 << BATTLE_PARTNER(gBattleAnimTarget));
-    if (cmd->flagsScenery & 0x10 && IsBattlerAlive(BATTLE_PARTNER(gBattleAnimAttacker)))
+	if (cmd->flagsScenery & INVERT_ATTACKER_PARTNER && IsBattlerAlive(BATTLE_PARTNER(gBattleAnimAttacker)))
         selectedPalettes |= (0x10000 << BATTLE_PARTNER(gBattleAnimAttacker));
     
     // Invert palette of the animations
-    if (gBattleAnimArgs[0] & INVERT_ANIMS)
+    if (cmd->flagsScenery & INVERT_ANIMS)
         selectedPalettes |= GetBattlePalettesMask(FALSE, FALSE, FALSE, FALSE, FALSE, TRUE, TRUE);
 
     // Invert palette of all mons on the field except for the attacker.
-    if (gBattleAnimArgs[0] & INVERT_NON_ATTACKER_MONS)
+    if (cmd->flagsScenery & INVERT_NON_ATTACKER_MONS)
     {
         u32 nonAttackerMask = GetBattleMonSpritePalettesMask(TRUE, TRUE, TRUE, TRUE) & ~(0x10000 << gBattleAnimAttacker);
         selectedPalettes |= nonAttackerMask;
     }
 
     // Swap EVERY palette including the UI.
-    if (gBattleAnimArgs[0] & INVERT_ALL)
+    if (cmd->flagsScenery & INVERT_ALL)
         selectedPalettes = UINT32_MAX;
+    // end feature/move-improvements
 
     InvertPlttBuffer(selectedPalettes);
     DestroyAnimVisualTask(taskId);
