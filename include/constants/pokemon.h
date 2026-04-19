@@ -76,6 +76,9 @@ enum __attribute__((packed)) Type
 #define NATURE_QUIRKY   24 // Neutral
 #define NUM_NATURES     25
 
+#define NATURE_RANDOM            NUM_NATURES
+#define NATURE_MAY_SYNCHRONIZE   NUM_NATURES + 1
+
 // Pokémon Stats
 enum __attribute__((packed)) Stat
 {
@@ -154,9 +157,12 @@ enum __attribute__((packed)) Stat
 
 #define MAX_DYNAMAX_LEVEL 10
 
-#define OT_ID_PLAYER_ID       0
-#define OT_ID_PRESET          1
-#define OT_ID_RANDOM_NO_SHINY 2
+enum OtIdMethod
+{
+    OT_ID_PLAYER_ID,
+    OT_ID_PRESET,
+    OT_ID_RANDOM_NO_SHINY
+};
 
 #define MON_GIVEN_TO_PARTY      0
 #define MON_GIVEN_TO_PC         1
@@ -179,6 +185,9 @@ enum __attribute__((packed)) Stat
 #define MON_FEMALE     0xFE
 #define MON_GENDERLESS 0xFF
 
+#define MON_GENDER_RANDOM         0x01
+#define MON_GENDER_MAY_CUTE_CHARM 0x02
+
 // Constants for AdjustFriendship
 #define FRIENDSHIP_EVENT_GROW_LEVEL       0
 #define FRIENDSHIP_EVENT_VITAMIN          1 // unused, handled by PokemonUseItemEffects
@@ -189,6 +198,7 @@ enum __attribute__((packed)) Stat
 #define FRIENDSHIP_EVENT_FAINT_SMALL      6
 #define FRIENDSHIP_EVENT_FAINT_FIELD_PSN  7
 #define FRIENDSHIP_EVENT_FAINT_LARGE      8 // If opponent was >= 30 levels higher. See AdjustFriendshipOnBattleFaint
+#define FRIENDSHIP_EVENT_MASSAGE          9
 
 // Constants for GetLeadMonFriendshipScore
 #define FRIENDSHIP_NONE        0
@@ -332,6 +342,18 @@ enum EvolutionMode {
     EVO_MODE_BATTLE_ONLY,        // This mode is only used in battles to support Tandemaus' unique requirement
 };
 
+enum EvoTriggerVersion {
+    EVO_TRIGGER_TABLET_CURSE,
+    EVO_TRIGGER_DARK_SCROLL,
+    EVO_TRIGGER_WATER_SCROLL,
+};
+
+enum EvolutionEventResult {
+    EVO_EVENT_IMPOSSIBLE,
+    EVO_EVENT_INTERRUPTED,
+    EVO_EVENT_SUCCESSFUL,
+};
+
 // used to determine whether an evolution is happening or not, so we know if items should be removed
 enum EvoState {
     CHECK_EVO,
@@ -389,7 +411,7 @@ enum ShinyMode {
 #define LEGENDARY_PERFECT_IV_COUNT 0
 #endif
 
-// Copied from their enum so they can be accessed from scripts.
+// base/bare-minimum: Defines for MON_DATA entries. Copied from their enum so they can be accessed from scripts.
 #define M_MON_DATA_PERSONALITY               0
 #define M_MON_DATA_STATUS                    1
 #define M_MON_DATA_OT_ID                     2
@@ -432,63 +454,65 @@ enum ShinyMode {
 #define M_MON_DATA_FRIENDSHIP               39
 #define M_MON_DATA_SMART                    40
 #define M_MON_DATA_POKERUS                  41
-#define M_MON_DATA_MET_LOCATION             42
-#define M_MON_DATA_MET_LEVEL                43
-#define M_MON_DATA_MET_GAME                 44
-#define M_MON_DATA_POKEBALL                 45
-#define M_MON_DATA_HP_IV                    46
-#define M_MON_DATA_ATK_IV                   47
-#define M_MON_DATA_DEF_IV                   48
-#define M_MON_DATA_SPEED_IV                 49
-#define M_MON_DATA_SPATK_IV                 50
-#define M_MON_DATA_SPDEF_IV                 51
-#define M_MON_DATA_IS_EGG                   52
-#define M_MON_DATA_ABILITY_NUM              53
-#define M_MON_DATA_TOUGH                    54
-#define M_MON_DATA_SHEEN                    55
-#define M_MON_DATA_OT_GENDER                56
-#define M_MON_DATA_COOL_RIBBON              57
-#define M_MON_DATA_BEAUTY_RIBBON            58
-#define M_MON_DATA_CUTE_RIBBON              59
-#define M_MON_DATA_SMART_RIBBON             60
-#define M_MON_DATA_TOUGH_RIBBON             61
-#define M_MON_DATA_LEVEL                    62
-#define M_MON_DATA_MAX_HP                   63
-#define M_MON_DATA_ATK                      64
-#define M_MON_DATA_DEF                      65
-#define M_MON_DATA_SPEED                    66
-#define M_MON_DATA_SPATK                    67
-#define M_MON_DATA_SPDEF                    68
-#define M_MON_DATA_MAIL                     69
-#define M_MON_DATA_SPECIES_OR_EGG           70
-#define M_MON_DATA_IVS                      71
-#define M_MON_DATA_CHAMPION_RIBBON          72
-#define M_MON_DATA_WINNING_RIBBON           73
-#define M_MON_DATA_VICTORY_RIBBON           74
-#define M_MON_DATA_ARTIST_RIBBON            75
-#define M_MON_DATA_EFFORT_RIBBON            76
-#define M_MON_DATA_MARINE_RIBBON            77
-#define M_MON_DATA_LAND_RIBBON              78
-#define M_MON_DATA_SKY_RIBBON               79
-#define M_MON_DATA_COUNTRY_RIBBON           80
-#define M_MON_DATA_NATIONAL_RIBBON          81
-#define M_MON_DATA_EARTH_RIBBON             82
-#define M_MON_DATA_WORLD_RIBBON             83
-#define M_MON_DATA_MODERN_FATEFUL_ENCOUNTER 84
-#define M_MON_DATA_KNOWN_MOVES              85
-#define M_MON_DATA_RIBBON_COUNT             86
-#define M_MON_DATA_RIBBONS                  87
-#define M_MON_DATA_HYPER_TRAINED_HP         88
-#define M_MON_DATA_HYPER_TRAINED_ATK        89
-#define M_MON_DATA_HYPER_TRAINED_DEF        90
-#define M_MON_DATA_HYPER_TRAINED_SPEED      91
-#define M_MON_DATA_HYPER_TRAINED_SPATK      92
-#define M_MON_DATA_HYPER_TRAINED_SPDEF      93
-#define M_MON_DATA_IS_SHADOW                94
-#define M_MON_DATA_DYNAMAX_LEVEL            95
-#define M_MON_DATA_GIGANTAMAX_FACTOR        96
-#define M_MON_DATA_TERA_TYPE                97
-#define M_MON_DATA_EVOLUTION_TRACKER        98
+#define M_MON_DATA_POKERUS_STRAIN           42
+#define M_MON_DATA_POKERUS_DAYS_LEFT        43
+#define M_MON_DATA_MET_LOCATION             44
+#define M_MON_DATA_MET_LEVEL                45
+#define M_MON_DATA_MET_GAME                 46
+#define M_MON_DATA_POKEBALL                 47
+#define M_MON_DATA_HP_IV                    48
+#define M_MON_DATA_ATK_IV                   49
+#define M_MON_DATA_DEF_IV                   50
+#define M_MON_DATA_SPEED_IV                 51
+#define M_MON_DATA_SPATK_IV                 52
+#define M_MON_DATA_SPDEF_IV                 53
+#define M_MON_DATA_IS_EGG                   54
+#define M_MON_DATA_ABILITY_NUM              55
+#define M_MON_DATA_TOUGH                    56
+#define M_MON_DATA_SHEEN                    57
+#define M_MON_DATA_OT_GENDER                58
+#define M_MON_DATA_COOL_RIBBON              59
+#define M_MON_DATA_BEAUTY_RIBBON            60
+#define M_MON_DATA_CUTE_RIBBON              61
+#define M_MON_DATA_SMART_RIBBON             62
+#define M_MON_DATA_TOUGH_RIBBON             63
+#define M_MON_DATA_LEVEL                    64
+#define M_MON_DATA_MAX_HP                   65
+#define M_MON_DATA_ATK                      66
+#define M_MON_DATA_DEF                      67
+#define M_MON_DATA_SPEED                    68
+#define M_MON_DATA_SPATK                    69
+#define M_MON_DATA_SPDEF                    70
+#define M_MON_DATA_MAIL                     71
+#define M_MON_DATA_SPECIES_OR_EGG           72
+#define M_MON_DATA_IVS                      73
+#define M_MON_DATA_CHAMPION_RIBBON          74
+#define M_MON_DATA_WINNING_RIBBON           75
+#define M_MON_DATA_VICTORY_RIBBON           76
+#define M_MON_DATA_ARTIST_RIBBON            77
+#define M_MON_DATA_EFFORT_RIBBON            78
+#define M_MON_DATA_MARINE_RIBBON            79
+#define M_MON_DATA_LAND_RIBBON              80
+#define M_MON_DATA_SKY_RIBBON               81
+#define M_MON_DATA_COUNTRY_RIBBON           82
+#define M_MON_DATA_NATIONAL_RIBBON          83
+#define M_MON_DATA_EARTH_RIBBON             84
+#define M_MON_DATA_WORLD_RIBBON             85
+#define M_MON_DATA_MODERN_FATEFUL_ENCOUNTER 86
+#define M_MON_DATA_KNOWN_MOVES              87
+#define M_MON_DATA_RIBBON_COUNT             88
+#define M_MON_DATA_RIBBONS                  89
+#define M_MON_DATA_HYPER_TRAINED_HP         90
+#define M_MON_DATA_HYPER_TRAINED_ATK        91
+#define M_MON_DATA_HYPER_TRAINED_DEF        92
+#define M_MON_DATA_HYPER_TRAINED_SPEED      93
+#define M_MON_DATA_HYPER_TRAINED_SPATK      94
+#define M_MON_DATA_HYPER_TRAINED_SPDEF      95
+#define M_MON_DATA_IS_SHADOW                96
+#define M_MON_DATA_DYNAMAX_LEVEL            97
+#define M_MON_DATA_GIGANTAMAX_FACTOR        98
+#define M_MON_DATA_TERA_TYPE                99
+#define M_MON_DATA_EVOLUTION_TRACKER       100
 #define M_MON_DATAS_COUNT          (M_MON_DATA_EVOLUTION_TRACKER + 1)
 
 #endif // GUARD_CONSTANTS_POKEMON_H
