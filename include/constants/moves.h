@@ -906,10 +906,10 @@ enum __attribute__((packed)) Move
     MOVES_COUNT_GEN9,
 
     // Add any custom moves here, not further down!
-    
+
     // feature/bidoof-perfect-form
-    MOVE_THIRST_FOR_VENGEANCE = MOVES_COUNT_GEN9, // 848
-    MOVE_COMPASSION = 849,
+    MOVE_THIRST_FOR_VENGEANCE = MOVES_COUNT_GEN9,
+    MOVE_COMPASSION,
     MOVES_COUNT_PERFECT_BIDOOF,
     // end feature/bidoof-perfect-form
 
