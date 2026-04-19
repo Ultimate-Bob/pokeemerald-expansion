@@ -4,12 +4,12 @@
 			"path": "src/overworld.c",
 			"bookmarks": [
 				{
-					"line": 1108,
+					"line": 1111,
 					"column": 8,
 					"label": "Get location music"
 				},
 				{
-					"line": 1522,
+					"line": 1519,
 					"column": 10,
 					"label": "New Game"
 				}
@@ -44,7 +44,7 @@
 					"label": "Skip Birch Intro"
 				},
 				{
-					"line": 1723,
+					"line": 1703,
 					"column": 15,
 					"label": "Set Default Name"
 				}
@@ -84,7 +84,7 @@
 			"path": "src/battle_main.c",
 			"bookmarks": [
 				{
-					"line": 1874,
+					"line": 1805,
 					"column": 10,
 					"label": "Create Trainer Party"
 				}
@@ -129,7 +129,7 @@
 			"path": "src/start_menu.c",
 			"bookmarks": [
 				{
-					"line": 1049,
+					"line": 1043,
 					"column": 13,
 					"label": "Hide save confirmation"
 				}
@@ -149,12 +149,12 @@
 			"path": "src/battle_setup.c",
 			"bookmarks": [
 				{
-					"line": 851,
+					"line": 849,
 					"column": 11,
 					"label": "Get trainer transition"
 				},
 				{
-					"line": 970,
+					"line": 968,
 					"column": 22,
 					"label": "Give starter pokemon"
 				}
@@ -164,7 +164,7 @@
 			"path": "include/constants/trainers.h",
 			"bookmarks": [
 				{
-					"line": 112,
+					"line": 120,
 					"column": 3,
 					"label": "Custom trainer class"
 				}
@@ -174,7 +174,7 @@
 			"path": "src/data/trainer_graphics/front_pic_anims.h",
 			"bookmarks": [
 				{
-					"line": 372,
+					"line": 376,
 					"column": 3,
 					"label": "Custom trainer animations"
 				}
@@ -194,7 +194,7 @@
 			"path": "src/data/graphics/trainers.h",
 			"bookmarks": [
 				{
-					"line": 279,
+					"line": 283,
 					"column": 32,
 					"label": "Custom trainer graphics paths"
 				}
@@ -227,16 +227,6 @@
 					"line": 488,
 					"column": 8,
 					"label": "Summary Text Cols"
-				}
-			]
-		},
-		{
-			"path": "include/constants/pokemon.h",
-			"bookmarks": [
-				{
-					"line": 94,
-					"column": 4,
-					"label": "Shiny Odds"
 				}
 			]
 		}

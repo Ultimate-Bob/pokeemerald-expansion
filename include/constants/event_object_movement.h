@@ -1,6 +1,7 @@
 #ifndef GUARD_CONSTANTS_EVENT_OBJECT_MOVEMENT_H
 #define GUARD_CONSTANTS_EVENT_OBJECT_MOVEMENT_H
 
+
 #define MOVEMENT_TYPE_NONE                             0x0
 #define MOVEMENT_TYPE_LOOK_AROUND                      0x1
 #define MOVEMENT_TYPE_WANDER_AROUND                    0x2
@@ -83,19 +84,21 @@
 #define MOVEMENT_TYPE_WALK_SLOWLY_IN_PLACE_LEFT        0x4F
 #define MOVEMENT_TYPE_WALK_SLOWLY_IN_PLACE_RIGHT       0x50
 #define MOVEMENT_TYPE_FOLLOW_PLAYER                    0x51
+#define MOVEMENT_TYPE_WANDER_AROUND_SLOWER             0x52
 
-#define NORMAL_MOVEMENT_TYPES_END                      (MOVEMENT_TYPE_FOLLOW_PLAYER)
+// start feature/enhanced-movement
+#define NORMAL_MOVEMENT_TYPES_END                      (MOVEMENT_TYPE_WANDER_AROUND_SLOWER) // 0x52
 
-#define ENHANCED_MOVEMENT_TYPES_START                  (NORMAL_MOVEMENT_TYPES_END + 1)
-#define MOVEMENT_TYPE_FORCE_ROTATE_COUNTERCLOCKWISE    (ENHANCED_MOVEMENT_TYPES_START + 0) // 0x52
-#define MOVEMENT_TYPE_FORCE_ROTATE_CLOCKWISE           (ENHANCED_MOVEMENT_TYPES_START + 1) // 0x53
-#define MOVEMENT_TYPE_FACE_PLAYER                      (ENHANCED_MOVEMENT_TYPES_START + 2) // 0x54
-#define ENHANCED_MOVEMENT_TYPES_END                    (MOVEMENT_TYPE_FACE_PLAYER)
+#define ENHANCED_MOVEMENT_TYPES_START                  (NORMAL_MOVEMENT_TYPES_END + 1) // 0x53
+#define MOVEMENT_TYPE_FORCE_ROTATE_COUNTERCLOCKWISE    (ENHANCED_MOVEMENT_TYPES_START + 0) // 0x53
+#define MOVEMENT_TYPE_FORCE_ROTATE_CLOCKWISE           (ENHANCED_MOVEMENT_TYPES_START + 1) // 0x54
+#define MOVEMENT_TYPE_FACE_PLAYER                      (ENHANCED_MOVEMENT_TYPES_START + 2) // 0x55
+#define ENHANCED_MOVEMENT_TYPES_END                    (MOVEMENT_TYPE_FACE_PLAYER) // 0x55
 
-#define ALL_MOVEMENT_TYPES_END                         (ENHANCED_MOVEMENT_TYPES_END)
+#define ALL_MOVEMENT_TYPES_END                         (ENHANCED_MOVEMENT_TYPES_END) // 0x55
+// end feature/enhanced-movement
 
-#define NUM_MOVEMENT_TYPES                             (ALL_MOVEMENT_TYPES_END + 1) // 0x55
-
+#define NUM_MOVEMENT_TYPES                             (ALL_MOVEMENT_TYPES_END + 1) // 0x56
 
 
 #define MOVEMENT_ACTION_FACE_DOWN                       0x0
@@ -277,6 +280,10 @@
 #define MOVEMENT_ACTION_WALK_FAST_DIAGONAL_UP_RIGHT     0xAF
 #define MOVEMENT_ACTION_WALK_FAST_DIAGONAL_DOWN_LEFT    0xB0
 #define MOVEMENT_ACTION_WALK_FAST_DIAGONAL_DOWN_RIGHT   0xB1
+#define MOVEMENT_ACTION_SPIN_DOWN                       0xB2
+#define MOVEMENT_ACTION_SPIN_UP                         0xB3
+#define MOVEMENT_ACTION_SPIN_LEFT                       0xB4
+#define MOVEMENT_ACTION_SPIN_RIGHT                      0xB5
 
 #define NORMAL_MOVEMENT_ACTIONS_END                     (MOVEMENT_ACTION_WALK_FAST_DIAGONAL_DOWN_RIGHT)
 
@@ -317,6 +324,16 @@
 #define ANIM_STD_GO_FASTEST_WEST  18
 #define ANIM_STD_GO_FASTEST_EAST  19
 #define ANIM_STD_COUNT            20
+
+#define ANIM_RUN_SOUTH                   (ANIM_STD_COUNT + 0)
+#define ANIM_RUN_NORTH                   (ANIM_STD_COUNT + 1)
+#define ANIM_RUN_WEST                    (ANIM_STD_COUNT + 2)
+#define ANIM_RUN_EAST                    (ANIM_STD_COUNT + 3)
+#define ANIM_SPIN_SOUTH                  (ANIM_STD_COUNT + 4)
+#define ANIM_SPIN_NORTH                  (ANIM_STD_COUNT + 5)
+#define ANIM_SPIN_WEST                   (ANIM_STD_COUNT + 6)
+#define ANIM_SPIN_EAST                   (ANIM_STD_COUNT + 7)
+#define ANIM_SHAKE_HEAD_OR_WALK_IN_PLACE (ANIM_STD_COUNT + 8)
 
 #define ANIM_RUN_SOUTH (ANIM_STD_COUNT + 0)
 #define ANIM_RUN_NORTH (ANIM_STD_COUNT + 1)
@@ -376,17 +393,19 @@
 #define ANIM_HOOKED_POKEMON_EAST  11
 
 // IDs for how NPCs that copy player movement should respond.
-// Most go unused.
-#define COPY_MOVE_NONE           0
-#define COPY_MOVE_FACE           1
-#define COPY_MOVE_WALK           2
-#define COPY_MOVE_WALK_FAST      3
-#define COPY_MOVE_WALK_FASTER    4
-#define COPY_MOVE_SLIDE          5
-#define COPY_MOVE_JUMP_IN_PLACE  6
-#define COPY_MOVE_JUMP           7
-#define COPY_MOVE_JUMP2          8
-#define COPY_MOVE_EMPTY_1        9
-#define COPY_MOVE_EMPTY_2       10
+enum CopyMovement
+{
+	COPY_MOVE_NONE,
+	COPY_MOVE_FACE,
+	COPY_MOVE_WALK,
+	COPY_MOVE_WALK_FAST,
+	COPY_MOVE_WALK_FASTER,
+	COPY_MOVE_SLIDE,
+	COPY_MOVE_JUMP_IN_PLACE,
+	COPY_MOVE_JUMP,
+	COPY_MOVE_JUMP2,
+	COPY_MOVE_WALK_COLLIDE,
+	COPY_MOVE_WALK_COLLIDE_SLOW,
+};
 
 #endif // GUARD_CONSTANTS_EVENT_OBJECT_MOVEMENT_H
